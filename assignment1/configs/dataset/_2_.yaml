@@ -1,2 +1,5 @@
+name: _2_
 path: data/diabetes_012_health_indicators_BRFSS2015.csv
 target: Diabetes_012
+cv_splits: 5
+cv_repeats: 1

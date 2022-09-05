@@ -4,14 +4,7 @@ defaults:
   - experiments: null
   - func: null
 
-evaluation:
-  model:
-    _target_: 
-
 run_dir: ./outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
 print_config: True
 seed: 87
 test_size: .2
-cv_splits: 10
-cv_repeats: 50
-

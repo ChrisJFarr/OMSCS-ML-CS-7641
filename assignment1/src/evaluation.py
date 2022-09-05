@@ -4,7 +4,7 @@ One evaluation approach for all models/experiments
 * Select metrics for classification
 * Produce visuals
 """
-from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import precision_recall_fscore_support, roc_auc_score
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -16,13 +16,18 @@ from src.models import ModelParent
 from src.datamodules import DataParent
 
 
+# def get_metrics(y_true, y_pred):
+#     # Compute sensitivity and specificity
+#     score_report = precision_recall_fscore_support(y_true, y_pred, zero_division=0)
+#     # precision recall f-measure support
+#     sensitivity = score_report[1][1]
+#     specificity = score_report[1][0]
+#     return {"sensitivity": sensitivity, "specificity": specificity}
+
 def get_metrics(y_true, y_pred):
-    # Compute sensitivity and specificity
-    score_report = precision_recall_fscore_support(y_true, y_pred, zero_division=0)
-    # precision recall f-measure support
-    sensitivity = score_report[1][1]
-    specificity = score_report[1][0]
-    return {"sensitivity": sensitivity, "specificity": specificity}
+    # Compute auc score
+    roc_auc = roc_auc_score(y_true, y_pred)
+    return {"roc_auc": roc_auc}
 
 
 class Assignment1Evaluation:
@@ -45,6 +50,50 @@ class Assignment1Evaluation:
 
         pass
 
+    def evaluate(self, train_generator):
+        """
+        Use model and train-generator to perform train and test evaluation
+        """
+        # Obtain performance metrics for train and test predictions
+        train_performance = list()
+        test_performance = list()
+        for (x_train, y_train), (x_test, y_test) in train_generator:
+            self.model.fit(x_train, y_train)
+            train_prediction = self.model.predict_proba(x_train)
+            test_prediction = self.model.predict_proba(x_test)
+            train_performance.append(get_metrics(y_train, train_prediction))
+            test_performance.append(get_metrics(y_test, test_prediction))
+        # Compute average performance over splits
+        train_avg = pd.DataFrame(train_performance).mean(axis=0).add_suffix('_train').to_dict()
+        test_avg = pd.DataFrame(test_performance).mean(axis=0).add_suffix('_test').to_dict()
+        return {**train_avg, **test_avg}
+
+    def _save_plot(self, x_axis, y_axis, title, x_label, save_name):
+        # Produce a plot with metrics on y-axis
+        fig, ax = plt.subplots()
+        pd.DataFrame(data=y_axis, index=x_axis).sort_index(axis=1).plot(lw=1.0, ax=ax, color="black")
+        plt.ylim((0.5, 1.01))
+        plt.xlabel(x_label)
+        model_name = self.config.experiments.model._target_.split(".")[-1]
+        dataset_name = self.config.dataset.name.split("_")[1]
+        plt.title("%s %s\n Dataset %s" % (model_name, title, dataset_name))
+
+        for line in ax.get_lines():
+            if "test" in line.get_label():
+                line.set_linewidth(2.)
+                line.set_linestyle("--")
+        
+        # make a legend for both plots
+        leg = plt.legend()
+        # set the linewidth of each legend object
+        for legobj in leg.legendHandles:
+            if "test" in legobj.get_label():
+                legobj.set_linewidth(2.0)
+                legobj.set_linestyle("--")
+
+        plt.savefig(os.path.join(self.config.run_dir, save_name))
+        return
+
     def generate_learning_curve(self):
         """
         * learning curve plots (some notion of a learning curve)
@@ -59,50 +108,9 @@ class Assignment1Evaluation:
             x_axis.append(percent)
             # Get generator
             train_generator, _ = self.datamodule.make_loader(percent)
-            # Obtain performance metrics for train and test predictions
-            train_performance = list()
-            test_performance = list()
-            for (x_train, y_train), (x_test, y_test) in train_generator:
-                self.model.fit(x_train, y_train)
-                train_prediction = self.model.predict(x_train)
-                test_prediction = self.model.predict(x_test)
-                train_performance.append(get_metrics(y_train, train_prediction))
-                test_performance.append(get_metrics(y_test, test_prediction))
-            # Compute average performance over splits
-            train_avg = pd.DataFrame(train_performance).mean(axis=0).add_suffix('_train').to_dict()
-            test_avg = pd.DataFrame(test_performance).mean(axis=0).add_suffix('_test').to_dict()
-            # Add performance metrics to a list
-            y_axis.append({**train_avg, **test_avg})
-        self._produce_learning_curve_plot(x_axis, y_axis)
+            y_axis.append(self.evaluate(train_generator))
+        self._save_plot(x_axis, y_axis, title="Learning Curve", x_label="Train Percentage", save_name="learning_curve_plot.png")
         return
-    
-    def _produce_learning_curve_plot(self, x_axis, y_axis):
-        # TODO Consider a separate function for plotting
-        # Produce a plot with metrics on y-axis
-        fig, ax = plt.subplots()
-        pd.DataFrame(data=y_axis, index=x_axis).sort_index(axis=1).plot(lw=1.0, ax=ax)
-        plt.ylim((0., 1.))
-        plt.title("%s Learning Curve" % self.config.experiments.model._target_.split(".")[-1])
-
-        for line in ax.get_lines():
-            if "test" in line.get_label():
-                line.set_linewidth(2.)
-                line.set_linestyle("--")
-            if "sensitivity" in line.get_label():
-                line.set_color("blue")
-            else:
-                line.set_color("orange")
-        
-        # make a legend for both plots
-        leg = plt.legend()
-        # set the linewidth of each legend object
-        for legobj in leg.legendHandles:
-            if "test" in legobj.get_label():
-                legobj.set_linewidth(2.0)
-
-        plt.savefig(os.path.join(self.config.run_dir, "learning_curve_plot.png"))
-        return
-
 
     def generate_iterative_plot(self):
         """
@@ -112,7 +120,7 @@ class Assignment1Evaluation:
                 * x axis iteration/epoch
         
         """
-        pass
+        raise NotImplementedError
 
     def generate_validation_curve(self):
         """
@@ -121,7 +129,30 @@ class Assignment1Evaluation:
             * x-axis: varying hyperparameter values
             * plot performance across hyper parameter tuning
         """
-        pass
+        # Loop over hyper-parameters specified in experiments config
+        validation_curve_dict = self.config.experiments.evaluation.validation_curve
+        for param_name, v in validation_curve_dict.items():
+            default_params = {k:v for k, v in self.model.get_params().items()}
+            # Build plot lists
+            x_axis = list()
+            y_axis = list()
+            for param_value in np.arange(**v):
+                # Set parameter in model
+                self.model.set_params(**{param_name: param_value})
+                # Track percentages for x-axis
+                x_axis.append(param_value)
+                # Get generator
+                train_generator, _ = self.datamodule.make_loader()
+                y_axis.append(self.evaluate(train_generator))
+            self._save_plot(
+                x_axis, 
+                y_axis, 
+                title="Validation Curve", 
+                x_label=param_name, 
+                save_name="%s_validation_curve_plot.png" % param_name
+                )
+            # Reset model to default parameters
+            self.model.set_params(**default_params)
 
     def evaluate_clock_time(self):
         """
@@ -132,10 +163,3 @@ class Assignment1Evaluation:
 
     def evaluate_train_test_performance(self):
         pass
-
-    def get_metrics(self, y_true, y_pred):
-        """
-        Produce a dictionary with all tracked metrics for inputs
-        """
-        metrics = dict()
-        return metrics

@@ -16,6 +16,14 @@ class ModelParent(ABC):
     def predict(self, *args, **kwargs):
         pass
 
+    @abstractmethod
+    def predict_proba(self, *args, **kwargs):
+        pass
+
+    @abstractmethod
+    def set_params(self, **params):
+        pass
+
 
 class DecisionTreeModel(ModelParent):
     def __init__(self, *args, **kwargs):
@@ -27,6 +35,15 @@ class DecisionTreeModel(ModelParent):
 
     def predict(self, *args, **kwargs):
         return self.model.predict(*args, **kwargs)
+
+    def predict_proba(self, *args, **kwargs):
+        return self.model.predict_proba(*args, **kwargs)[:, 1]
+
+    def set_params(self, **params):
+        return self.model.set_params(**params)
+
+    def get_params(self):
+        return self.model.get_params()
 
 class NeuralNetworkModel(ModelParent):
     def __init__(self):

@@ -56,7 +56,15 @@ def test_iterative_plot(config):
     pass
 
 def test_validation_curve(config):
-    pass
+    # Initialize model
+    model: ModelParent = hydra.utils.instantiate(config.experiments.model)
+    # Initialize data
+    datamodule: DataParent = hydra.utils.instantiate(config.experiments.datamodule)
+    # Initialize evaluation
+    evaluation = Assignment1Evaluation(model=model, datamodule=datamodule, config=config)
+    # Test
+    evaluation.generate_validation_curve()
+    return
 
 def test_train_test_performance(config):
     pass

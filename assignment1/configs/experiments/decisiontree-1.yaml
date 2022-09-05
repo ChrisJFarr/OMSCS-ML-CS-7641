@@ -1,13 +1,26 @@
 datamodule: 
   _target_: src.datamodules.DecisionTreeData
+  name: ${dataset.name}
   path: ${dataset.path}
   target: ${dataset.target}
   seed: ${seed}
-  cv_splits: ${cv_splits}
-  cv_repeats: ${cv_repeats}
+  cv_splits: ${dataset.cv_splits}
+  cv_repeats: ${dataset.cv_repeats}
   test_size: ${test_size}
 
 model:
   _target_: src.models.DecisionTreeModel
-  max_depth: 2
+  max_depth: null
   random_state: ${seed}
+
+evaluation:
+  validation_curve:
+    max_depth:
+      start: 2
+      stop: 10
+      step: 1
+    ccp_alpha:
+      start: 0.
+      stop: 0.011
+      step: .001
+

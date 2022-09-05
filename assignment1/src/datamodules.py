@@ -24,16 +24,12 @@ class DataParent(ABC):
 
     def __init__(self, *args, **kwargs):
         super().__init__()
-        self.path = kwargs.get("path")
-        self.target = kwargs.get("target")
-        self.seed = kwargs.get("seed")
-        self.cv_splits = kwargs.get("cv_splits")
-        self.cv_repeats = kwargs.get("cv_repeats")
-        self.test_size = kwargs.get("test_size")
+        for k, v in kwargs.items():
+            setattr(self, k, v)
 
     def make_loader(self, train_percentage=1.0):
         # Load csv
-        df = pd.read_csv(self.path)
+        df = self._load_data()
         x_data = df.drop(self.target, axis=1)
         y_data = df[self.target]
         # Train/test split
@@ -45,7 +41,7 @@ class DataParent(ABC):
             random_state=self.seed
             )
         # Select percentage of training data
-        train = pd.concat([x_train, y_train], axis=1).sample(frac=train_percentage)
+        train = pd.concat([x_train, y_train], axis=1).sample(frac=train_percentage, random_state=self.seed)
         x_train, y_train = train.iloc[:, :x_train.shape[1]], train.iloc[:, -1]
         # Return train generator and test set
         return (self.cv_generator(x_train, y_train), (x_test, y_test))
@@ -67,6 +63,17 @@ class DataParent(ABC):
             # Yield results
             yield ((x_train_cpy, y_train_cpy), (x_test_cpy, y_test_cpy))
     
+    def _load_data(self):
+        """
+        Handle any data-specific preprocessing here
+        """
+        # print("dataset", print(self.keys()))
+        df = pd.read_csv(self.path)
+        # For dataset=_2_, if contains unique values {0,1,2} convert to {0, 1 if 1 or 2}
+        if self.name=="_2_":
+            df.loc[:, self.target] = df[self.target].apply(lambda x: int(x>0)).values
+        return df
+
     @abstractmethod
     def add_features(self, x_train, y_train, x_test):
         pass
