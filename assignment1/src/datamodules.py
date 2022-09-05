@@ -16,29 +16,43 @@ Design Concepts:
 from abc import ABC, abstractmethod
 from cgi import test
 import pandas as pd
-from sklearn.model_selection import StratifiedKFold
+import numpy as np
+from sklearn.model_selection import StratifiedKFold, train_test_split
 
 
 class DataParent(ABC):
 
     def __init__(self, *args, **kwargs):
         super().__init__()
-        self.path = kwargs["path"]
-        self.target = kwargs["target"]
-        self.seed = kwargs["seed"]
+        self.path = kwargs.get("path")
+        self.target = kwargs.get("target")
+        self.seed = kwargs.get("seed")
+        self.cv_splits = kwargs.get("cv_splits")
+        self.test_size = kwargs.get("test_size")
 
-    def make_loader(self, n_splits=5):
+    def make_loader(self):
         # Load csv
         df = pd.read_csv(self.path)
         x_data = df.drop(self.target, axis=1)
         y_data = df[self.target]
+        # Train/test split
+        x_train, x_test, y_train, y_test = train_test_split(
+            x_data,
+            y_data,
+            test_size=self.test_size, 
+            stratify=y_data, 
+            random_state=self.seed
+            )
+        return (self.cv_generator(x_train, y_train), (x_test, y_test))
+    
+    def cv_generator(self, x_data, y_data):
         # Stratified k-fold CV
-        kfold = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=self.seed)
+        kfold = StratifiedKFold(n_splits=self.cv_splits, shuffle=True, random_state=self.seed)
         for train, test in kfold.split(x_data, y_data):
-            x_train_cpy = x_data.loc[train].copy()
-            y_train_cpy = y_data.loc[train].copy()
-            x_test_cpy = x_data.loc[test].copy()
-            y_test_cpy = y_data.loc[test].copy()
+            x_train_cpy = x_data.iloc[train].copy()
+            y_train_cpy = y_data.iloc[train].copy()
+            x_test_cpy = x_data.iloc[test].copy()
+            y_test_cpy = y_data.iloc[test].copy()
             # add_features
             x_train_cpy, x_test_cpy = self.add_features(x_train_cpy, y_train_cpy, x_test_cpy)
             # select_features

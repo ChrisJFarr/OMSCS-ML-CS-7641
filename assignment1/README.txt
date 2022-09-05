@@ -41,5 +41,46 @@ For the sanity of your graders, please keep your analysis as short as possible w
     * to facilitate this sanity, analysis writeup is limited to 12 pages.
 
 
+Office Hours
+Required components
+1. Generate results using experiments
+    * learning curve plots (some notion of a learning curve)
+        * y axis: performance metric
+        * x axis: percentage of training data
+    * iterative plot, plot loss curve
+        * nn: plot loss for each iteration:
+            * y axis loss
+            * x axis iteration/epoch
+    * validation curve
+        * y-axis: performance metric
+        * x-axis: varying hyperparameter values
+        * plot performance across hyper parameter tuning
+    * wall-clock time
+        * fit times during training
+2. structure analysis around these results
+    * choose any evaluation metric but introduce early and justify
+        * talk about class balance
+        * only plot what i analyze
+    * why is your dataset interesting from a ML perspective
+        * for mine: differences in the features, types, size, and similarity in problem
+    * compare and contrast various algorithms
+    * compare and contrast across datasets
+    * why did something do well or poorly
+    * for learning curve
+        * bias/variance tradeoff AKA overfit-underfit AKA how well are you generalizing?
+    * iterative plot
+        * useful for debugging issues during training
+        * data anomalies, weights that are zeroing out
+        * evaluating learning rate
+        * stability during training
+    * validation curve
+        * isolate tuning to a specific hyperparameter
+        * 2 per algorith per dataset
+        * dt: pruning
+        * nn: hidden layers
+        * ensemble: n weak learners
+        * SVM: kernel types
+        * KNN: varying K
+
 
 # Writeup: to be transferred to pdf

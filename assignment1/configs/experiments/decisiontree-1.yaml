@@ -3,6 +3,8 @@ datamodule:
   path: ${dataset.path}
   target: ${dataset.target}
   seed: ${seed}
+  cv_splits: ${cv_splits}
+  test_size: ${test_size}
 
 model:
   _target_: src.models.DecisionTreeModel

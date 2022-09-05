@@ -13,6 +13,5 @@ def main(config: DictConfig):
     funcs_dict = dict(funcs)
     return funcs_dict[config.func](config)
 
-
 if __name__=="__main__":
     main()
