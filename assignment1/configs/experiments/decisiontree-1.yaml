@@ -1,7 +1,7 @@
 datamodule: 
   _target_: src.datamodules.DecisionTreeData
-  path: ${data.path}
-  target: ${data.target}
+  path: ${dataset.path}
+  target: ${dataset.target}
   seed: ${seed}
 
 model:

@@ -21,11 +21,11 @@ from sklearn.model_selection import StratifiedKFold
 
 class DataParent(ABC):
 
-    def __init__(self, path: str, target: str, seed: int):
+    def __init__(self, *args, **kwargs):
         super().__init__()
-        self.path = path
-        self.target = target
-        self.seed = seed
+        self.path = kwargs["path"]
+        self.target = kwargs["target"]
+        self.seed = kwargs["seed"]
 
     def make_loader(self, n_splits=5):
         # Load csv
