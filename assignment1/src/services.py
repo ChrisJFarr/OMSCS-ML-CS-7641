@@ -4,6 +4,7 @@ from sklearn.metrics import accuracy_score
 
 from src.datamodules import DataParent
 from src.models import ModelParent
+from src.evaluation import Assignment1Evaluation
 
 # TODO Move tests to test folder/file
 # https://github.com/facebookresearch/hydra/blob/main/examples/advanced/hydra_app_example/tests/test_example.py
@@ -41,7 +42,15 @@ def test_training_loop(config):
 
 
 def test_learning_curve(config):
-    pass
+    # Initialize model
+    model: ModelParent = hydra.utils.instantiate(config.experiments.model)
+    # Initialize data
+    datamodule: DataParent = hydra.utils.instantiate(config.experiments.datamodule)
+    # Initialize evaluation
+    evaluation = Assignment1Evaluation(model=model, datamodule=datamodule, config=config)
+    # Test
+    evaluation.generate_learning_curve()
+    return
 
 def test_iterative_plot(config):
     pass

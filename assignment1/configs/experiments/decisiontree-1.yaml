@@ -4,8 +4,10 @@ datamodule:
   target: ${dataset.target}
   seed: ${seed}
   cv_splits: ${cv_splits}
+  cv_repeats: ${cv_repeats}
   test_size: ${test_size}
 
 model:
   _target_: src.models.DecisionTreeModel
   max_depth: 2
+  random_state: ${seed}

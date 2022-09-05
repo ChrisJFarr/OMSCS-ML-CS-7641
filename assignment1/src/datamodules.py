@@ -17,7 +17,7 @@ from abc import ABC, abstractmethod
 from cgi import test
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import StratifiedKFold, train_test_split
+from sklearn.model_selection import RepeatedStratifiedKFold, train_test_split
 
 
 class DataParent(ABC):
@@ -28,9 +28,10 @@ class DataParent(ABC):
         self.target = kwargs.get("target")
         self.seed = kwargs.get("seed")
         self.cv_splits = kwargs.get("cv_splits")
+        self.cv_repeats = kwargs.get("cv_repeats")
         self.test_size = kwargs.get("test_size")
 
-    def make_loader(self):
+    def make_loader(self, train_percentage=1.0):
         # Load csv
         df = pd.read_csv(self.path)
         x_data = df.drop(self.target, axis=1)
@@ -43,11 +44,15 @@ class DataParent(ABC):
             stratify=y_data, 
             random_state=self.seed
             )
+        # Select percentage of training data
+        train = pd.concat([x_train, y_train], axis=1).sample(frac=train_percentage)
+        x_train, y_train = train.iloc[:, :x_train.shape[1]], train.iloc[:, -1]
+        # Return train generator and test set
         return (self.cv_generator(x_train, y_train), (x_test, y_test))
     
     def cv_generator(self, x_data, y_data):
         # Stratified k-fold CV
-        kfold = StratifiedKFold(n_splits=self.cv_splits, shuffle=True, random_state=self.seed)
+        kfold = RepeatedStratifiedKFold(n_splits=self.cv_splits, n_repeats=self.cv_repeats, random_state=self.seed)
         for train, test in kfold.split(x_data, y_data):
             x_train_cpy = x_data.iloc[train].copy()
             y_train_cpy = y_data.iloc[train].copy()
