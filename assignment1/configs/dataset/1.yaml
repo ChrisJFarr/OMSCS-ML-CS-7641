@@ -1,0 +1,2 @@
+path: data/diabetes.csv
+target: Outcome

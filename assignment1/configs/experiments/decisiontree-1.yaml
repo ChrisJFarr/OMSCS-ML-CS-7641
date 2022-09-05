@@ -1,2 +1,9 @@
-data:
-  dataset: ""
+datamodule: 
+  _target_: src.datamodules.DecisionTreeData
+  path: ${data.path}
+  target: ${data.target}
+  seed: ${seed}
+
+model:
+  _target_: src.models.DecisionTreeModel
+  max_depth: 2

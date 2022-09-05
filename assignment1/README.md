@@ -1,7 +1,8 @@
 Datasets:
 
-1. https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset
-2. https://www.kaggle.com/datasets/mathchi/diabetes-data-set
+1. https://www.kaggle.com/datasets/mathchi/diabetes-data-set
+2. https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset
+
 
 
 NOTES:

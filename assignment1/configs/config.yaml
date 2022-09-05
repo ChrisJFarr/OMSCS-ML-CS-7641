@@ -1,0 +1,9 @@
+defaults:
+  - _self_
+  - dataset: null
+  - experiments: null
+  - func: null
+
+work_dir: ${hydra:runtime.cwd}
+print_config: True
+seed: 87
