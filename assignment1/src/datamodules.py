@@ -57,7 +57,7 @@ class DataParent(ABC):
             # add_features
             x_train_cpy, x_test_cpy = self.add_features(x_train_cpy, y_train_cpy, x_test_cpy)
             # select_features
-            x_train_cpy, x_test_cpy = self.add_features(x_train_cpy, y_train_cpy, x_test_cpy)
+            x_train_cpy, x_test_cpy = self.select_features(x_train_cpy, y_train_cpy, x_test_cpy)
             # scale/normalize
             x_train_cpy, x_test_cpy = self.scale_or_normalize(x_train_cpy, x_test_cpy)
             # Yield results

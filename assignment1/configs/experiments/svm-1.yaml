@@ -1,0 +1,31 @@
+# Used for log path
+model_name: SVM
+dataset_name: ${dataset.name}
+
+datamodule: 
+  _target_: src.datamodules.SVMData
+  name: ${dataset.name}
+  path: ${dataset.path}
+  target: ${dataset.target}
+  seed: ${seed}
+  cv_splits: ${dataset.cv_splits}
+  cv_repeats: ${dataset.cv_repeats}
+  test_size: ${test_size}
+
+model:
+  _target_: src.models.SVMModel
+  random_state: ${seed}
+  probability: True
+
+
+evaluation:
+  validation_curve:
+    kernel:
+      start: 0
+      stop: 4
+      step: 1
+    C:
+      start: 0.1
+      stop: 1.1
+      step: .1
+
