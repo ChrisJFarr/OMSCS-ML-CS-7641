@@ -1,9 +1,9 @@
 # Used for log path
-model_name: DecisionTreeModel
+model_name: BoostingModel
 dataset_name: ${dataset.name}
 
 datamodule: 
-  _target_: src.datamodules.DecisionTreeData
+  _target_: src.datamodules.BoostingData
   name: ${dataset.name}
   path: ${dataset.path}
   target: ${dataset.target}
@@ -13,18 +13,16 @@ datamodule:
   test_size: ${test_size}
 
 model:
-  _target_: src.models.DecisionTreeModel
-  max_depth: null
+  _target_: src.models.BoostingModel
   random_state: ${seed}
+  base_estimator_params: 
+    max_depth: 1
+
 
 evaluation:
   validation_curve:
-    max_depth:
-      start: 2
-      stop: 10
-      step: 1
-    ccp_alpha:
-      start: 0.
-      stop: 0.011
-      step: .001
+    n_estimators:
+      start: 10
+      stop: 200
+      step: 25
 

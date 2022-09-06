@@ -112,7 +112,6 @@ class NeuralNetworkData(DataParent):
     def scale_or_normalize(self, x_train, x_test):
         return x_train, x_test
 
-
 class BoostingData(DataParent):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -126,7 +125,6 @@ class BoostingData(DataParent):
     def scale_or_normalize(self, x_train, x_test):
         return x_train, x_test
 
-
 class SVMData(DataParent):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -139,7 +137,6 @@ class SVMData(DataParent):
 
     def scale_or_normalize(self, x_train, x_test):
         return x_train, x_test
-
 
 class KNNData(DataParent):
     def __init__(self, *args, **kwargs):
