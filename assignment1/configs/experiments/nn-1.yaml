@@ -1,0 +1,31 @@
+# Used for log path
+model_name: NNModel
+dataset_name: ${dataset.name}
+
+datamodule: 
+  _target_: src.datamodules.KNNData
+  name: ${dataset.name}
+  path: ${dataset.path}
+  target: ${dataset.target}
+  seed: ${seed}
+  cv_splits: ${dataset.cv_splits}
+  cv_repeats: ${dataset.cv_repeats}
+  test_size: ${test_size}
+
+model:
+  _target_: src.models.KNNModel
+  weights: distance
+  leaf_size: 30
+  p: 2
+
+evaluation:
+  validation_curve:
+    n_neighbors:
+      start: 5
+      stop: 50
+      step: 10
+    algorithm:
+      start: 0
+      stop: 3
+      step: 1
+

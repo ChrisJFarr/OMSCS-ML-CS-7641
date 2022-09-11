@@ -41,7 +41,7 @@ def test_training_loop(config):
     return
 
 
-def test_learning_curve(config):
+def lc(config):  # shorthand: learning curve
     # Initialize model
     model: ModelParent = hydra.utils.instantiate(config.experiments.model)
     # Initialize data
@@ -55,7 +55,7 @@ def test_learning_curve(config):
 def test_iterative_plot(config):
     pass
 
-def test_validation_curve(config):
+def vc(config):  # shorthand: validation curve
     # Initialize model
     model: ModelParent = hydra.utils.instantiate(config.experiments.model)
     # Initialize data

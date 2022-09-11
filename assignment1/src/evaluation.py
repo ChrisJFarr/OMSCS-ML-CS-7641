@@ -13,6 +13,9 @@ import os
 from hydra.utils import get_original_cwd
 from hydra.core.hydra_config import HydraConfig
 
+from joblib import Parallel, delayed
+from multiprocessing import cpu_count
+
 from src.models import ModelParent
 from src.datamodules import DataParent
 
@@ -64,6 +67,33 @@ class Assignment1Evaluation:
             test_prediction = self.model.predict_proba(x_test)
             train_performance.append(get_metrics(y_train, train_prediction))
             test_performance.append(get_metrics(y_test, test_prediction))
+        # Compute average performance over splits
+        train_avg = pd.DataFrame(train_performance).mean(axis=0).add_suffix('_train').to_dict()
+        test_avg = pd.DataFrame(test_performance).mean(axis=0).add_suffix('_test').to_dict()
+        return {**train_avg, **test_avg}
+    
+    def parallel_evaluate(self, train_generator):
+        """
+        Use model and train-generator to perform train and test evaluation
+        """
+
+        def _fit_func(data, model):
+            (x_train, y_train), (x_test, y_test) = data
+            model.load().fit(x_train, y_train)
+            train_prediction = model.predict_proba(x_train)
+            test_prediction = model.predict_proba(x_test)
+            train_metric = get_metrics(y_train, train_prediction)
+            test_metric = get_metrics(y_test, test_prediction)
+            return train_metric, test_metric
+
+        # Obtain performance metrics for train and test predictions
+        results = Parallel(n_jobs=cpu_count())(delayed(_fit_func)(data, self.model) for data in train_generator)
+        train_performance = list()
+        test_performance = list()
+        for train_metric, test_metric in results:
+            train_performance.append(train_metric)
+            test_performance.append(test_metric)
+
         # Compute average performance over splits
         train_avg = pd.DataFrame(train_performance).mean(axis=0).add_suffix('_train').to_dict()
         test_avg = pd.DataFrame(test_performance).mean(axis=0).add_suffix('_test').to_dict()
@@ -133,7 +163,6 @@ class Assignment1Evaluation:
         plt.savefig(os.path.join(override_dirname, save_name))
         return
 
-
     def generate_learning_curve(self):
         """
         * learning curve plots (some notion of a learning curve)
@@ -148,7 +177,7 @@ class Assignment1Evaluation:
             x_axis.append(percent)
             # Get generator
             train_generator, _ = self.datamodule.make_loader(percent)
-            y_axis.append(self.evaluate(train_generator))
+            y_axis.append(self.parallel_evaluate(train_generator))
         self._save_plot(x_axis, y_axis, title="Learning Curve", x_label="Train Percentage", save_name="learning_curve_plot.png")
         return
 
@@ -172,7 +201,7 @@ class Assignment1Evaluation:
         # Loop over hyper-parameters specified in experiments config
         validation_curve_dict = self.config.experiments.evaluation.validation_curve
         for param_name, v in validation_curve_dict.items():
-            default_params = {k:v for k, v in self.model.get_params().items()}
+            # default_params = {k:v for k, v in self.model.get_params().items()}  # Only needed if running serial evaluate
             # Build plot lists
             x_axis = list()
             y_axis = list()
@@ -184,7 +213,7 @@ class Assignment1Evaluation:
                 x_axis.append(external_param_value)
                 # Get generator
                 train_generator, _ = self.datamodule.make_loader()
-                y_axis.append(self.evaluate(train_generator))
+                y_axis.append(self.parallel_evaluate(train_generator))
             self._save_plot(
                 x_axis, 
                 y_axis, 
@@ -193,7 +222,7 @@ class Assignment1Evaluation:
                 save_name="%s_validation_curve_plot.png" % param_name
                 )
             # Reset model to default parameters
-            self.model.set_params(**default_params)
+            # self.model.set_params(**default_params)  # Only neede if running serial evaluate
 
     def evaluate_clock_time(self):
         """
