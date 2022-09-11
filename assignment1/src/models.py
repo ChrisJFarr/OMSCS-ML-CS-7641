@@ -135,8 +135,19 @@ class NeuralNetworkModel(ModelParent):
             random_state=self.seed
             )
         # Create data loaders
-        train_loader = DataLoader(MyDataset(x_train, y_train), batch_size=self.batch_size)
-        valid_loader = DataLoader(MyDataset(x_val, y_val), batch_size=self.batch_size)
+        train_loader = DataLoader(
+            MyDataset(x_train, y_train), 
+            batch_size=self.batch_size, 
+            drop_last=True, 
+            num_workers=2,
+            multiprocessing_context='fork'
+            )
+        valid_loader = DataLoader(
+            MyDataset(x_val, y_val), 
+            batch_size=self.batch_size, 
+            drop_last=True, 
+            num_workers=2,
+            multiprocessing_context='fork')
         # model
         model = LitNeuralNetwork(self.model, self.lr)
         # train model
