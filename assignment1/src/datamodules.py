@@ -18,6 +18,7 @@ from cgi import test
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import RepeatedStratifiedKFold, train_test_split
+from sklearn.preprocessing import MinMaxScaler
 
 
 class DataParent(ABC):
@@ -110,6 +111,9 @@ class NeuralNetworkData(DataParent):
         return x_train, x_test
 
     def scale_or_normalize(self, x_train, x_test):
+        scaler = MinMaxScaler()
+        x_train.iloc[:, :] = scaler.fit_transform(x_train)
+        x_test.iloc[:, :] = scaler.transform(x_test)
         return x_train, x_test
 
 class BoostingData(DataParent):
@@ -136,6 +140,9 @@ class SVMData(DataParent):
         return x_train, x_test
 
     def scale_or_normalize(self, x_train, x_test):
+        scaler = MinMaxScaler()
+        x_train.iloc[:, :] = scaler.fit_transform(x_train)
+        x_test.iloc[:, :] = scaler.transform(x_test)
         return x_train, x_test
 
 class KNNData(DataParent):
@@ -149,4 +156,7 @@ class KNNData(DataParent):
         return x_train, x_test
 
     def scale_or_normalize(self, x_train, x_test):
+        scaler = MinMaxScaler()
+        x_train.iloc[:, :] = scaler.fit_transform(x_train)
+        x_test.iloc[:, :] = scaler.transform(x_test)
         return x_train, x_test

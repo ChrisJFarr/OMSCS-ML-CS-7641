@@ -79,6 +79,7 @@ class Assignment1Evaluation:
 
         def _fit_func(data, model):
             (x_train, y_train), (x_test, y_test) = data
+            model.set_input_size(x_train.shape[1])
             model.load().fit(x_train, y_train)
             train_prediction = model.predict_proba(x_train)
             test_prediction = model.predict_proba(x_test)

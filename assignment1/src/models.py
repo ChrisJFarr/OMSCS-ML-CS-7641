@@ -1,10 +1,19 @@
+from src.nn_support import MyNeuralNetwork, LitNeuralNetwork, MyDataset
+
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split
 import torch
+from torch.utils.data import DataLoader
 from collections import OrderedDict
 from abc import ABC, abstractmethod
+import pytorch_lightning as pl
+from pytorch_lightning.callbacks.early_stopping import EarlyStopping
+import torch.nn.functional as F
+
+
 
 # TODO Is this needed? I could just use the sklearn interface if that would suffice for all...?
 
@@ -13,6 +22,10 @@ class ModelParent(ABC):
     def __init__(self):
         super().__init__()
         self.model = None
+        self.input_size = None
+
+    def set_input_size(self, input_size):
+        self.input_size=input_size
 
     @abstractmethod
     def load(self):
@@ -83,92 +96,65 @@ class DecisionTreeModel(ModelParent):
     def get_param_value(self, param_name, param_value):
         return param_value
 
-
-class MyNeuralNetwork(torch.nn.Module):
-
-    def __init__(self, *args, **kwargs):
-        self.model = None
-        self.build_model(*args, **kwargs)
-
-    def build_model(self, *args, **kwargs):
-        layers = kwargs.get("layers")
-        nodes = kwargs.get("nodes")
-        input_size = kwargs.get("input_size")
-        dropout_rate = kwargs.get("dropout_rate")
-        assert layers is not None
-        assert nodes is not None
-        assert input_size is not None
-        assert dropout_rate is not None
-        # TODO Build special input layer and output layer
-        # For layers > 1, add intermediate layers in a loop
-        # https://pytorch.org/tutorials/beginner/basics/buildmodel_tutorial.html
-
-        model_list = []
-
-        # Add input layer
-        model_list.append(("linear_%s" % 0, torch.nn.Linear(input_size, nodes)))
-        model_list.append(("batch_norm_%s" % 0, torch.nn.BatchNorm1d(nodes)))
-        model_list.append(("relu_%s" % 0, torch.nn.ReLU()))
-        model_list.append(("dropout_%s" % 0, torch.nn.Dropout(p=dropout_rate)))
-
-        # Add intermediate layers
-        for layer in range(1, layers):
-            model_list.append(("linear_%s" % layer, torch.nn.Linear(nodes, nodes)))
-            model_list.append(("batch_norm_%s" % layer, torch.nn.BatchNorm1d(nodes)))
-            model_list.append(("relu_%s" % layer, torch.nn.ReLU()))
-            model_list.append(("dropout_%s" % layer, torch.nn.Dropout(p=dropout_rate)))
-
-        # Add output layer
-        model_list.append(("output", torch.nn.Linear(nodes, 1)))
-
-        self.model = torch.nn.Sequential(OrderedDict(model_list))
-
-    def forward(self, x):
-        return self.model(x)
-
 class NeuralNetworkModel(ModelParent):
     def __init__(self, *args, **kwargs):
         super().__init__()
         self.args = args
         self.kwargs = kwargs
         self.is_loaded = False
-        
+        self.val = self.kwargs.pop("validation_size", 0.2)
+        self.seed = self.kwargs.pop("seed", 42)
+        self.lr = self.kwargs.pop("lr", 0.001)
+        self.patience = self.kwargs.pop("patience", 3)
+        self.batch_size = self.kwargs.pop("batch_size", 32)
+
     def load(self):
         args = self.args
         kwargs = self.kwargs
-        self.model = MyNeuralNetwork(*args, **kwargs)
+        assert self.input_size is not None
+        self.model = MyNeuralNetwork(*args, **kwargs, input_size=self.input_size)
+        self.early_stop_callback = EarlyStopping(
+            monitor="val_loss", 
+            mode="min", 
+            min_delta=0.0, 
+            patience=self.patience)
         self.is_loaded = True
         return self
 
     def fit(self, *args, **kwargs):
         assert self.is_loaded
-        # Build training loop
-
-        # Split train into train/validation
-        # Fit model and minimize loss (use args for patience)
-        # Loop a maxiter times or until loss doesn't improve for patience count
-        # For each epoch
-        # Loop by batch size
-        # optimizer.zero_grad()
-        # perform forward pass model()
-        # compute loss
-        # perform back propagation
-        # take an optimizer step with optimizer.step()
-
-
-        return self.model.fit(*args, **kwargs)
+        # Set seed
+        pl.seed_everything(self.seed)
+        # Split train/validation
+        x_data, y_data = args
+        x_train, x_val, y_train, y_val = train_test_split(
+            x_data,
+            y_data,
+            test_size=self.val, 
+            stratify=y_data, 
+            random_state=self.seed
+            )
+        # Create data loaders
+        train_loader = DataLoader(MyDataset(x_train, y_train), batch_size=self.batch_size)
+        valid_loader = DataLoader(MyDataset(x_val, y_val), batch_size=self.batch_size)
+        # model
+        model = LitNeuralNetwork(self.model, self.lr)
+        # train model
+        trainer = pl.Trainer(deterministic=True, callbacks=[self.early_stop_callback])
+        trainer.fit(model=model, train_dataloaders=train_loader, val_dataloaders=valid_loader)
+        return
 
     def predict(self, *args, **kwargs):
-        assert self.is_loaded
-        return self.model.predict(*args, **kwargs)
+        return self.predict_proba(self, *args, **kwargs)
 
     def predict_proba(self, *args, **kwargs):
         assert self.is_loaded
-        return self.model.predict_proba(*args, **kwargs)[:, 1]
+        x_data = torch.tensor(args[0].values, dtype=torch.float32)
+        return self.model(x_data).detach().numpy()
 
     def set_params(self, **params):
         if self.is_loaded:
-            self.model.set_params(**params)
+            raise NotImplementedError
         else:
             for k, v in params.items():
                 self.kwargs[k] = v
@@ -180,8 +166,6 @@ class NeuralNetworkModel(ModelParent):
 
     def get_param_value(self, param_name, param_value):
         return param_value
-
-
 
 class BoostingModel(ModelParent):
     def __init__(self, *args, **kwargs):
