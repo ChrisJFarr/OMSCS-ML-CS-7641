@@ -19,6 +19,9 @@ from multiprocessing import cpu_count
 from src.models import ModelParent
 from src.datamodules import DataParent
 
+# import logging
+# logging.getLogger("lightning").setLevel(logging.ERROR)
+
 
 # def get_metrics(y_true, y_pred):
 #     # Compute sensitivity and specificity
@@ -62,6 +65,7 @@ class Assignment1Evaluation:
         train_performance = list()
         test_performance = list()
         for (x_train, y_train), (x_test, y_test) in train_generator:
+            self.model.set_input_size(x_train.shape[1])
             self.model.fit(x_train, y_train)
             train_prediction = self.model.predict_proba(x_train)
             test_prediction = self.model.predict_proba(x_test)
@@ -188,9 +192,27 @@ class Assignment1Evaluation:
             * nn: plot loss for each iteration:
                 * y axis loss
                 * x axis iteration/epoch
+
+        Use the full train set
+
+        https://pytorch-lightning.readthedocs.io/en/0.9.0/experiment_reporting.html
         
         """
-        raise NotImplementedError
+        # x_axis = list()
+        # y_axis = list()
+        # # Track percentages for x-axis
+        # x_axis.append(percent)
+        # Get generator
+        x_train, x_test, y_train, y_test = self.datamodule.get_full_dataset()
+        self.model.set_input_size(x_train.shape[1])
+        logging = self.model.load().fit(x_train, y_train)
+        print(dir(logging.experiment))
+        print(logging.experiment)
+        # TODO Start here: how can I get data out of the logs for a graph?????
+        # train_prediction = self.model.predict_proba(x_train)
+        # test_prediction = self.model.predict_proba(x_test)
+        # train_performance = get_metrics(y_train, train_prediction)
+        # test_performance = get_metrics(y_test, test_prediction)
 
     def generate_validation_curve(self):
         """

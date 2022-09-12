@@ -1,5 +1,6 @@
 import hydra
 from sklearn.metrics import accuracy_score
+from time import perf_counter
 
 
 from src.datamodules import DataParent
@@ -23,6 +24,7 @@ def test_data_loader(config):
 
 
 def test_training_loop(config):
+    start_time = perf_counter()
     # Create model object
     model: ModelParent = hydra.utils.instantiate(config.experiments.model)
     # Create data loader
@@ -38,10 +40,13 @@ def test_training_loop(config):
             "train accuracy: %.2f" % accuracy_score(y_train, train_prediction), 
             "test accuracy: %.2f" % accuracy_score(y_test, test_prediction)
             )
+    end_time = perf_counter()
+    print("Total execution time: %.1f" % (end_time - start_time))
     return
 
 
 def lc(config):  # shorthand: learning curve
+    start_time = perf_counter()
     # Initialize model
     model: ModelParent = hydra.utils.instantiate(config.experiments.model)
     # Initialize data
@@ -50,12 +55,26 @@ def lc(config):  # shorthand: learning curve
     evaluation = Assignment1Evaluation(model=model, datamodule=datamodule, config=config)
     # Test
     evaluation.generate_learning_curve()
+    end_time = perf_counter()
+    print("Total execution time: %.1f" % (end_time - start_time))
     return
 
-def test_iterative_plot(config):
+def ip(config):  # shorthand: iterative plot
+    start_time = perf_counter()
+    # Initialize model
+    model: ModelParent = hydra.utils.instantiate(config.experiments.model)
+    # Initialize data
+    datamodule: DataParent = hydra.utils.instantiate(config.experiments.datamodule)
+    # Initialize evaluation
+    evaluation = Assignment1Evaluation(model=model, datamodule=datamodule, config=config)
+    # Test
+    evaluation.generate_iterative_plot()
+    end_time = perf_counter()
+    print("Total execution time: %.1f" % (end_time - start_time))
     pass
 
 def vc(config):  # shorthand: validation curve
+    start_time = perf_counter()
     # Initialize model
     model: ModelParent = hydra.utils.instantiate(config.experiments.model)
     # Initialize data
@@ -64,15 +83,22 @@ def vc(config):  # shorthand: validation curve
     evaluation = Assignment1Evaluation(model=model, datamodule=datamodule, config=config)
     # Test
     evaluation.generate_validation_curve()
+    end_time = perf_counter()
+    print("Total execution time: %.1f" % (end_time - start_time))
     return
 
 def test_train_test_performance(config):
+    start_time = perf_counter()
+    end_time = perf_counter()
+    print("Total execution time: %.1f" % (end_time - start_time))
     pass
 
-
 def run(config):
+    start_time = perf_counter()
     # Top level of running an experiment
     # Create data loader
     # Create evaluation
     # Run training loop for each CV fold and log evaluation results
+    end_time = perf_counter()
+    print("Total execution time: %.1f" % (end_time - start_time))
     pass

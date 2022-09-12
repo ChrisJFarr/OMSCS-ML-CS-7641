@@ -28,7 +28,7 @@ class DataParent(ABC):
         for k, v in kwargs.items():
             setattr(self, k, v)
 
-    def make_loader(self, train_percentage=1.0):
+    def get_full_dataset(self):
         # Load csv
         df = self._load_data()
         x_data = df.drop(self.target, axis=1)
@@ -41,13 +41,18 @@ class DataParent(ABC):
             stratify=y_data, 
             random_state=self.seed
             )
+        return x_train, x_test, y_train, y_test
+
+    def make_loader(self, train_percentage=1.0):
+        # Load the train/test dataset
+        x_train, x_test, y_train, y_test = self.get_full_dataset()
         # Select percentage of training data
         train = pd.concat([x_train, y_train], axis=1).sample(frac=train_percentage, random_state=self.seed)
         x_train, y_train = train.iloc[:, :x_train.shape[1]], train.iloc[:, -1]
         # Return train generator and test set
-        return (self.cv_generator(x_train, y_train), (x_test, y_test))
+        return (self._cv_generator(x_train, y_train), (x_test, y_test))
     
-    def cv_generator(self, x_data, y_data):
+    def _cv_generator(self, x_data, y_data):
         # Stratified k-fold CV
         kfold = RepeatedStratifiedKFold(n_splits=self.cv_splits, n_repeats=self.cv_repeats, random_state=self.seed)
         for train, test in kfold.split(x_data, y_data):

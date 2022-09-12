@@ -2,6 +2,7 @@ import torch
 from collections import OrderedDict
 import pytorch_lightning as pl
 from torch.utils.data import Dataset
+from pytorch_lightning.callbacks import Callback
 
 
 
@@ -57,10 +58,21 @@ class LitNeuralNetwork(pl.LightningModule):
         x, y = batch
         x = x.view(x.size(0), -1)  # Needed?
         loss = self.loss(self.model(x), y)
+        self.log("train_loss", loss)
+        self.logger.experiment.add_scalars('Iterative Loss', 
+                                                {'train': loss}, 
+                                                global_step=self.global_step)
         return loss
 
     def validation_step(self, batch, batch_idx):
-        self.log("val_loss", self.training_step(batch, batch_idx))
+        x, y = batch
+        x = x.view(x.size(0), -1)  # Needed?
+        loss = self.loss(self.model(x), y)
+        self.log("val_loss", loss)
+        self.logger.experiment.add_scalars('Iterative Loss', 
+                                                {'valid': loss}, 
+                                                global_step=self.global_step)
+        return loss
     
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(self.parameters(), 
@@ -79,3 +91,7 @@ class MyDataset(Dataset):
     def __getitem__(self, idx):
         return torch.tensor(self.x_data[idx, :], dtype=torch.float32), \
             torch.tensor(self.y_data[idx], dtype=torch.float32).unsqueeze(0)
+
+
+# class MyCallBack(Callback):
+

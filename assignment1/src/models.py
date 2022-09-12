@@ -121,6 +121,10 @@ class NeuralNetworkModel(ModelParent):
         self.is_loaded = True
         return self
 
+    def get_iterative_history(self):
+        # do something with trainer callback
+        pass
+
     def fit(self, *args, **kwargs):
         assert self.is_loaded
         # Set seed
@@ -151,9 +155,17 @@ class NeuralNetworkModel(ModelParent):
         # model
         model = LitNeuralNetwork(self.model, self.lr)
         # train model
-        trainer = pl.Trainer(deterministic=True, callbacks=[self.early_stop_callback])
+        trainer = pl.Trainer(
+            enable_checkpointing=True,
+            log_every_n_steps=5,
+            deterministic=True, 
+            callbacks=[self.early_stop_callback], 
+            enable_progress_bar=False,
+            )
         trainer.fit(model=model, train_dataloaders=train_loader, val_dataloaders=valid_loader)
-        return
+
+        # Get logger info
+        return model.logger
 
     def predict(self, *args, **kwargs):
         return self.predict_proba(self, *args, **kwargs)
