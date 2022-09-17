@@ -1,6 +1,7 @@
 # Used for log path
 model_name: KNNModel
 dataset_name: ${dataset.name}
+experiment_name: knn-1
 
 datamodule: 
   _target_: src.datamodules.KNNData

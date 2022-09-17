@@ -2,4 +2,4 @@ name: _1_
 path: data/diabetes.csv
 target: Outcome
 cv_splits: 5
-cv_repeats: 1
+cv_repeats: 100

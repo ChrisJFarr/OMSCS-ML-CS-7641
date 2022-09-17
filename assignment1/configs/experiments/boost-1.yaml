@@ -1,6 +1,7 @@
 # Used for log path
 model_name: BoostingModel
 dataset_name: ${dataset.name}
+experiment_name: boost-1
 
 datamodule: 
   _target_: src.datamodules.BoostingData

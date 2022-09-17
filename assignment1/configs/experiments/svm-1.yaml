@@ -1,6 +1,7 @@
 # Used for log path
 model_name: SVM
 dataset_name: ${dataset.name}
+experiment_name: svm-1
 
 datamodule: 
   _target_: src.datamodules.SVMData

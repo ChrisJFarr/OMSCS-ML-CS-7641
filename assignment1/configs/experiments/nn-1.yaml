@@ -1,6 +1,7 @@
 # Used for log path
 model_name: NeuralNetworkModel
 dataset_name: ${dataset.name}
+experiment_name: nn-1
 
 datamodule: 
   _target_: src.datamodules.NeuralNetworkData

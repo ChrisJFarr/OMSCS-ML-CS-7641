@@ -1,15 +1,14 @@
 defaults:
   - _self_
-  - dataset: null
   - experiments: null
   - func: null
   - override hydra/launcher: joblib  # For parallel multirun
 
 hydra:
   run:
-    dir: multirun/${experiments.dataset_name}/${experiments.model_name}/${func}/${now:%Y-%m-%d-%H-%M-%S}
+    dir: multirun/${experiments.dataset_name}/${experiments.model_name}/${experiments.experiment_name}
   sweep:
-    dir: multirun/${experiments.dataset_name}/${experiments.model_name}/${func}/${now:%Y-%m-%d-%H-%M-%S}
+    dir: multirun/${experiments.dataset_name}/${experiments.model_name}/${experiments.experiment_name}
     subdir: ${now:%Y-%m-%d-%H-%M-%S}
 print_config: True
 seed: 87

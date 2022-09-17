@@ -25,6 +25,7 @@ class DataParent(ABC):
 
     def __init__(self, *args, **kwargs):
         super().__init__()
+        self.produce_ds2_small = False
         for k, v in kwargs.items():
             setattr(self, k, v)
 
@@ -46,15 +47,33 @@ class DataParent(ABC):
     def make_loader(self, train_percentage=1.0):
         # Load the train/test dataset
         x_train, x_test, y_train, y_test = self.get_full_dataset()
+        # Rebalance dataset by downsampling, filter to homogenous sample
+        if self.produce_ds2_small:
+            df = pd.concat([x_train, y_train], axis=1)
+            df = df.loc[df["Sex"]==0, :] # filtering to only female patients
+            pos_df = df.loc[df[self.target]==0, :]
+            neg_df = df.loc[df[self.target]==1, :]
+            # Balance to same class balance and size as ds1
+            df = pd.concat(
+                    [
+                        pos_df.sample(n=268, replace=False, random_state=self.seed), 
+                        neg_df.sample(n=500, replace=False, random_state=self.seed)
+                    ], axis=0
+                ).reset_index(drop=True)
+            x_train = df.drop(self.target, axis=1)
+            y_train = df[self.target]
         # Select percentage of training data
         train = pd.concat([x_train, y_train], axis=1).sample(frac=train_percentage, random_state=self.seed)
         x_train, y_train = train.iloc[:, :x_train.shape[1]], train.iloc[:, -1]
         # Return train generator and test set
         return (self._cv_generator(x_train, y_train), (x_test, y_test))
-    
+
+    def get_cv(self):
+        return RepeatedStratifiedKFold(n_splits=self.cv_splits, n_repeats=self.cv_repeats, random_state=self.seed)
+
     def _cv_generator(self, x_data, y_data):
         # Stratified k-fold CV
-        kfold = RepeatedStratifiedKFold(n_splits=self.cv_splits, n_repeats=self.cv_repeats, random_state=self.seed)
+        kfold = self.get_cv()
         for train, test in kfold.split(x_data, y_data):
             x_train_cpy = x_data.iloc[train].copy()
             y_train_cpy = y_data.iloc[train].copy()

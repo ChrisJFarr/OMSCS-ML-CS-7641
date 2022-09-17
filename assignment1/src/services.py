@@ -11,6 +11,8 @@ from src.evaluation import Assignment1Evaluation
 # https://github.com/facebookresearch/hydra/blob/main/examples/advanced/hydra_app_example/tests/test_example.py
 
 
+
+
 def test_data_loader(config):
     # Load a data source
     # Count examples over splits, report class balance on each split
@@ -46,6 +48,7 @@ def test_training_loop(config):
 
 
 def lc(config):  # shorthand: learning curve
+    print("Generating learning curve...")
     start_time = perf_counter()
     # Initialize model
     model: ModelParent = hydra.utils.instantiate(config.experiments.model)
@@ -56,10 +59,11 @@ def lc(config):  # shorthand: learning curve
     # Test
     evaluation.generate_learning_curve()
     end_time = perf_counter()
-    print("Total execution time: %.1f" % (end_time - start_time))
+    print("Learning curve completed in %.1f seconds" % (end_time - start_time))
     return
 
 def ip(config):  # shorthand: iterative plot
+    print("Generating iterative plot...")
     start_time = perf_counter()
     # Initialize model
     model: ModelParent = hydra.utils.instantiate(config.experiments.model)
@@ -70,10 +74,12 @@ def ip(config):  # shorthand: iterative plot
     # Test
     evaluation.generate_iterative_plot()
     end_time = perf_counter()
-    print("Total execution time: %.1f" % (end_time - start_time))
+    print("Iterative plot completed in %.1f seconds" % (end_time - start_time))
     pass
 
+
 def vc(config):  # shorthand: validation curve
+    print("Generating validation curve...")
     start_time = perf_counter()
     # Initialize model
     model: ModelParent = hydra.utils.instantiate(config.experiments.model)
@@ -84,21 +90,27 @@ def vc(config):  # shorthand: validation curve
     # Test
     evaluation.generate_validation_curve()
     end_time = perf_counter()
-    print("Total execution time: %.1f" % (end_time - start_time))
+    print("Validation curve completed in %.1f seconds" % (end_time - start_time))
+    return
+
+def gs(config): # shorthand: grid search
+    print("Performing grid search...")
+    start_time = perf_counter()
+    # Initialize model
+    model: ModelParent = hydra.utils.instantiate(config.experiments.model)
+    # Initialize data
+    datamodule: DataParent = hydra.utils.instantiate(config.experiments.datamodule)
+    # Initialize evaluation
+    evaluation = Assignment1Evaluation(model=model, datamodule=datamodule, config=config)
+    # Test
+    evaluation.perform_grid_search()
+    end_time = perf_counter()
+    print("Grid search completed in %.1f seconds" % (end_time - start_time))
     return
 
 def test_train_test_performance(config):
+    raise NotImplementedError
     start_time = perf_counter()
-    end_time = perf_counter()
-    print("Total execution time: %.1f" % (end_time - start_time))
-    pass
-
-def run(config):
-    start_time = perf_counter()
-    # Top level of running an experiment
-    # Create data loader
-    # Create evaluation
-    # Run training loop for each CV fold and log evaluation results
     end_time = perf_counter()
     print("Total execution time: %.1f" % (end_time - start_time))
     pass
