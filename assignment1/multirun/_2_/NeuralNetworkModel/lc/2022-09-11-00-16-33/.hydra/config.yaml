@@ -1,0 +1,42 @@
+print_config: true
+seed: 87
+test_size: 0.2
+dataset:
+  name: _2_
+  path: data/diabetes_012_health_indicators_BRFSS2015.csv
+  target: Diabetes_012
+  cv_splits: 5
+  cv_repeats: 1
+experiments:
+  model_name: NeuralNetworkModel
+  dataset_name: ${dataset.name}
+  datamodule:
+    _target_: src.datamodules.NeuralNetworkData
+    name: ${dataset.name}
+    path: ${dataset.path}
+    target: ${dataset.target}
+    seed: ${seed}
+    cv_splits: ${dataset.cv_splits}
+    cv_repeats: ${dataset.cv_repeats}
+    test_size: ${test_size}
+  model:
+    _target_: src.models.NeuralNetworkModel
+    layers: 2
+    nodes: 100
+    dropout_rate: 0.25
+    validation_size: 0.2
+    seed: ${seed}
+    lr: 0.001
+    patience: 3
+    batch_size: 10
+  evaluation:
+    validation_curve:
+      layers:
+        start: 2
+        stop: 5
+        step: 1
+      nodes:
+        start: 25
+        stop: 300
+        step: 50
+func: lc

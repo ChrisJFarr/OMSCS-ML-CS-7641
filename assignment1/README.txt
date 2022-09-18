@@ -287,14 +287,13 @@ Experiment 2
 ## Generate validation curves
 
 First analyzing impacts of different kernels on the dataset
-Linear had the highest performance and the least overfitting, however
-poly had a similar test performance with a much higher train score (indicating more overfitting)
-but this also could indicate that with some regularization or increased bias the test score
-could have more potential with the poly kernel.
-Since experiment 1 also utilized poly kernel I decide to continue using poly for the augmented ds2 (small)
-Notes
-    * simgoid had a large drop in performance for the small ds2 when compared to the same settings
-        on ds1. 
-    * rbf, linear, and poly had very similar test performance in the order of linear>poly>rbf
-    
+* poly
+    * highest performing
+    * .795 test AUC, .814 train AUC
+* linear, rbf, and sigmoid performed similarly
+* sigmoid overfit the least
+
+poly performed the best and is the same kernel that was used in experiment 1
+so I will use poly for the remaining experiments
+
 

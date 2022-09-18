@@ -1,0 +1,55 @@
+print_config: true
+seed: 87
+test_size: 0.2
+experiments:
+  model_name: SVM
+  dataset_name: ${experiments.dataset.name}
+  experiment_name: svm-2
+  datamodule:
+    _target_: src.datamodules.SVMData
+    name: ${experiments.dataset.name}
+    path: ${experiments.dataset.path}
+    target: ${experiments.dataset.target}
+    seed: ${seed}
+    cv_splits: ${experiments.dataset.cv_splits}
+    cv_repeats: ${experiments.dataset.cv_repeats}
+    test_size: ${test_size}
+    produce_ds2_small: true
+  model:
+    _target_: src.models.SVMModel
+    random_state: ${seed}
+    probability: true
+    C: 1.0
+    kernel: rbf
+    degree: 3
+    gamma: scale
+    coef0: 0.0
+    shrinking: true
+    tol: 0.001
+    class_weight: balanced
+  evaluation:
+    validation_curve:
+      kernel:
+        start: 0
+        stop: 4
+        step: 1
+    grid_search:
+      C:
+        start: 0.9
+        stop: 1.01
+        step: 0.01
+      coef0:
+        start: 0.1
+        stop: 0.21
+        step: 0.01
+      degree:
+        start: 2
+        stop: 3
+        step: 1
+  dataset:
+    name: _2_
+    path: data/diabetes_012_health_indicators_BRFSS2015.csv
+    target: Diabetes_012
+    cv_splits: 5
+    cv_repeats: 1
+func: vc

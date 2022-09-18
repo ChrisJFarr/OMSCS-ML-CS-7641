@@ -80,17 +80,17 @@ class DataParent(ABC):
             y_train_cpy = y_data.iloc[train].copy()
             x_test_cpy = x_data.iloc[test].copy()
             y_test_cpy = y_data.iloc[test].copy()
-            # # fit/transform train
-            # x_train_cpy = self.add_features(x_train=x_train_cpy, y_train=y_train_cpy)
-            # x_train_cpy = self.select_features(x_train=x_train_cpy, y_train=y_train_cpy)
-            # x_train_cpy = self.scale_or_normalize(x_train=x_train_cpy)
-            # # transform test
-            # x_test_cpy = self.add_features(x_test=x_test_cpy)
-            # x_test_cpy = self.select_features(x_test=x_test_cpy)
-            # x_test_cpy = self.scale_or_normalize(x_test=x_test_cpy)
+            # fit/transform train
+            x_train_cpy = self.add_features(x_train=x_train_cpy, y_train=y_train_cpy)
+            x_train_cpy = self.select_features(x_train=x_train_cpy, y_train=y_train_cpy)
+            x_train_cpy = self.scale_or_normalize(x_train=x_train_cpy)
+            # transform test
+            x_test_cpy = self.add_features(x_test=x_test_cpy)
+            x_test_cpy = self.select_features(x_test=x_test_cpy)
+            x_test_cpy = self.scale_or_normalize(x_test=x_test_cpy)
 
-            x_train_cpy = self.fit(x_train_cpy, y_train_cpy).transform(x_train_cpy)
-            x_test_cpy = self.transform(x_test_cpy)
+            # x_train_cpy = self.fit(x_train_cpy, y_train_cpy).transform(x_train_cpy)
+            # x_test_cpy = self.transform(x_test_cpy)
 
             # Yield results
             yield ((x_train_cpy, y_train_cpy), (x_test_cpy, y_test_cpy))
