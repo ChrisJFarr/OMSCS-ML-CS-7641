@@ -193,158 +193,108 @@ Experiment 1 Steps (do this for each model/dataset combination)
 
 
 
-Decision tree
+### SVM Analysis
 
 validation curve parameters for experiments 1, 2 and 3
-max_depth:
-    start: 2
-    stop: 10
-    step: 1
-ccp_alpha:
-    start: 0.0
-    stop: 0.051
-    step: 0.001
-min_samples_split:
-    start: 2
-    stop: 500
-    step: 25
-min_samples_leaf:
-    start: 1
-    stop: 500
-    step: 25
+evaluation:
+  validation_curve:
+    # run for defaults
+    kernel:
+      start: 0
+      stop: 4
+      step: 1
+    # run for poly kernel
+    C:
+      start: 0.001
+      stop: 1.01
+      step: .01
+    coef0:
+      start: 0.0
+      stop: 1.01
+      step: .05
+    degree:
+      start: 1
+      stop: 7
+      step: 1
 
-#################
-Tree Experiment 1:
-#################
-
-## Validation Curve
-* Starting from default parameters, performed validation curve analysis on the following parameters:
-    * Top performance is test AUC=.81
-        * achieved with all defaults and setting min_samples_leaf to 26
-            * train AUC .879 test AUC=.812
-        * achieved with all defaults and setting min_samples_split to 102
-            * train AUC .862 test AUC=.810 (slightly less overfitting) 
-    * max-depth
-        * train .854 and test .793 with max-depth=3
-        * this reduced overfitting at cost of some performance compared to top metrics
-    * ccp_alpha
-        * train .848 and test .794 with ccp_alpha=0.01
-        * similar effect of max-depth on test performance (when viewing the curve) but inverse
-            impact on the training
-Validation curve completed in 34.3 seconds
-
-## Grid-Search
-
-grid-search parameters
-* Performed grid-search cv from defaults and through max-performing values discovered above
+# Data preprocessing
+* I tested min-max scaling and l2 normalizing as preprocessing functions for
+    the input data and min-max scaling performed significantly better. I will use
+    scaling for the remaining experiments.
 
 
-Best parameters
-Round 1 of grid-search
-{'ccp_alpha': 0.0,
- 'max_depth': 5,
- 'min_samples_leaf': 16,
- 'min_samples_split': 92}
-'Best performance: 0.814'
-Grid search completed in 284.4 seconds
-Round 2 of grid-search
-{'ccp_alpha': 0.0,
- 'max_depth': 6,
- 'min_samples_leaf': 20,
- 'min_samples_split': 90}
-'Best performance: 0.814'
-Grid search completed in 120.1 seconds
-Round 3 of grid-search
-Best parameters
-{'ccp_alpha': 0.0004,
- 'max_depth': 6,
- 'min_samples_leaf': 17,
- 'min_samples_split': 91}
-'Best performance: 0.815'
-Grid search completed in 529.3 seconds
-
-## Learning Curve
-
-With the best model parameters, compute the learning curve.
-Learning curve completed in 7.1 seconds
-* Analysis: Clearly there is a trend which shows in general more data leads to higher performance. A dataset
-    several times the one used would likely produce better results. Performance further improves when using 94%
-    of the data, likely indicating there are a few harder examples that happen to get removed until more  than 94%
-    of the data is used at the random seed used.
-
-#############
-Tree Experiment 2:
+############
+Experiment 1
 #############
 
+## Perform validation curve analysis
 
-With a larger dataset I will have to reduce the parameter search space.
-Could any insights from experiment 1 help?
+First step is to select which kernels might perform best by using only default parameters.
+Top performers were:
+    * rbf with test AUC .849 (train .887)
+    * poly with an AUC less than rbf and greater than linear, also >.8, and train AUC > rbf. This tells me that it is fitting the data really well
+        and there might be potential for higher performance than rbf when tuned.
+    * then linear with and AUC less than poly but also > .8. This kernel also had the least amount of overfitting with the train score very close
+        to the test score visually.
+Due to the close to optimal test performance of poly as well as the optimal train performance, I decided to explore this kernel further.
 
-## Validation Curve
+set kernel to poly for remaining experiments
 
-* Starting from default parameters, performed validation curve analysis on the following parameters:
-    * ccp_alpha
-        * Best test auc: .80 train auc .858
-        * best param value 0.006
-    * max-depth
-        * best test auc: .792 train auc: .875
-        * best param value 4
-    * min_samples_leaf
-        * best test auc: .806 train auc: .864
-        * best param value 26
-    * min_samples_split
-        * best test auc: .789 train auc: .829
-        * best param value 127
-Notes: the shapes of the validation curves are very similar to ds1 and the optimal values are similar or the same for each parameter.
-    * noteable difference is max-depth is higher for the dataset that contains more and less-specific features
+* C:
+    * best test .849, train .882
+    * param=0.141
+* coef0:
+    * best test .844, train .898
+    * param=0.05
+* degree:
+    * best test .851, train .879
+    * param=2
 
-Validation curve completed in 38.9 seconds
-
-## Grid Search
+## Perform grid search
 
 Round 1
-{'ccp_alpha': 0.0,
- 'max_depth': 8,
- 'min_samples_leaf': 36,
- 'min_samples_split': 177}
-'Best performance: 0.813'
-Grid search completed in 837.1 seconds
-(gatech) chrisfarr@Chris-Farr-MacBook-Pro assignment1 % 
+Best parameters
+{'model__C': 0.9510000000000001,
+ 'model__coef0': 0.15000000000000002,
+ 'model__degree': 2}
+'Best performance: 0.849'
+Grid search completed in 175.6 seconds
 Round 2
-{'ccp_alpha': 0.0,
- 'max_depth': 8,
- 'min_samples_leaf': 44,
- 'min_samples_split': 178}
-'Best performance: 0.813'
-Grid search completed in 535.6 seconds
+Best parameters
+{'model__C': 0.9700000000000002,
+ 'model__coef0': 0.17500000000000002,
+ 'model__degree': 2}
+'Best performance: 0.849'
+Grid search completed in 162.5 seconds
+Round 3
+Best parameters
+{'model__C': 0.9, 'model__coef0': 0.19999999999999996, 'model__degree': 2}
+'Best performance: 0.849'
+Grid search completed in 117.2 seconds
 
-* after multiple experiments found no improvements to the 3rd digit
-* seeing very similar top performance in the small-ds2 compared to ds1
-* The additional features in exchange for lower granularity gives no improvement
-* When considering the small ds2 is self-reported vs clinically captured it performs
-    very similarly. However this may be because the increased number of features helps, the
-    evidence of this is the larger max-depth required for the small ds2 indicating more features
-    are leveraged
+## Compute learning curve
+Generating learning curve...
+Learning curve completed in 157.2 seconds
 
-## Learning Curve
+A blip at 17% reached peak performance of 86.9 test AUC. However, the general trend of using more data
+is an increase in test score and a decrease in overfitting.
 
-Learning curve completed in 39.0 seconds
-* Again the optimal performance is reached prior to 100% of data, but the trend
-    that more data is better is clear.
-
-###############
-Experiment 3
 #############
-
-# Version idea 1: Use the optimal parameters on the small ds2 and perform validation curve
- and learning rate analysis directly (no grid-searching the large dataset)
-
-# Version idea 2: Repeat full experiment on large dataset but with reduced number of parameters
-    searched
-
-# Hybrid idea: Do version 1, then pick 2 features to search based on results
+Experiment 2
+############
 
 
+## Generate validation curves
 
-
+First analyzing impacts of different kernels on the dataset
+Linear had the highest performance and the least overfitting, however
+poly had a similar test performance with a much higher train score (indicating more overfitting)
+but this also could indicate that with some regularization or increased bias the test score
+could have more potential with the poly kernel.
+Since experiment 1 also utilized poly kernel I decide to continue using poly for the augmented ds2 (small)
+Notes
+    * simgoid had a large drop in performance for the small ds2 when compared to the same settings
+        on ds1. 
+    * rbf, linear, and poly had very similar test performance in the order of linear>poly>rbf
+    
 

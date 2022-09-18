@@ -6,10 +6,10 @@ defaults:
 
 hydra:
   run:
-    dir: multirun/${experiments.dataset_name}/${experiments.model_name}/${experiments.experiment_name}
+    dir: multirun/${experiments.dataset_name}/${experiments.model_name}/${experiments.experiment_name}/  #${now:%Y-%m-%d-%H-%M-%S}
   sweep:
-    dir: multirun/${experiments.dataset_name}/${experiments.model_name}/${experiments.experiment_name}
-    subdir: ${now:%Y-%m-%d-%H-%M-%S}
+    dir: multirun/${experiments.dataset_name}/${experiments.model_name}/
+    subdir: ${experiments.experiment_name}
 print_config: True
 seed: 87
 test_size: .2

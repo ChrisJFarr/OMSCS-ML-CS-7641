@@ -18,8 +18,9 @@ from cgi import test
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import RepeatedStratifiedKFold, train_test_split
-from sklearn.preprocessing import MinMaxScaler
-
+from sklearn.preprocessing import (
+    MinMaxScaler, Normalizer
+    )
 
 class DataParent(ABC):
 
@@ -79,12 +80,18 @@ class DataParent(ABC):
             y_train_cpy = y_data.iloc[train].copy()
             x_test_cpy = x_data.iloc[test].copy()
             y_test_cpy = y_data.iloc[test].copy()
-            # add_features
-            x_train_cpy, x_test_cpy = self.add_features(x_train_cpy, y_train_cpy, x_test_cpy)
-            # select_features
-            x_train_cpy, x_test_cpy = self.select_features(x_train_cpy, y_train_cpy, x_test_cpy)
-            # scale/normalize
-            x_train_cpy, x_test_cpy = self.scale_or_normalize(x_train_cpy, x_test_cpy)
+            # # fit/transform train
+            # x_train_cpy = self.add_features(x_train=x_train_cpy, y_train=y_train_cpy)
+            # x_train_cpy = self.select_features(x_train=x_train_cpy, y_train=y_train_cpy)
+            # x_train_cpy = self.scale_or_normalize(x_train=x_train_cpy)
+            # # transform test
+            # x_test_cpy = self.add_features(x_test=x_test_cpy)
+            # x_test_cpy = self.select_features(x_test=x_test_cpy)
+            # x_test_cpy = self.scale_or_normalize(x_test=x_test_cpy)
+
+            x_train_cpy = self.fit(x_train_cpy, y_train_cpy).transform(x_train_cpy)
+            x_test_cpy = self.transform(x_test_cpy)
+
             # Yield results
             yield ((x_train_cpy, y_train_cpy), (x_test_cpy, y_test_cpy))
     
@@ -98,6 +105,20 @@ class DataParent(ABC):
         if self.name=="_2_":
             df.loc[:, self.target] = df[self.target].apply(lambda x: int(x>0)).values
         return df
+
+    def fit(self, x_train, y_train=None):
+        x_train = x_train.copy() 
+        x_train = self.add_features(x_train=x_train, y_train=y_train)
+        x_train = self.select_features(x_train=x_train, y_train=y_train)
+        x_train = self.scale_or_normalize(x_train=x_train)
+        return self
+
+    def transform(self, x_data):
+        x_data = x_data.copy()
+        x_data = self.add_features(x_test=x_data)
+        x_data = self.select_features(x_test=x_data)
+        x_data = self.scale_or_normalize(x_test=x_data)
+        return x_data
 
     @abstractmethod
     def add_features(self, x_train, y_train, x_test):
@@ -115,72 +136,132 @@ class DecisionTreeData(DataParent):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
-    def add_features(self, x_train, y_train, x_test):
-        return x_train, x_test
+    def add_features(self, x_train=None, y_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            return x_test
+        elif x_train is not None:
+            return x_train
 
-    def select_features(self, x_train, y_train, x_test):
-        return x_train, x_test
+    def select_features(self, x_train=None, y_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            return x_test
+        elif x_train is not None:
+            return x_train
 
-    def scale_or_normalize(self, x_train, x_test):
-        return x_train, x_test
+    def scale_or_normalize(self, x_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            return x_test
+        elif x_train is not None:
+            return x_train
 
 class NeuralNetworkData(DataParent):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.scaler = MinMaxScaler()
     
-    def add_features(self, x_train, y_train, x_test):
-        return x_train, x_test
+    def add_features(self, x_train=None, y_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            return x_test
+        elif x_train is not None:
+            return x_train
 
-    def select_features(self, x_train, y_train, x_test):
-        return x_train, x_test
+    def select_features(self, x_train=None, y_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            return x_test
+        elif x_train is not None:
+            return x_train
 
-    def scale_or_normalize(self, x_train, x_test):
-        scaler = MinMaxScaler()
-        x_train.iloc[:, :] = scaler.fit_transform(x_train)
-        x_test.iloc[:, :] = scaler.transform(x_test)
-        return x_train, x_test
+    def scale_or_normalize(self, x_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            x_test.iloc[:, :] = self.scaler.transform(x_test)
+            return x_test
+        elif x_train is not None:
+            x_train.iloc[:, :] = self.scaler.fit_transform(x_train)
+            return x_train
 
 class BoostingData(DataParent):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
-    def add_features(self, x_train, y_train, x_test):
-        return x_train, x_test
+    def add_features(self, x_train=None, y_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            return x_test
+        elif x_train is not None:
+            return x_train
 
-    def select_features(self, x_train, y_train, x_test):
-        return x_train, x_test
+    def select_features(self, x_train=None, y_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            return x_test
+        elif x_train is not None:
+            return x_train
 
-    def scale_or_normalize(self, x_train, x_test):
-        return x_train, x_test
+    def scale_or_normalize(self, x_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            return x_test
+        elif x_train is not None:
+            return x_train
 
 class SVMData(DataParent):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.scaler = Normalizer()
     
-    def add_features(self, x_train, y_train, x_test):
-        return x_train, x_test
+    def add_features(self, x_train=None, y_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            return x_test
+        elif x_train is not None:
+            return x_train
 
-    def select_features(self, x_train, y_train, x_test):
-        return x_train, x_test
+    def select_features(self, x_train=None, y_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            return x_test
+        elif x_train is not None:
+            return x_train
 
-    def scale_or_normalize(self, x_train, x_test):
-        scaler = MinMaxScaler()
-        x_train.iloc[:, :] = scaler.fit_transform(x_train)
-        x_test.iloc[:, :] = scaler.transform(x_test)
-        return x_train, x_test
+    def scale_or_normalize(self, x_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            x_test.iloc[:, :] = self.scaler.transform(x_test)
+            return x_test
+        elif x_train is not None:
+            x_train.iloc[:, :] = self.scaler.fit_transform(x_train)
+            return x_train
 
 class KNNData(DataParent):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.scaler = MinMaxScaler()
     
-    def add_features(self, x_train, y_train, x_test):
-        return x_train, x_test
+    def add_features(self, x_train=None, y_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            return x_test
+        elif x_train is not None:
+            return x_train
 
-    def select_features(self, x_train, y_train, x_test):
-        return x_train, x_test
+    def select_features(self, x_train=None, y_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            return x_test
+        elif x_train is not None:
+            return x_train
 
-    def scale_or_normalize(self, x_train, x_test):
-        scaler = MinMaxScaler()
-        x_train.iloc[:, :] = scaler.fit_transform(x_train)
-        x_test.iloc[:, :] = scaler.transform(x_test)
-        return x_train, x_test
+    def scale_or_normalize(self, x_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            x_test.iloc[:, :] = self.scaler.transform(x_test)
+            return x_test
+        elif x_train is not None:
+            x_train.iloc[:, :] = self.scaler.fit_transform(x_train)
+            return x_train

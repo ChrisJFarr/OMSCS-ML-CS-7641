@@ -1,32 +1,74 @@
+defaults:
+  - _self_
+  - dataset: _1_
+
 # Used for log path
 model_name: SVM
-dataset_name: ${dataset.name}
+dataset_name: ${experiments.dataset.name}
 experiment_name: svm-1
 
 datamodule: 
   _target_: src.datamodules.SVMData
-  name: ${dataset.name}
-  path: ${dataset.path}
-  target: ${dataset.target}
+  name: ${experiments.dataset.name}
+  path: ${experiments.dataset.path}
+  target: ${experiments.dataset.target}
   seed: ${seed}
-  cv_splits: ${dataset.cv_splits}
-  cv_repeats: ${dataset.cv_repeats}
+  cv_splits: ${experiments.dataset.cv_splits}
+  cv_repeats: ${experiments.dataset.cv_repeats}
   test_size: ${test_size}
 
 model:
   _target_: src.models.SVMModel
   random_state: ${seed}
   probability: True
-
+  # Default parameters (used for kernel validation curve)
+  C: 1.0
+  kernel: rbf
+  degree: 3
+  gamma: scale
+  coef0: 0.0
+  shrinking: True
+  tol: 0.001
+  class_weight: balanced
+  # # Parameters for poly validation curves
+  # kernel: poly
+  # # Tuned parameters
+  # coef0: 0.0
+  # C: 1.0
+  # degree: 3
 
 evaluation:
   validation_curve:
+    # run for defaults
     kernel:
       start: 0
       stop: 4
       step: 1
-    C:
-      start: 0.1
-      stop: 1.1
-      step: .1
+    # run for poly kernel
+    # C:
+    #   start: 0.001
+    #   stop: 1.01
+    #   step: .01
+    # coef0:
+    #   start: 0.0
+    #   stop: 1.01
+    #   step: .05
+    # degree:
+    #   start: 1
+    #   stop: 7
+    #   step: 1
 
+  # Pick one set of default settings to build out grid-search for
+  grid_search:
+    C:
+      start: 0.9
+      stop: 1.01
+      step: .01
+    coef0:
+      start: 0.1
+      stop: .21
+      step: 0.01
+    degree:
+      start: 2
+      stop: 3
+      step: 1

@@ -15,6 +15,7 @@ from hydra.utils import get_original_cwd
 from hydra.core.hydra_config import HydraConfig
 from sklearn.metrics import precision_recall_fscore_support, roc_auc_score, make_scorer
 from sklearn.model_selection import GridSearchCV
+from sklearn.pipeline import Pipeline
 from matplotlib import pyplot as plt
 
 from joblib import Parallel, delayed
@@ -51,11 +52,19 @@ class Assignment1Evaluation:
         # Build param dict
         params = dict()
         grid_search_params_dict = self.config.experiments.evaluation.grid_search
+        grid_search_params_dict = {"model__" + k: v for k, v in grid_search_params_dict.items()}
         for param_name, v in grid_search_params_dict.items():
             params[param_name] = [val for val in np.arange(**v)]
+        # Build pipeline
+        pipe = Pipeline(
+            steps=[
+                ("preprocess", self.datamodule),
+                ("model", self.model.load().model)
+            ]
+        )
         # Run grid-search
         grid = GridSearchCV(
-            self.model.load().model, 
+            pipe, 
             params,
             scoring=make_scorer(roc_auc_score, needs_proba=True),
             cv=cv,
@@ -158,11 +167,6 @@ class Assignment1Evaluation:
                 (model_name, title, dataset_name, train_at_max_test, max_test_score, x_axis[max_test_i]),
             fontsize="large"
             )
-        # "train: %.2f\ntest:  %.2f" % (train_at_max_test, max_test_score)
-        # x, y = leg.get_bbox_to_anchor().get_points()[0]
-        # plt.text(x, y+5, "test AUC: %.2f" % max_score)
-        # plt.text(ax.get_xlim()[0] + (np.diff(ax.get_xlim()) * .025), max_test_score, "train: %.2f\ntest:  %.2f" % (train_at_max_test, max_test_score), fontsize="small")
-        # plt.text(ax.get_xlim()[0] + (np.diff(ax.get_xlim()) * .025), train_at_max_test, "train: %.2f" % train_at_max_test, fontsize="small")
         plt.axhline(y=max_test_score, color='black', lw=.5, linestyle="--")
         plt.axvline(x=x_axis[max_test_i], color='black', lw=.5, linestyle="--")
 
@@ -174,13 +178,30 @@ class Assignment1Evaluation:
     def _save_bar_graph_plot(self, x_axis, y_axis, title, x_label, save_name):
         # Produce a plot with metrics on y-axis
         fig, ax = plt.subplots()
-        pd.DataFrame(data=y_axis, index=x_axis).sort_index(axis=1).plot.bar()
+        sorted_i = np.argsort(x_axis)
+        y_axis = list(np.array(y_axis)[sorted_i])
+        x_axis = list(np.array(x_axis)[sorted_i])
+        pd.DataFrame(data=y_axis, index=x_axis).plot.bar()
         plt.ylim((0.5, 1.01))
         plt.xlabel(x_label)
         plt.xticks(rotation=45)
         model_name = self.config.experiments.model._target_.split(".")[-1]
         dataset_name = self.config.experiments.dataset.name.split("_")[1]
-        plt.title("%s %s\n Dataset %s" % (model_name, title, dataset_name))        
+        plt.title("%s %s\n Dataset %s" % (model_name, title, dataset_name))
+
+        test_performance = np.array([v for d in y_axis for k, v in d.items() if "test" in k])
+        train_performance = np.array([v for d in y_axis for k, v in d.items() if "train" in k])
+        max_test_score = np.max(test_performance)
+        max_test_i = np.argmax(test_performance)
+        train_at_max_test = train_performance[max_test_i]
+        plt.title(
+            "%s %s; dataset: %s\ntrain AUC: %.3f; test AUC: %.3f; param=%s" % \
+                (model_name, title, dataset_name, train_at_max_test, max_test_score, x_axis[max_test_i]),
+            fontsize="large"
+            )
+        plt.axhline(y=max_test_score, color='black', lw=.5, linestyle="--")
+        plt.axvline(x=max_test_i, color='black', lw=.5, linestyle="--")
+
         # make a legend for both plots
         leg = plt.legend()
         hdr = HydraConfig.get()
