@@ -19,7 +19,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import RepeatedStratifiedKFold, train_test_split
 from sklearn.preprocessing import (
-    MinMaxScaler, Normalizer
+    MinMaxScaler
     )
 
 class DataParent(ABC):
@@ -43,11 +43,6 @@ class DataParent(ABC):
             stratify=y_data, 
             random_state=self.seed
             )
-        return x_train, x_test, y_train, y_test
-
-    def make_loader(self, train_percentage=1.0):
-        # Load the train/test dataset
-        x_train, x_test, y_train, y_test = self.get_full_dataset()
         # Rebalance dataset by downsampling, filter to homogenous sample
         if self.produce_ds2_small:
             df = pd.concat([x_train, y_train], axis=1)
@@ -63,6 +58,11 @@ class DataParent(ABC):
                 ).reset_index(drop=True)
             x_train = df.drop(self.target, axis=1)
             y_train = df[self.target]
+        return x_train, x_test, y_train, y_test
+
+    def make_loader(self, train_percentage=1.0):
+        # Load the train/test dataset
+        x_train, x_test, y_train, y_test = self.get_full_dataset()
         # Select percentage of training data
         train = pd.concat([x_train, y_train], axis=1).sample(frac=train_percentage, random_state=self.seed)
         x_train, y_train = train.iloc[:, :x_train.shape[1]], train.iloc[:, -1]
@@ -80,17 +80,9 @@ class DataParent(ABC):
             y_train_cpy = y_data.iloc[train].copy()
             x_test_cpy = x_data.iloc[test].copy()
             y_test_cpy = y_data.iloc[test].copy()
-            # fit/transform train
-            x_train_cpy = self.add_features(x_train=x_train_cpy, y_train=y_train_cpy)
-            x_train_cpy = self.select_features(x_train=x_train_cpy, y_train=y_train_cpy)
-            x_train_cpy = self.scale_or_normalize(x_train=x_train_cpy)
-            # transform test
-            x_test_cpy = self.add_features(x_test=x_test_cpy)
-            x_test_cpy = self.select_features(x_test=x_test_cpy)
-            x_test_cpy = self.scale_or_normalize(x_test=x_test_cpy)
 
-            # x_train_cpy = self.fit(x_train_cpy, y_train_cpy).transform(x_train_cpy)
-            # x_test_cpy = self.transform(x_test_cpy)
+            x_train_cpy = self.fit(x_train_cpy, y_train_cpy).transform(x_train_cpy)
+            x_test_cpy = self.transform(x_test_cpy)
 
             # Yield results
             yield ((x_train_cpy, y_train_cpy), (x_test_cpy, y_test_cpy))
@@ -213,7 +205,7 @@ class BoostingData(DataParent):
 class SVMData(DataParent):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.scaler = Normalizer()
+        self.scaler = MinMaxScaler()
     
     def add_features(self, x_train=None, y_train=None, x_test=None):
         assert x_train is not None or x_test is not None, "must pass x_train or x_test"

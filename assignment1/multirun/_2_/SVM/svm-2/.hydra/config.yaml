@@ -19,32 +19,44 @@ experiments:
     _target_: src.models.SVMModel
     random_state: ${seed}
     probability: true
-    C: 1.0
-    kernel: rbf
-    degree: 3
     gamma: scale
-    coef0: 0.0
     shrinking: true
     tol: 0.001
     class_weight: balanced
+    kernel: poly
+    C: 0.89
+    coef0: 0.16
+    degree: 1
   evaluation:
     validation_curve:
       kernel:
         start: 0
         stop: 4
         step: 1
-    grid_search:
       C:
-        start: 0.9
+        start: 0.001
         stop: 1.01
         step: 0.01
       coef0:
+        start: 0.0
+        stop: 1.01
+        step: 0.05
+      degree:
+        start: 1
+        stop: 7
+        step: 1
+    grid_search:
+      C:
+        start: 0.85
+        stop: 0.95
+        step: 0.01
+      coef0:
         start: 0.1
-        stop: 0.21
+        stop: 0.2
         step: 0.01
       degree:
-        start: 2
-        stop: 3
+        start: 1
+        stop: 5
         step: 1
   dataset:
     name: _2_
@@ -52,4 +64,4 @@ experiments:
     target: Diabetes_012
     cv_splits: 5
     cv_repeats: 1
-func: vc
+func: lc

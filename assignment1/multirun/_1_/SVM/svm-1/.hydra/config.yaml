@@ -19,18 +19,30 @@ experiments:
     random_state: ${seed}
     probability: true
     C: 1.0
-    kernel: rbf
     degree: 3
     gamma: scale
     coef0: 0.0
     shrinking: true
     tol: 0.001
     class_weight: balanced
+    kernel: poly
   evaluation:
     validation_curve:
       kernel:
         start: 0
         stop: 4
+        step: 1
+      C:
+        start: 0.001
+        stop: 1.01
+        step: 0.01
+      coef0:
+        start: 0.0
+        stop: 1.01
+        step: 0.05
+      degree:
+        start: 1
+        stop: 7
         step: 1
     grid_search:
       C:

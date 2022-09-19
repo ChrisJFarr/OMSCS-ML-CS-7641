@@ -191,6 +191,11 @@ Experiment 1 Steps (do this for each model/dataset combination)
     b. why might it be different and could that risk maybe have been mitigated using knowledge only from the train set?
         Or what else would have been needed to make a better estimate?
 
+General experiment Notes
+* slight mismatch between performance seen in validation curves and
+   the reported performance of the grid-search, even with identical parameters
+   and seeds set. This may have to do with the grid-search-cv implementation
+   unless there was a subtle mistake in my code.
 
 
 ### SVM Analysis
@@ -228,6 +233,9 @@ Experiment 1
 #############
 
 ## Perform validation curve analysis
+
+Generating validation curve...
+Validation curve completed in 198.4 seconds
 
 First step is to select which kernels might perform best by using only default parameters.
 Top performers were:
@@ -287,13 +295,70 @@ Experiment 2
 ## Generate validation curves
 
 First analyzing impacts of different kernels on the dataset
-* poly
-    * highest performing
-    * .795 test AUC, .814 train AUC
-* linear, rbf, and sigmoid performed similarly
-* sigmoid overfit the least
+* linear performed best: test-auc .828, train-auc .852
+* poly had close to optimal performance and the highest train-auc by visual inspection
+* rbf had slightly lower performance than linear/poly but much higher than sigmoid
+* sigmoid overfit the least but had very low performance
 
-poly performed the best and is the same kernel that was used in experiment 1
-so I will use poly for the remaining experiments
+Since poly was used in experiment 1, it had the best train performance, and very
+comparable test performance, I will use that for the rest of the experiment.
+
+validation cure analysis
+* C
+    * test AUC .832, train AUC .912
+    * best value: .5
+* coef0
+    * test AUC .828, train AUC .933
+    * best value: .2
+* degree
+    * test AUC .832, train AUC .887
+    * best value: 2
+
+ds1 vs ds2-small
+coef0 looks similar to a bias term, perhaps shifting the prediction borders linearly
+C:
+    * ds1 was higher performing with a smaller c
+    * ds2 performed better with a higher term (meaning less bias)
+degree:
+    * ds1 and ds2-small performed better with degree 2
+
+
+## Perform grid-search
+
+Round 1
+Fitting on 768 train examples...
+Best parameters
+{'model__C': 0.8999999999999999,
+ 'model__coef0': 0.15000000000000002,
+ 'model__degree': 1}
+'Best performance: 0.830'
+Round 2
+Fitting on 768 train examples...
+Best parameters
+{'model__C': 0.89, 'model__coef0': 0.15999999999999998, 'model__degree': 1}
+'Best performance: 0.830'
+Grid search completed in 8.4 seconds
+
+
+## Generate learning curve
+
+Generating learning curve...
+Learning curve completed in 35.6 seconds
+
+At 27% of the data the model peaks in performance. There is a slight downturn
+in test performance afterwards from 60% to 100% of the data. With such
+a small dataset this is likely misleading and could be caused by some
+hard examples to predict that made it into the random sample during downsampling.
+This is interesting because based on this, it's not clear if more data would be 
+helpful or not. In experiment 3 we will see if more data does in fact help. Additionally,
+experiment 3 will consistent of a more diverse population which implies that the 
+problem will be harder to solve, although more data will also be available.
+
+###############
+Experiment 3
+############
+
+
+
 
 

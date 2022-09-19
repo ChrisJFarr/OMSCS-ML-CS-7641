@@ -23,7 +23,7 @@ model:
   probability: True
   # Default parameters (used for kernel validation curve)
   C: 1.0
-  kernel: rbf
+  # kernel: rbf
   degree: 3
   gamma: scale
   coef0: 0.0
@@ -31,7 +31,7 @@ model:
   tol: 0.001
   class_weight: balanced
   # # Parameters for poly validation curves
-  # kernel: poly
+  kernel: poly
   # # Tuned parameters
   # coef0: 0.0
   # C: 1.0
@@ -45,18 +45,18 @@ evaluation:
       stop: 4
       step: 1
     # run for poly kernel
-    # C:
-    #   start: 0.001
-    #   stop: 1.01
-    #   step: .01
-    # coef0:
-    #   start: 0.0
-    #   stop: 1.01
-    #   step: .05
-    # degree:
-    #   start: 1
-    #   stop: 7
-    #   step: 1
+    C:
+      start: 0.001
+      stop: 1.01
+      step: .01
+    coef0:
+      start: 0.0
+      stop: 1.01
+      step: .05
+    degree:
+      start: 1
+      stop: 7
+      step: 1
 
   # Pick one set of default settings to build out grid-search for
   grid_search:

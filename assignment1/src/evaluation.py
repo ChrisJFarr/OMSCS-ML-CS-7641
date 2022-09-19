@@ -55,6 +55,8 @@ class Assignment1Evaluation:
         grid_search_params_dict = {"model__" + k: v for k, v in grid_search_params_dict.items()}
         for param_name, v in grid_search_params_dict.items():
             params[param_name] = [val for val in np.arange(**v)]
+        print("Grid-Search Parameters:")
+        pprint(params)
         # Build pipeline
         pipe = Pipeline(
             steps=[
@@ -70,6 +72,7 @@ class Assignment1Evaluation:
             cv=cv,
             n_jobs=cpu_count()-1
             )
+        print("Fitting on %s train examples..." % x_train.shape[0])
         grid.fit(x_train, y_train)
         print("Best parameters")
         pprint(grid.best_params_)
