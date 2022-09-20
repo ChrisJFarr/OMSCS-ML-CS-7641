@@ -34,4 +34,7 @@ evaluation:
       start: 25
       stop: 300
       step: 50
-
+  learning_curve:
+    start: .1
+    stop: 1.001
+    step: .01

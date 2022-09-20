@@ -221,7 +221,7 @@ class Assignment1Evaluation:
         x_axis = list()
         y_axis = list()
         # Loop over percentages 10%...100% by 5-10% increments
-        for percent in np.arange(.10, 1.01, .01):
+        for percent in np.arange(**self.config.experiments.evaluation.learning_curve):
             # Track percentages for x-axis
             x_axis.append(percent)
             # Get generator

@@ -1,19 +1,16 @@
-defaults:
-  - _self_
-  - dataset: _1_
 # Used for log path
 model_name: BoostingModel
-dataset_name: ${experiments.dataset.name}
+dataset_name: ${dataset.name}
 experiment_name: boost-1
 
 datamodule: 
   _target_: src.datamodules.BoostingData
-  name: ${experiments.dataset.name}
-  path: ${experiments.dataset.path}
-  target: ${experiments.dataset.target}
+  name: ${dataset.name}
+  path: ${dataset.path}
+  target: ${dataset.target}
   seed: ${seed}
-  cv_splits: ${experiments.dataset.cv_splits}
-  cv_repeats: ${experiments.dataset.cv_repeats}
+  cv_splits: ${dataset.cv_splits}
+  cv_repeats: ${dataset.cv_repeats}
   test_size: ${test_size}
 
 model:
@@ -29,7 +26,4 @@ evaluation:
       start: 10
       stop: 200
       step: 25
-  learning_curve:
-    start: .1
-    stop: 1.001
-    step: .01
+

@@ -165,17 +165,12 @@ Analysis topics:
 * dataset size
 
 
-Run 3 experiments. 
+Run 2 experiments. 
 {model-name}-1: Optimize performance for ds1 using grid-search, produce plots
-{model-name}-2: Shrink ds2 through repeated random selection, optimize using grid-search, produce plots
-    * produce ds3 from ds2:
-        * balance the classes, so randomly sample for each class and match ds1 balance exactly
-        * filter to a narrower demographic to match ds1 (all female)
-    * (use n seeds for n repeats and % of data parameter)
-{model-name}-3: Optimize performance for ds2 using grid-search, produce plots
+{model-name}-2: Optimize performance for ds2 using grid-search, produce plots
 
 
-Experiment 1 Steps (do this for each model/dataset combination)
+Experiment Steps (do this for each model/dataset combination)
 1. Starting from default parameters, perform validation curve analysis on the selected parameters
     a. report top test performance and associated train performance
     b. report train and test performance for each metric
@@ -198,5 +193,4 @@ General experiment Notes
    unless there was a subtle mistake in my code.
 
 
-### KNN analysis
 

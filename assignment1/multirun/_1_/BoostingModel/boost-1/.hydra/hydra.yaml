@@ -123,12 +123,12 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - +func=lc
-    - experiments=svm-3
+    - +func=vc
+    - experiments=boost-1
   job:
     name: run
     chdir: null
-    override_dirname: +func=lc,experiments=svm-3
+    override_dirname: +func=vc,experiments=boost-1
     id: ???
     num: ???
     config_name: config.yaml
@@ -153,11 +153,11 @@ hydra:
     - path: ''
       schema: structured
       provider: schema
-    output_dir: /Users/chrisfarr/Desktop/gatech/OMSCS-ML-CS-7641/assignment1/multirun/_2_/SVM/svm-3
+    output_dir: /Users/chrisfarr/Desktop/gatech/OMSCS-ML-CS-7641/assignment1/multirun/_1_/BoostingModel/boost-1
     choices:
       func: null
-      experiments: svm-3
-      experiments/dataset: _2_
+      experiments: boost-1
+      experiments/dataset: _1_
       hydra/env: default
       hydra/callbacks: null
       hydra/job_logging: default

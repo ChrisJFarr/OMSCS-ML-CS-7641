@@ -1,0 +1,95 @@
+### KNN analysis
+
+
+Preprocessing: Min-max scaling
+
+Generating validation curve...
+Validation curve completed in 52.9 seconds
+
+TODO Analyze validation curve outputs
+
+Round 1
+Performing grid search...
+Grid-Search Parameters:
+{'model__n_neighbors': [25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75],
+ 'model__p': [1, 2, 3]}
+Fitting on 614 train examples...
+Best parameters
+{'model__n_neighbors': 40, 'model__p': 1}
+'Best performance: 0.829'
+Grid search completed in 16.0 seconds
+
+Round 2
+Performing grid search...
+Grid-Search Parameters:
+{'model__n_neighbors': [35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45],
+ 'model__p': [1, 2]}
+Fitting on 614 train examples...
+Best parameters
+{'model__n_neighbors': 39, 'model__p': 1}
+'Best performance: 0.829'
+Grid search completed in 9.8 seconds
+
+
+Compute learing curve
+
+Generating learning curve...
+Learning curve completed in 121.9 seconds
+
+########
+Problem 2
+########
+
+kd-tree runs in O(n log(n)) time and for 200K examples this was taking too
+long. After running for 30+ minutes I had to stop the experiment and shrink
+the training set to only 15% of the original size. This allowed it to finish
+in a reasonable amount of time.
+
+Generating validation curve...
+Validation curve completed in 213.6 seconds
+
+Grid Search
+
+Round 1
+Performing grid search...
+Grid-Search Parameters:
+{'model__n_neighbors': [75, 150, 225, 300, 375, 450], 'model__p': [1, 2]}
+Fitting on 20294 train examples...
+Best parameters
+{'model__n_neighbors': 450, 'model__p': 1}
+'Best performance: 0.790'
+Grid search completed in 16.2 seconds
+
+Round 2
+Performing grid search...
+Grid-Search Parameters:
+{'model__n_neighbors': [300, 325, 350, 375, 400, 425, 450, 475],
+ 'model__p': [1, 2]}
+Fitting on 20294 train examples...
+Best parameters
+{'model__n_neighbors': 475, 'model__p': 1}
+'Best performance: 0.790'
+Grid search completed in 21.9 seconds
+
+Round 3
+
+Performing grid search...
+Grid-Search Parameters:
+{'model__n_neighbors': [450,
+                        475,
+                        ...,
+                        950,
+                        975],
+ 'model__p': [1, 2]}
+Fitting on 20294 train examples...
+Best parameters
+{'model__n_neighbors': 550, 'model__p': 1}
+'Best performance: 0.790'
+Grid search completed in 69.5 seconds
+
+## Learning curve
+Generating learning curve...
+Learning curve completed in 379.6 seconds
+
+Steady but small increase in performance with more examples.
+

@@ -2,11 +2,11 @@ print_config: true
 seed: 87
 test_size: 0.2
 experiments:
-  model_name: DecisionTreeModel
+  model_name: KNNModel
   dataset_name: ${experiments.dataset.name}
-  experiment_name: tree-3
+  experiment_name: knn-2
   datamodule:
-    _target_: src.datamodules.DecisionTreeData
+    _target_: src.datamodules.KNNData
     name: ${experiments.dataset.name}
     path: ${experiments.dataset.path}
     target: ${experiments.dataset.target}
@@ -14,37 +14,42 @@ experiments:
     cv_splits: ${experiments.dataset.cv_splits}
     cv_repeats: ${experiments.dataset.cv_repeats}
     test_size: ${test_size}
-    produce_ds2_small: false
+    produce_ds2_small: true
   model:
-    _target_: src.models.DecisionTreeModel
-    random_state: ${seed}
-    class_weight: balanced
-    max_depth: 8
-    ccp_alpha: 0.0
-    min_samples_split: 178
-    min_samples_leaf: 44
+    _target_: src.models.KNNModel
+    weights: distance
+    algorithm: kd_tree
+    leaf_size: 30
+    n_jobs: -1
+    n_neighbors: 550
+    p: 1
   evaluation:
     validation_curve:
-      max_depth:
-        start: 2
-        stop: 10
-        step: 1
-      ccp_alpha:
-        start: 0.0
-        stop: 0.051
-        step: 0.001
-      min_samples_split:
-        start: 2
-        stop: 500
-        step: 25
-      min_samples_leaf:
+      n_neighbors:
         start: 1
         stop: 500
         step: 25
+      p:
+        start: 1
+        stop: 4
+        step: 1
+    grid_search:
+      n_neighbors:
+        start: 450
+        stop: 1000
+        step: 25
+      p:
+        start: 1
+        stop: 3
+        step: 1
+    learning_curve:
+      start: 0.1
+      stop: 1.0
+      step: 0.01
   dataset:
     name: _2_
     path: data/diabetes_012_health_indicators_BRFSS2015.csv
     target: Diabetes_012
     cv_splits: 5
     cv_repeats: 1
-func: vc
+func: lc

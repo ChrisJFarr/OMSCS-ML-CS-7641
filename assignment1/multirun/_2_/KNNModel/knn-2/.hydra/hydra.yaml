@@ -124,11 +124,11 @@ hydra:
     - hydra.mode=RUN
     task:
     - +func=lc
-    - experiments=svm-3
+    - experiments=knn-2
   job:
     name: run
     chdir: null
-    override_dirname: +func=lc,experiments=svm-3
+    override_dirname: +func=lc,experiments=knn-2
     id: ???
     num: ???
     config_name: config.yaml
@@ -153,10 +153,10 @@ hydra:
     - path: ''
       schema: structured
       provider: schema
-    output_dir: /Users/chrisfarr/Desktop/gatech/OMSCS-ML-CS-7641/assignment1/multirun/_2_/SVM/svm-3
+    output_dir: /Users/chrisfarr/Desktop/gatech/OMSCS-ML-CS-7641/assignment1/multirun/_2_/KNNModel/knn-2
     choices:
       func: null
-      experiments: svm-3
+      experiments: knn-2
       experiments/dataset: _2_
       hydra/env: default
       hydra/callbacks: null

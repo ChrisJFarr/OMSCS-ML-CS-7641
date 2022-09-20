@@ -19,30 +19,62 @@ datamodule:
 
 model:
   _target_: src.models.KNNModel
-  random_state: ${seed}
-  probability: True
   # Default parameters (used for kernel validation curve)
   weights: distance # distance or uniform
+  algorithm: kd_tree   # "ball_tree", "kd_tree", "brute"
   leaf_size: 30  # Only for BallTree or KDTree
-  p: 2
+  # p: 2
+  n_jobs: -1
   # Parameters for poly validation curves
   # Tuned parameters
+  n_neighbors: 550
+  p: 1
 
 evaluation:
   validation_curve:
     # Run with defaults
-    algorithm:
-      start: 0
-      stop: 3
-      step: 1
     n_neighbors:
-      start: 5
-      stop: 50
-      step: 10
+      start: 1
+      stop: 500
+      step: 25
+    p:
+      start: 1
+      stop: 4
+      step: 1
 
   # Pick one set of default settings to build out grid-search for
+  # # Round 1
+  # grid_search:
+  #   n_neighbors:
+  #     start: 75
+  #     stop: 500
+  #     step: 75
+  #   p:
+  #     start: 1
+  #     stop: 3
+  #     step: 1
+  # # Round 2
+  # grid_search:
+  #   n_neighbors:
+  #     start: 300
+  #     stop: 500
+  #     step: 25
+  #   p:
+  #     start: 1
+  #     stop: 3
+  #     step: 1
+  # Round 3
   grid_search:
     n_neighbors:
-      start: 5
-      stop: 50
-      step: 10
+      start: 450
+      stop: 1000
+      step: 25
+    p:
+      start: 1
+      stop: 3
+      step: 1
+
+  learning_curve:
+    start: .1
+    stop: 1.0
+    step: .01

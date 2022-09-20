@@ -200,12 +200,13 @@ class BoostingModel(ModelParent):
         super().__init__()
         self.args = args
         self.kwargs = kwargs
+        self.base_estimator_params = kwargs.pop("base_estimator_params", {})
         self.is_loaded = False
         
     def load(self):
         args = self.args
         kwargs = self.kwargs
-        base_estimator_params = kwargs.pop("base_estimator_params")
+        base_estimator_params = self.base_estimator_params
         base_estimator = DecisionTreeClassifier(**base_estimator_params)
         self.model = AdaBoostClassifier(base_estimator=base_estimator, *args, **kwargs)
         self.is_loaded = True
@@ -300,7 +301,6 @@ class SVMModel(ModelParent):
 class KNNModel(ModelParent):
     def __init__(self, *args, **kwargs):
         super().__init__()
-        self.algorithms = ("ball_tree", "kd_tree", "brute")
         self.args = args
         self.kwargs = kwargs
         self.is_loaded = False
@@ -325,9 +325,6 @@ class KNNModel(ModelParent):
         return self.model.predict_proba(*args, **kwargs)[:, 1]
 
     def set_params(self, **params):
-        # Convert integer algorithm-type to str
-        if "algorithm" in params and str(params["algorithm"]).isnumeric():
-            params["algorithm"] = self.algorithms[params.pop("algorithm")]
         if self.is_loaded:
             self.model.set_params(**params)
         else:

@@ -1,0 +1,51 @@
+print_config: true
+seed: 87
+test_size: 0.2
+experiments:
+  model_name: KNNModel
+  dataset_name: ${experiments.dataset.name}
+  experiment_name: knn-1
+  datamodule:
+    _target_: src.datamodules.KNNData
+    name: ${experiments.dataset.name}
+    path: ${experiments.dataset.path}
+    target: ${experiments.dataset.target}
+    seed: ${seed}
+    cv_splits: ${experiments.dataset.cv_splits}
+    cv_repeats: ${experiments.dataset.cv_repeats}
+    test_size: ${test_size}
+  model:
+    _target_: src.models.KNNModel
+    weights: distance
+    p: 1
+    n_neighbors: 50
+  evaluation:
+    validation_curve:
+      n_neighbors:
+        start: 1
+        stop: 500
+        step: 25
+      p:
+        start: 1
+        stop: 4
+        step: 1
+    grid_search:
+      n_neighbors:
+        start: 35
+        stop: 46
+        step: 1
+      p:
+        start: 1
+        stop: 3
+        step: 1
+    learning_curve:
+      start: 0.25
+      stop: 1.0
+      step: 0.01
+  dataset:
+    name: _1_
+    path: data/diabetes.csv
+    target: Outcome
+    cv_splits: 5
+    cv_repeats: 100
+func: gs

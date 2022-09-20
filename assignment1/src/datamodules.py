@@ -19,7 +19,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import RepeatedStratifiedKFold, train_test_split
 from sklearn.preprocessing import (
-    MinMaxScaler
+    MinMaxScaler, Normalizer
     )
 
 class DataParent(ABC):
@@ -46,16 +46,7 @@ class DataParent(ABC):
         # Rebalance dataset by downsampling, filter to homogenous sample
         if self.produce_ds2_small:
             df = pd.concat([x_train, y_train], axis=1)
-            df = df.loc[df["Sex"]==0, :] # filtering to only female patients
-            pos_df = df.loc[df[self.target]==0, :]
-            neg_df = df.loc[df[self.target]==1, :]
-            # Balance to same class balance and size as ds1
-            df = pd.concat(
-                    [
-                        pos_df.sample(n=268, replace=False, random_state=self.seed), 
-                        neg_df.sample(n=500, replace=False, random_state=self.seed)
-                    ], axis=0
-                ).reset_index(drop=True)
+            df = df.sample(frac=.1, random_state=self.seed)
             x_train = df.drop(self.target, axis=1)
             y_train = df[self.target]
         return x_train, x_test, y_train, y_test

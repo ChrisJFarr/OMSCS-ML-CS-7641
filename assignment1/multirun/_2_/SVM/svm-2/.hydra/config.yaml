@@ -4,60 +4,45 @@ test_size: 0.2
 experiments:
   model_name: SVM
   dataset_name: ${experiments.dataset.name}
-  experiment_name: svm-2
+  experiment_name: svm-3
   datamodule:
     _target_: src.datamodules.SVMData
     name: ${experiments.dataset.name}
     path: ${experiments.dataset.path}
     target: ${experiments.dataset.target}
     seed: ${seed}
-    cv_splits: ${experiments.dataset.cv_splits}
+    cv_splits: 3
     cv_repeats: ${experiments.dataset.cv_repeats}
     test_size: ${test_size}
-    produce_ds2_small: true
+    produce_ds2_small: false
   model:
     _target_: src.models.SVMModel
     random_state: ${seed}
     probability: true
+    bagging_estimators: 100
     gamma: scale
     shrinking: true
     tol: 0.001
     class_weight: balanced
     kernel: poly
-    C: 0.89
-    coef0: 0.16
-    degree: 1
+    C: 3.5
+    coef0: 4.5
+    degree: 2
   evaluation:
     validation_curve:
-      kernel:
-        start: 0
-        stop: 4
-        step: 1
       C:
         start: 0.001
         stop: 1.01
-        step: 0.01
+        step: 0.25
       coef0:
         start: 0.0
         stop: 1.01
-        step: 0.05
-      degree:
-        start: 1
-        stop: 7
-        step: 1
-    grid_search:
-      C:
-        start: 0.85
-        stop: 0.95
-        step: 0.01
-      coef0:
-        start: 0.1
-        stop: 0.2
-        step: 0.01
+        step: 0.25
       degree:
         start: 1
         stop: 5
         step: 1
+    grid_search: null
   dataset:
     name: _2_
     path: data/diabetes_012_health_indicators_BRFSS2015.csv
