@@ -1,0 +1,251 @@
+### SVM Analysis
+
+validation curve parameters for experiments 1, 2 and 3
+evaluation:
+  validation_curve:
+    # run for defaults
+    kernel:
+      start: 0
+      stop: 4
+      step: 1
+    # run for poly kernel
+    C:
+      start: 0.001
+      stop: 1.01
+      step: .01
+    coef0:
+      start: 0.0
+      stop: 1.01
+      step: .05
+    degree:
+      start: 1
+      stop: 7
+      step: 1
+
+# Data preprocessing
+* I tested min-max scaling and l2 normalizing as preprocessing functions for
+    the input data and min-max scaling performed significantly better. I will use
+    scaling for the remaining experiments.
+
+
+############
+Experiment 1
+#############
+
+## Perform validation curve analysis
+
+Generating validation curve...
+Validation curve completed in 198.4 seconds
+
+First step is to select which kernels might perform best by using only default parameters.
+Top performers were:
+    * rbf with test AUC .849 (train .887)
+    * poly with an AUC less than rbf and greater than linear, also >.8, and train AUC > rbf. This tells me that it is fitting the data really well
+        and there might be potential for higher performance than rbf when tuned.
+    * then linear with and AUC less than poly but also > .8. This kernel also had the least amount of overfitting with the train score very close
+        to the test score visually.
+Due to the close to optimal test performance of poly as well as the optimal train performance, I decided to explore this kernel further.
+
+set kernel to poly for remaining experiments
+
+* C:
+    * best test .849, train .882
+    * param=0.141
+* coef0:
+    * best test .844, train .898
+    * param=0.05
+* degree:
+    * best test .851, train .879
+    * param=2
+
+## Perform grid search
+
+Round 1
+Best parameters
+{'model__C': 0.9510000000000001,
+ 'model__coef0': 0.15000000000000002,
+ 'model__degree': 2}
+'Best performance: 0.849'
+Grid search completed in 175.6 seconds
+Round 2
+Best parameters
+{'model__C': 0.9700000000000002,
+ 'model__coef0': 0.17500000000000002,
+ 'model__degree': 2}
+'Best performance: 0.849'
+Grid search completed in 162.5 seconds
+Round 3
+Best parameters
+{'model__C': 0.9, 'model__coef0': 0.19999999999999996, 'model__degree': 2}
+'Best performance: 0.849'
+Grid search completed in 117.2 seconds
+
+## Compute learning curve
+Generating learning curve...
+Learning curve completed in 157.2 seconds
+
+A blip at 17% reached peak performance of 86.9 test AUC. However, the general trend of using more data
+is an increase in test score and a decrease in overfitting.
+
+#############
+Experiment 2
+############
+
+
+## Generate validation curves
+
+First analyzing impacts of different kernels on the dataset
+* linear performed best: test-auc .828, train-auc .852
+* poly had close to optimal performance and the highest train-auc by visual inspection
+* rbf had slightly lower performance than linear/poly but much higher than sigmoid
+* sigmoid overfit the least but had very low performance
+
+Since poly was used in experiment 1, it had the best train performance, and very
+comparable test performance, I will use that for the rest of the experiment.
+
+validation cure analysis
+* C
+    * test AUC .832, train AUC .912
+    * best value: .5
+* coef0
+    * test AUC .828, train AUC .933
+    * best value: .2
+* degree
+    * test AUC .832, train AUC .887
+    * best value: 2
+
+ds1 vs ds2-small
+coef0 looks similar to a bias term, perhaps shifting the prediction borders linearly
+C:
+    * ds1 was higher performing with a smaller c
+    * ds2 performed better with a higher term (meaning less bias)
+degree:
+    * ds1 and ds2-small performed better with degree 2
+
+
+## Perform grid-search
+
+Round 1
+Fitting on 768 train examples...
+Best parameters
+{'model__C': 0.8999999999999999,
+ 'model__coef0': 0.15000000000000002,
+ 'model__degree': 1}
+'Best performance: 0.830'
+Round 2
+Fitting on 768 train examples...
+Best parameters
+{'model__C': 0.89, 'model__coef0': 0.15999999999999998, 'model__degree': 1}
+'Best performance: 0.830'
+Grid search completed in 8.4 seconds
+
+
+## Generate learning curve
+
+Generating learning curve...
+Learning curve completed in 35.6 seconds
+
+At 27% of the data the model peaks in performance. There is a slight downturn
+in test performance afterwards from 60% to 100% of the data. With such
+a small dataset this is likely misleading and could be caused by some
+hard examples to predict that made it into the random sample during downsampling.
+This is interesting because based on this, it's not clear if more data would be 
+helpful or not. In experiment 3 we will see if more data does in fact help. Additionally,
+experiment 3 will consistent of a more diverse population which implies that the 
+problem will be harder to solve, although more data will also be available.
+
+###############
+Experiment 3
+############
+
+Runtime taking much longer.
+
+With a max-iter of 10, testing 4 kernel types took 12.1 seconds
+* best performance was test-auc=.588 and only rbf was > .5
+With a max-iter of 100, 35 seconds
+* best performance was test-auc=.552 and only linear was > .5
+With a max-iter of 1000, 250 seconds
+* best performance was test-auc=.506 and only linear was > .5
+
+Apparantly the SVM has a quadratic runtime wrt the number of examples. 
+One solution to this would be to produce an ensemble of SVC's and 
+train each on a different subset of the data. 
+https://stackoverflow.com/questions/31681373/making-svm-run-faster-in-python
+
+Using 1000 estimators, each with 1/1000 of the dataset and no repeats
+Poly runtime
+Generating validation curve...
+Validation curve completed in 211.3 seconds
+* test auc: .803
+Because I am only using this architecture for computing speed, I will
+not fine-tune this 1000 estimators and will use this value for 
+the remaining exercises of experiment 3.
+
+Running linear
+Generating validation curve...
+Validation curve completed in 212.2 seconds
+
+Runtime as a function of n-bagging-estimators
+2000: 298
+1000: 212
+500: 177
+*100: 163*
+50: 176
+
+Also reduced the k-folds from 5 to 3
+Now the linear kernel is fitting in 100 seconds and this is manageable.
+
+Generating validation curve...
+Validation curve completed in 743.6 seconds
+
+* linear
+    * had the best test auc: .815 and train auc: .815
+* poly and rbf had similar performance to linear
+* simgoid was substantially lower performing
+
+Near identical runtimes and performance. Will move forward with poly
+for consistency.
+
+Generating validation curve...
+Validation curve completed in 1254.7 seconds
+
+## Perform gridsearch
+
+
+Round 1
+Performing grid search...
+Grid-Search Parameters:
+{'model__base_estimator__C': [0.5, 1.0],
+ 'model__base_estimator__coef0': [0.5, 1.0],
+ 'model__base_estimator__degree': [2, 3]}
+Fitting on 202944 train examples...
+Best parameters
+{'model__base_estimator__C': 1.0,
+ 'model__base_estimator__coef0': 1.0,
+ 'model__base_estimator__degree': 2}
+'Best performance: 0.817'
+Grid search completed in 253.8 seconds
+Round 2
+Performing grid search...
+Grid-Search Parameters:
+{'model__base_estimator__C': [1.5, 2.5, 3.5, 4.5],
+ 'model__base_estimator__coef0': [1.5, 2.5, 3.5, 4.5],
+ 'model__base_estimator__degree': [2]}
+Fitting on 202944 train examples...
+Best parameters
+{'model__base_estimator__C': 3.5,
+ 'model__base_estimator__coef0': 4.5,
+ 'model__base_estimator__degree': 2}
+'Best performance: 0.819'
+Grid search completed in 514.9 seconds
+
+## Generate the learning curve
+Generating learning curve...
+Learning curve completed in 2908.7 seconds
+
+I see diminishing returns, however there is a steady improvement 
+more training examples are used. The best performance is when using the
+entire dataset.
+This isn't what we saw when using the smaller datasets, however, this
+is likely because the smaller datasets learners are easily influenced
+based a small change in the number of examples.

@@ -1,7 +1,12 @@
+from ensurepip import bootstrap
+from os import cpu_count
 from src.nn_support import MyNeuralNetwork, LitNeuralNetwork, MyDataset
 
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import (
+    AdaBoostClassifier,
+    BaggingClassifier
+)
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
@@ -237,6 +242,7 @@ class SVMModel(ModelParent):
     def __init__(self, *args, **kwargs):
         super().__init__()
         self.kernels = ("linear", "poly", "rbf", "sigmoid")
+        self.bagging_estimators = kwargs.pop("bagging_estimators", None)
         self.args = args
         self.kwargs = kwargs
         self.is_loaded = False
@@ -244,7 +250,18 @@ class SVMModel(ModelParent):
     def load(self):
         args = self.args
         kwargs = self.kwargs
-        self.model = SVC(*args, **kwargs)
+        if self.bagging_estimators is None:
+            self.model = SVC(*args, **kwargs)
+        else:
+            self.model = BaggingClassifier(
+                SVC(*args, **kwargs),
+                n_estimators=self.bagging_estimators,
+                max_samples=1.0/self.bagging_estimators,
+                bootstrap=False,
+                n_jobs=3,
+                random_state=kwargs.get("random_state"),
+
+                )
         self.is_loaded = True
         return self
 

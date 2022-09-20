@@ -358,7 +358,94 @@ problem will be harder to solve, although more data will also be available.
 Experiment 3
 ############
 
+Runtime taking much longer.
+
+With a max-iter of 10, testing 4 kernel types took 12.1 seconds
+* best performance was test-auc=.588 and only rbf was > .5
+With a max-iter of 100, 35 seconds
+* best performance was test-auc=.552 and only linear was > .5
+With a max-iter of 1000, 250 seconds
+* best performance was test-auc=.506 and only linear was > .5
+
+Apparantly the SVM has a quadratic runtime wrt the number of examples. 
+One solution to this would be to produce an ensemble of SVC's and 
+train each on a different subset of the data. 
+https://stackoverflow.com/questions/31681373/making-svm-run-faster-in-python
+
+Using 1000 estimators, each with 1/1000 of the dataset and no repeats
+Poly runtime
+Generating validation curve...
+Validation curve completed in 211.3 seconds
+* test auc: .803
+Because I am only using this architecture for computing speed, I will
+not fine-tune this 1000 estimators and will use this value for 
+the remaining exercises of experiment 3.
+
+Running linear
+Generating validation curve...
+Validation curve completed in 212.2 seconds
+
+Runtime as a function of n-bagging-estimators
+2000: 298
+1000: 212
+500: 177
+*100: 163*
+50: 176
+
+Also reduced the k-folds from 5 to 3
+Now the linear kernel is fitting in 100 seconds and this is manageable.
+
+Generating validation curve...
+Validation curve completed in 743.6 seconds
+
+* linear
+    * had the best test auc: .815 and train auc: .815
+* poly and rbf had similar performance to linear
+* simgoid was substantially lower performing
+
+Near identical runtimes and performance. Will move forward with poly
+for consistency.
+
+Generating validation curve...
+Validation curve completed in 1254.7 seconds
+
+## Perform gridsearch
 
 
+Round 1
+Performing grid search...
+Grid-Search Parameters:
+{'model__base_estimator__C': [0.5, 1.0],
+ 'model__base_estimator__coef0': [0.5, 1.0],
+ 'model__base_estimator__degree': [2, 3]}
+Fitting on 202944 train examples...
+Best parameters
+{'model__base_estimator__C': 1.0,
+ 'model__base_estimator__coef0': 1.0,
+ 'model__base_estimator__degree': 2}
+'Best performance: 0.817'
+Grid search completed in 253.8 seconds
+Round 2
+Performing grid search...
+Grid-Search Parameters:
+{'model__base_estimator__C': [1.5, 2.5, 3.5, 4.5],
+ 'model__base_estimator__coef0': [1.5, 2.5, 3.5, 4.5],
+ 'model__base_estimator__degree': [2]}
+Fitting on 202944 train examples...
+Best parameters
+{'model__base_estimator__C': 3.5,
+ 'model__base_estimator__coef0': 4.5,
+ 'model__base_estimator__degree': 2}
+'Best performance: 0.819'
+Grid search completed in 514.9 seconds
 
+## Generate the learning curve
+Generating learning curve...
+Learning curve completed in 2908.7 seconds
 
+I see diminishing returns, however there is a steady improvement 
+more training examples are used. The best performance is when using the
+entire dataset.
+This isn't what we saw when using the smaller datasets, however, this
+is likely because the smaller datasets learners are easily influenced
+based a small change in the number of examples.
