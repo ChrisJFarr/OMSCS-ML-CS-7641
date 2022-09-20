@@ -1,10 +1,10 @@
 defaults:
   - _self_
-  - dataset: _1_
+  - dataset: _2_
 # Used for log path
 model_name: KNNModel
 dataset_name: ${experiments.dataset.name}
-experiment_name: knn-1
+experiment_name: knn-3
 
 datamodule: 
   _target_: src.datamodules.KNNData
@@ -15,6 +15,7 @@ datamodule:
   cv_splits: ${experiments.dataset.cv_splits}
   cv_repeats: ${experiments.dataset.cv_repeats}
   test_size: ${test_size}
+  produce_ds2_small: false
 
 model:
   _target_: src.models.KNNModel
@@ -38,7 +39,6 @@ evaluation:
       start: 5
       stop: 50
       step: 10
-
 
   # Pick one set of default settings to build out grid-search for
   grid_search:

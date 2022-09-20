@@ -1,7 +1,6 @@
 defaults:
   - _self_
   - dataset: _1_
-
 # Used for log path
 model_name: SVM
 dataset_name: ${experiments.dataset.name}

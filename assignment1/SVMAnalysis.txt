@@ -1,5 +1,15 @@
 ### SVM Analysis
 
+Preprocessing
+Features were min-max scaled. L2 normalization was also tested, however the performance suffered. It was 
+especially poor with ds2-small and ds2, perhaps this is because missing values are handled with 0 in many
+of the features and this skews their distributions.
+
+# Data preprocessing
+* I tested min-max scaling and l2 normalizing as preprocessing functions for
+    the input data and min-max scaling performed significantly better. I will use
+    scaling for the remaining experiments.
+
 validation curve parameters for experiments 1, 2 and 3
 evaluation:
   validation_curve:
@@ -22,10 +32,7 @@ evaluation:
       stop: 7
       step: 1
 
-# Data preprocessing
-* I tested min-max scaling and l2 normalizing as preprocessing functions for
-    the input data and min-max scaling performed significantly better. I will use
-    scaling for the remaining experiments.
+
 
 
 ############
@@ -157,6 +164,8 @@ problem will be harder to solve, although more data will also be available.
 ###############
 Experiment 3
 ############
+TODO Perform "hybrid idea" experiment as done in decision trees
+
 
 Runtime taking much longer.
 

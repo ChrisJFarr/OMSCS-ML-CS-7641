@@ -1,8 +1,9 @@
 Decision tree
 
 ## Preprocessing
-* no preprocessing was utilized for all of the decision tree experiments. This is because I know that decision trees are
-    fairly robust to irregular scales and distributions.
+* no preprocessing was utilized for all of the decision tree experiments. This is because 
+I believe that decision trees are fairly robust to irregular scales and distributions since
+the decision function only depends on a point within the disribution of the feature.
     
 
 validation curve parameters for experiments 1, 2 and 3
@@ -27,7 +28,11 @@ min_samples_leaf:
 Tree Experiment 1:
 #################
 
-## Validation Curve
+## Perform Validation Curve analysis
+
+Validation curve completed in 34.3 seconds
+
+
 * Starting from default parameters, performed validation curve analysis on the following parameters:
     * Top performance is test AUC=.81
         * achieved with all defaults and setting min_samples_leaf to 26
@@ -41,7 +46,7 @@ Tree Experiment 1:
         * train .848 and test .794 with ccp_alpha=0.01
         * similar effect of max-depth on test performance (when viewing the curve) but inverse
             impact on the training
-Validation curve completed in 34.3 seconds
+
 
 Additionally I compared the performance of gini vs entropy for the validation curves.
 The performance was very similar although in some cases entropy had a test auc about .002
@@ -98,7 +103,9 @@ Tree Experiment 2:
 With a larger dataset I will have to reduce the parameter search space.
 Could any insights from experiment 1 help?
 
-## Validation Curve
+## Perform validation curve analysis
+
+Validation curve completed in 38.9 seconds
 
 * Starting from default parameters, performed validation curve analysis on the following parameters:
     * ccp_alpha
@@ -116,7 +123,7 @@ Could any insights from experiment 1 help?
 Notes: the shapes of the validation curves are very similar to ds1 and the optimal values are similar or the same for each parameter.
     * noteable difference is max-depth is higher for the dataset that contains more and less-specific features
 
-Validation curve completed in 38.9 seconds
+
 
 ## Grid Search
 
