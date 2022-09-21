@@ -1,0 +1,80 @@
+# Create validation curves
+
+
+best test auc, lr val curve depth 2 .823
+best test auc, lr val curve depth 1 .829
+
+
+Performing grid search...
+Grid-Search Parameters:
+{'model__learning_rate': [0.05,
+                          0.060000000000000005,
+                          0.07,
+                          0.08000000000000002,
+                          0.09000000000000001,
+                          0.1,
+                          0.11000000000000001,
+                          0.12000000000000001,
+                          0.13,
+                          0.14],
+ 'model__n_estimators': [15,
+                         16,
+                         17,
+                         18,
+                         19,
+                         20,
+                         21,
+                         22,
+                         23,
+                         24,
+                         25,
+                         26,
+                         27,
+                         28,
+                         29]}
+Fitting on 614 train examples...
+Best parameters
+{'model__learning_rate': 0.14, 'model__n_estimators': 28}
+'Best performance: 0.829'
+Grid search completed in 141.0 seconds
+
+Generating learning curve...
+Learning curve completed in 170.3 seconds
+
+
+####
+Problem 2
+#####
+
+Validation curve completed in 74.9 seconds
+Validation curve completed in 169.1 seconds
+
+
+Grid search
+Round 1
+Performing grid search...
+Grid-Search Parameters:
+{'model__learning_rate': [0.2, 0.22, 0.24, 0.26, 0.27999999999999997],
+ 'model__n_estimators': [75, 175, 275, 375]}
+Fitting on 202944 train examples...
+Best parameters
+{'model__learning_rate': 0.27999999999999997, 'model__n_estimators': 375}
+'Best performance: 0.823'
+Grid search completed in 197.9 seconds
+Round 2
+Performing grid search...
+Grid-Search Parameters:
+{'model__base_estimator__max_depth': [1, 2],
+ 'model__learning_rate': [0.25, 0.35],
+ 'model__n_estimators': [100, 300, 500, 700]}
+Fitting on 202944 train examples...
+Best parameters
+{'model__base_estimator__max_depth': 2,
+ 'model__learning_rate': 0.25,
+ 'model__n_estimators': 700}
+'Best performance: 0.825'
+Grid search completed in 394.4 seconds
+
+
+Generating learning curve...
+Learning curve completed in 396.3 seconds

@@ -4,7 +4,7 @@ test_size: 0.2
 experiments:
   model_name: BoostingModel
   dataset_name: ${experiments.dataset.name}
-  experiment_name: boost-1
+  experiment_name: boost-2
   datamodule:
     _target_: src.datamodules.BoostingData
     name: ${experiments.dataset.name}
@@ -14,38 +14,45 @@ experiments:
     cv_splits: ${experiments.dataset.cv_splits}
     cv_repeats: ${experiments.dataset.cv_repeats}
     test_size: ${test_size}
+    produce_ds2_small: false
   model:
     _target_: src.models.BoostingModel
     random_state: ${seed}
     base_estimator_params:
-      max_depth: 1
+      max_depth: 2
+    learning_rate: 0.25
+    n_estimators: 700
   evaluation:
     validation_curve:
       n_estimators:
         start: 1
-        stop: 400
-        step: 10
+        stop: 501
+        step: 50
       learning_rate:
         start: 0.01
-        stop: 0.51
-        step: 0.01
+        stop: 1.1
+        step: 0.05
     grid_search:
       n_estimators:
-        start: 15
-        stop: 30
-        step: 1
+        start: 100
+        stop: 801
+        step: 200
       learning_rate:
-        start: 0.05
-        stop: 0.15
-        step: 0.01
+        start: 0.25
+        stop: 0.45
+        step: 0.1
+      base_estimator__max_depth:
+        start: 1
+        stop: 3
+        step: 1
     learning_curve:
       start: 0.1
       stop: 1.001
-      step: 0.01
+      step: 0.1
   dataset:
-    name: _1_
-    path: data/diabetes.csv
-    target: Outcome
+    name: _2_
+    path: data/diabetes_012_health_indicators_BRFSS2015.csv
+    target: Diabetes_012
     cv_splits: 5
-    cv_repeats: 100
+    cv_repeats: 1
 func: lc
