@@ -129,6 +129,8 @@ class Assignment1Evaluation:
     def _save_plot(self, x_axis: list, y_axis: list, title: str, x_label: str, save_name: str):
         if isinstance(x_axis[0], str):
             return self._save_bar_graph_plot(x_axis, y_axis, title, x_label, save_name)
+        elif x_label=="Epoch":
+            return self._save_iterative_plot(x_axis, y_axis, title, x_label, save_name)
         else:
             return self._save_line_graph_plot(x_axis, y_axis, title, x_label, save_name)
 
@@ -212,6 +214,51 @@ class Assignment1Evaluation:
         plt.savefig(os.path.join(override_dirname, save_name))
         return
 
+    def _save_iterative_plot(self, x_axis, y_axis, title, x_label, save_name):
+        # Produce a plot with metrics on y-axis
+        fig, ax = plt.subplots()
+        # pd.DataFrame(data=y_axis, index=x_axis).sort_index(axis=1).plot(lw=1.25, ax=ax)  # , color="black"
+        df = pd.DataFrame(y_axis)
+        ax.plot(x_axis, df.values, lw=1.25, label=df.columns)
+        plt.ylim((0.0, 1))
+        plt.xlabel(x_label)
+        plt.ylabel("Loss")
+        model_name = self.config.experiments.model._target_.split(".")[-1]
+        dataset_name = self.config.experiments.dataset.name.split("_")[1]
+
+        for line in ax.get_lines():
+            if "test" in line.get_label():
+                line.set_linewidth(2.25)
+                line.set_linestyle("--")
+        
+        # make a legend for both plots
+        leg = plt.legend()
+        # set the linewidth of each legend object
+        for legobj in leg.legendHandles:
+            if "test" in legobj.get_label():
+                # legobj.set_linewidth(3.0)
+                legobj.set_linestyle("--")
+
+        # Draw top performance for test
+        # This only works with a single metric
+        test_performance = np.array([v for d in y_axis for k, v in d.items() if "val" in k])
+        train_performance = np.array([v for d in y_axis for k, v in d.items() if "train" in k])
+        min_test_score = np.min(test_performance)
+        min_test_i = np.argmin(test_performance)
+        train_at_min_test = train_performance[min_test_i]
+        plt.title(
+            "%s %s; dataset: %s\ntrain Loss: %.3f; valid Loss: %.3f; epoch=%.3f" % \
+                (model_name, title, dataset_name, train_at_min_test, min_test_score, x_axis[min_test_i]),
+            fontsize="large"
+            )
+        plt.axhline(y=min_test_score, color='black', lw=.5, linestyle="--")
+        plt.axvline(x=x_axis[min_test_i], color='black', lw=.5, linestyle="--")
+
+        hdr = HydraConfig.get()
+        override_dirname= hdr.run.dir
+        plt.savefig(os.path.join(override_dirname, save_name))
+        return
+
     def generate_learning_curve(self):
         """
         * learning curve plots (some notion of a learning curve)
@@ -247,16 +294,25 @@ class Assignment1Evaluation:
         # # Track percentages for x-axis
         # x_axis.append(percent)
         # Get generator
-        x_train, x_test, y_train, y_test = self.datamodule.get_full_dataset()
+        x_train, _, y_train, _ = self.datamodule.get_full_dataset()
         self.model.set_input_size(x_train.shape[1])
-        logging = self.model.load().fit(x_train, y_train)
-        print(dir(logging.experiment))
-        print(logging.experiment)
-        # TODO Start here: how can I get data out of the logs for a graph?????
-        # train_prediction = self.model.predict_proba(x_train)
-        # test_prediction = self.model.predict_proba(x_test)
-        # train_performance = get_metrics(y_train, train_prediction)
-        # test_performance = get_metrics(y_test, test_prediction)
+        self.model.load().fit(x_train, y_train)
+        # Load loggs
+        hdr = HydraConfig.get()
+        override_dirname= hdr.run.dir
+        logs_path = os.path.join(override_dirname, "logs", "logs", "metrics.csv")
+        logs = pd.read_csv(logs_path)
+        log_summary = logs[["val_loss_epoch", "train_loss_epoch", "epoch"]].rename(
+            {
+                "val_loss_epoch": "val_loss",
+                "train_loss_epoch": "train_loss"
+                }, axis=1
+            ).groupby("epoch").mean()
+        x_axis = list(log_summary.index)
+        y_axis = log_summary.to_dict(orient="records")
+        self._save_plot(x_axis, y_axis, title="Iterative Plot", x_label="Epoch", save_name="iterative_plot.png")
+
+
 
     def generate_validation_curve(self):
         """

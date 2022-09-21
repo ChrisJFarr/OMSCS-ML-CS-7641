@@ -5,7 +5,6 @@ from torch.utils.data import Dataset
 from pytorch_lightning.callbacks import Callback
 
 
-
 class MyNeuralNetwork(torch.nn.Module):
     # https://pytorch.org/tutorials/beginner/introyt/trainingyt.html
 
@@ -58,20 +57,22 @@ class LitNeuralNetwork(pl.LightningModule):
         x, y = batch
         x = x.view(x.size(0), -1)  # Needed?
         loss = self.loss(self.model(x), y)
-        self.log("train_loss", loss)
-        self.logger.experiment.add_scalars('Iterative Loss', 
-                                                {'train': loss}, 
-                                                global_step=self.global_step)
+        self.log("train_loss", loss, on_epoch=True, on_step=True)
+        # self.logger.experiment.add_scalars('Iterative Loss', 
+        #                                         {'train': loss}, 
+        #                                         global_step=self.global_step)
+        self.logger.experiment.log_metrics({'train': loss})
         return loss
 
     def validation_step(self, batch, batch_idx):
         x, y = batch
         x = x.view(x.size(0), -1)  # Needed?
         loss = self.loss(self.model(x), y)
-        self.log("val_loss", loss)
-        self.logger.experiment.add_scalars('Iterative Loss', 
-                                                {'valid': loss}, 
-                                                global_step=self.global_step)
+        self.log("val_loss", loss, on_epoch=True, on_step=True)
+        # self.logger.experiment.add_scalars('Iterative Loss', 
+        #                                         {'valid': loss}, 
+        #                                         global_step=self.global_step)
+        self.logger.experiment.log_metrics({'valid': loss})
         return loss
     
     def configure_optimizers(self):

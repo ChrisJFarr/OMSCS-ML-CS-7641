@@ -17,7 +17,8 @@ from abc import ABC, abstractmethod
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 import torch.nn.functional as F
-
+from pytorch_lightning.loggers import CSVLogger
+from hydra.core.hydra_config import HydraConfig
 
 
 # TODO Is this needed? I could just use the sklearn interface if that would suffice for all...?
@@ -112,6 +113,7 @@ class NeuralNetworkModel(ModelParent):
         self.lr = self.kwargs.pop("lr", 0.001)
         self.patience = self.kwargs.pop("patience", 3)
         self.batch_size = self.kwargs.pop("batch_size", 32)
+        self.save_name = self.kwargs.pop("save_name", "need_save_name")
 
     def load(self):
         args = self.args
@@ -148,25 +150,32 @@ class NeuralNetworkModel(ModelParent):
             MyDataset(x_train, y_train), 
             batch_size=self.batch_size, 
             drop_last=True, 
-            num_workers=2,
+            num_workers=5,
             multiprocessing_context='fork'
             )
         valid_loader = DataLoader(
             MyDataset(x_val, y_val), 
             batch_size=self.batch_size, 
             drop_last=True, 
-            num_workers=2,
+            num_workers=5,
             multiprocessing_context='fork')
+        # logging
+        hdr = HydraConfig.get()
+        override_dirname= hdr.run.dir
+        logger = CSVLogger(override_dirname, name="logs", version="logs")
         # model
         model = LitNeuralNetwork(self.model, self.lr)
         # train model
         trainer = pl.Trainer(
-            enable_checkpointing=True,
+            enable_checkpointing=False,
             log_every_n_steps=5,
             deterministic=True, 
             callbacks=[self.early_stop_callback], 
             enable_progress_bar=False,
+            logger=logger,
             )
+        # import logging
+        # logging.getLogger("lightning").setLevel(logging.ERROR)
         trainer.fit(model=model, train_dataloaders=train_loader, val_dataloaders=valid_loader)
 
         # Get logger info
