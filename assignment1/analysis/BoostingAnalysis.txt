@@ -1,3 +1,7 @@
+#######
+Problem 1
+########
+
 # Create validation curves
 
 
@@ -42,6 +46,12 @@ Generating learning curve...
 Learning curve completed in 170.3 seconds
 
 
+Performing full test evaluation...
+Training time: 0.018
+Inference time: 0.001
+Final Performance Evaluation:
+{'test_auc': 0.8132407407407408, 'train_auc': 0.8693282710280372}
+
 ####
 Problem 2
 #####
@@ -78,3 +88,9 @@ Grid search completed in 394.4 seconds
 
 Generating learning curve...
 Learning curve completed in 396.3 seconds
+
+Performing full test evaluation...
+Training time: 68.040
+Inference time: 2.066
+Final Performance Evaluation:
+{'test_auc': 0.8217881007875307, 'train_auc': 0.8295697277933939}

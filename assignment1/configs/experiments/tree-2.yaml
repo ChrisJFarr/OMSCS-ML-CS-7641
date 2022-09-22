@@ -4,7 +4,7 @@ defaults:
 # Used for log path
 model_name: DecisionTreeModel
 dataset_name: ${experiments.dataset.name}
-experiment_name: tree-3
+experiment_name: tree-2
 
 datamodule: 
   _target_: src.datamodules.DecisionTreeData
@@ -27,18 +27,13 @@ model:
   # min_samples_leaf: 1
   class_weight: "balanced"
   # Grid-search results
-  max_depth: 8
+  max_depth: null
   ccp_alpha: 0.0
-  min_samples_split: 178
-  min_samples_leaf: 44
+  min_samples_split: 1000
 
 evaluation:
 
   validation_curve:
-    max_depth:
-      start: 2
-      stop:  10
-      step:  1
     ccp_alpha:
       start: 0.0
       stop:  0.051
@@ -47,10 +42,34 @@ evaluation:
       start: 2
       stop:  500
       step:  25
-    min_samples_leaf:
-      start:  1
-      stop: 500
-      step:  25
+  grid_search:
+    # Round 1
+    # ccp_alpha:
+    #   start: 0.0
+    #   stop:  0.021
+    #   step:  0.005
+    # min_samples_split:
+    #   start: 2
+    #   stop:  500
+    #   step:  100
+    # Round 2
+    # ccp_alpha:
+    #   start: 0.0
+    #   stop:  0.021
+    #   step:  0.005
+    # min_samples_split:
+    #   start: 400
+    #   stop:  801
+    #   step:  100
+    # Round 3
+    ccp_alpha:
+      start: 0.0
+      stop:  0.021
+      step:  0.005
+    min_samples_split:
+      start: 800
+      stop:  2001
+      step:  250
   learning_curve:
     start: .1
     stop: 1.001

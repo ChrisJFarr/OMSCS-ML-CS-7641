@@ -1,0 +1,19 @@
+
+
+
+As dropout was increased, the higher node count performs better
+
+########
+Problem 1
+########
+Training time: 2.130
+Inference time: 0.001
+Final Performance Evaluation:
+{'test_auc': 0.7744444444444445, 'train_auc': 0.8425116822429907}
+
+##########
+Problem 2
+###########
+
+
+

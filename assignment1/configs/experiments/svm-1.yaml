@@ -21,55 +21,46 @@ model:
   random_state: ${seed}
   probability: True
   # Default parameters (used for kernel validation curve)
-  C: 1.0
+  # C: 1.0
   # kernel: rbf
-  degree: 3
+  # degree: 3
   gamma: scale
-  coef0: 0.0
+  # coef0: 0.0
   shrinking: True
   tol: 0.001
   class_weight: balanced
-  # # Parameters for poly validation curves
+  # Parameters for poly validation curves
   kernel: poly
-  # # Tuned parameters
+  # Tuned parameters
   # coef0: 0.0
-  # C: 1.0
-  # degree: 3
+  C: .1
+  degree: 3
 
 evaluation:
   validation_curve:
-    # run for defaults
+    # run with defaults
     kernel:
       start: 0
       stop: 4
       step: 1
-    # run for poly kernel
+    # run with poly kernel
     C:
       start: 0.001
       stop: 1.01
-      step: .01
-    coef0:
-      start: 0.0
-      stop: 1.01
-      step: .05
+      step: .1
     degree:
       start: 1
       stop: 7
       step: 1
-
   # Pick one set of default settings to build out grid-search for
   grid_search:
     C:
-      start: 0.9
-      stop: 1.01
-      step: .01
-    coef0:
-      start: 0.1
-      stop: .21
-      step: 0.01
+      start: 0.05
+      stop: .35
+      step: .05
     degree:
-      start: 2
-      stop: 3
+      start: 1
+      stop: 4
       step: 1
   learning_curve:
     start: .1

@@ -36,6 +36,12 @@ Compute learing curve
 Generating learning curve...
 Learning curve completed in 121.9 seconds
 
+Performing full test evaluation...
+Training time: 0.002
+Inference time: 0.002
+Final Performance Evaluation:
+{'test_auc': 0.7959259259259259, 'train_auc': 1.0}
+
 ########
 Problem 2
 ########
@@ -92,4 +98,12 @@ Generating learning curve...
 Learning curve completed in 379.6 seconds
 
 Steady but small increase in performance with more examples.
+However, due to runtime was not able to train with the full ds2. Instead reduced
+to 10% of original size. Test is still performed on the same test size as all 
+models.
 
+Performing full test evaluation...
+Training time: 0.008
+Inference time: 10.850
+Final Performance Evaluation:
+{'test_auc': 0.7933188630578067, 'train_auc': 0.999991290543696}

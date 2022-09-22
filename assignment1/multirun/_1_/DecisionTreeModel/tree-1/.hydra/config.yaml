@@ -17,50 +17,36 @@ experiments:
   model:
     _target_: src.models.DecisionTreeModel
     random_state: ${seed}
+    criterion: gini
     class_weight: balanced
-    max_depth: 6
-    ccp_alpha: 0.0004
-    min_samples_split: 91
-    min_samples_leaf: 17
+    min_samples_leaf: 30
   evaluation:
     validation_curve:
-      max_depth:
-        start: 2
-        stop: 10
-        step: 1
       ccp_alpha:
         start: 0.0
         stop: 0.051
         step: 0.001
-      min_samples_split:
-        start: 2
-        stop: 500
-        step: 25
       min_samples_leaf:
         start: 1
         stop: 500
         step: 25
     grid_search:
-      max_depth:
-        start: 4
-        stop: 7
-        step: 1
       ccp_alpha:
         start: 0.0
-        stop: 0.0011
-        step: 0.0001
-      min_samples_split:
-        start: 85
-        stop: 96
-        step: 1
+        stop: 0.02
+        step: 0.005
       min_samples_leaf:
         start: 15
-        stop: 26
-        step: 1
+        stop: 50
+        step: 5
+    learning_curve:
+      start: 0.1
+      stop: 1.001
+      step: 0.01
   dataset:
     name: _1_
     path: data/diabetes.csv
     target: Outcome
     cv_splits: 5
     cv_repeats: 100
-func: lc
+func: full

@@ -3,6 +3,7 @@ from collections import OrderedDict
 import pytorch_lightning as pl
 from torch.utils.data import Dataset
 from pytorch_lightning.callbacks import Callback
+from pytorch_lightning.loggers import CSVLogger, TensorBoardLogger
 
 
 class MyNeuralNetwork(torch.nn.Module):
@@ -58,10 +59,15 @@ class LitNeuralNetwork(pl.LightningModule):
         x = x.view(x.size(0), -1)  # Needed?
         loss = self.loss(self.model(x), y)
         self.log("train_loss", loss, on_epoch=True, on_step=True)
-        # self.logger.experiment.add_scalars('Iterative Loss', 
-        #                                         {'train': loss}, 
-        #                                         global_step=self.global_step)
-        self.logger.experiment.log_metrics({'train': loss})
+        if self.logger is not None:
+            
+            if isinstance(self.logger, CSVLogger):
+                self.logger.experiment.log_metrics({'train': loss})
+            else:
+                # Tensorboard logger
+                self.logger.experiment.add_scalars('Iterative Loss', 
+                                                        {'train': loss}, 
+                                                        global_step=self.global_step)
         return loss
 
     def validation_step(self, batch, batch_idx):
@@ -69,10 +75,15 @@ class LitNeuralNetwork(pl.LightningModule):
         x = x.view(x.size(0), -1)  # Needed?
         loss = self.loss(self.model(x), y)
         self.log("val_loss", loss, on_epoch=True, on_step=True)
-        # self.logger.experiment.add_scalars('Iterative Loss', 
-        #                                         {'valid': loss}, 
-        #                                         global_step=self.global_step)
-        self.logger.experiment.log_metrics({'valid': loss})
+        if self.logger is not None:
+            
+            if isinstance(self.logger, CSVLogger):
+                self.logger.experiment.log_metrics({'valid': loss})
+            else:
+                # Tensorboard logger
+                self.logger.experiment.add_scalars('Iterative Loss', 
+                                                        {'valid': loss}, 
+                                                        global_step=self.global_step)
         return loss
     
     def configure_optimizers(self):

@@ -28,69 +28,46 @@ model:
   # kernel: rbf
   # degree: 3
   gamma: scale
-  # coef0: 0.0
+  coef0: 0.0
   shrinking: True
   tol: 0.001  # took very long time for kernel plot with .001 (didn't let finish after 15 minutes)
-  # max_iter: 1000
   class_weight: balanced
   # Parameters for poly validation curves
   kernel: poly
   # Tuned parameters
-  C: 3.5
-  coef0: 4.5
+  C: 1
   degree: 2
+  # TODO RERUN Validation curves using poly kernel
 
 
 evaluation:
   validation_curve:
     # run with defaults
-    # kernel:
-    #   start: 0
-    #   stop: 4
-    #   step: 1
+    kernel:
+      start: 0
+      stop: 4
+      step: 1
     # run with poly kernel
     C:
       start: 0.001
       stop: 1.01
       step: .25
-    coef0:
-      start: 0.0
-      stop: 1.01
-      step: .25
     degree:
       start: 1
-      stop: 5
+      stop: 4
       step: 1
-
 
   # Pick one set of default settings to build out grid-search for
   grid_search:
-    # round 1
-    # base_estimator__C:
-    #   start: .5
-    #   stop: 1.01
-    #   step: .5
-    # base_estimator__coef0:
-    #   start: .5
-    #   stop: 1.01
-    #   step: .5
-    # base_estimator__degree:
-    #   start: 2
-    #   stop: 4
-    #   step: 1
-    # Round 2
-    # base_estimator__C:
-    #   start: 1.5
-    #   stop: 5.1
-    #   step: 1.0
-    # base_estimator__coef0:
-    #   start: 1.5
-    #   stop: 5.1
-    #   step: 1.0
-    # base_estimator__degree:
-    #   start: 2
-    #   stop: 3
-    #   step: 1
+    base_estimator__C:
+      start: .5
+      stop: 1.01
+      step: .5
+    base_estimator__degree:
+      start: 2
+      stop: 4
+      step: 1
+
   learning_curve:
     start: .1
     stop: 1.001

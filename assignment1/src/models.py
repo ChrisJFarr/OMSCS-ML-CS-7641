@@ -17,11 +17,9 @@ from abc import ABC, abstractmethod
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 import torch.nn.functional as F
-from pytorch_lightning.loggers import CSVLogger
+from pytorch_lightning.loggers import CSVLogger, TensorBoardLogger
 from hydra.core.hydra_config import HydraConfig
 
-
-# TODO Is this needed? I could just use the sklearn interface if that would suffice for all...?
 
 class ModelParent(ABC):
 
@@ -62,6 +60,7 @@ class ModelParent(ABC):
         pass
 
 class DecisionTreeModel(ModelParent):
+
     def __init__(self, *args, **kwargs):
         super().__init__()
         self.args = args
@@ -103,6 +102,7 @@ class DecisionTreeModel(ModelParent):
         return param_value
 
 class NeuralNetworkModel(ModelParent):
+
     def __init__(self, *args, **kwargs):
         super().__init__()
         self.args = args
@@ -116,6 +116,7 @@ class NeuralNetworkModel(ModelParent):
         self.save_name = self.kwargs.pop("save_name", "need_save_name")
 
     def load(self):
+        pl.seed_everything(self.seed)
         args = self.args
         kwargs = self.kwargs
         assert self.input_size is not None
@@ -160,9 +161,12 @@ class NeuralNetworkModel(ModelParent):
             num_workers=5,
             multiprocessing_context='fork')
         # logging
-        hdr = HydraConfig.get()
-        override_dirname= hdr.run.dir
-        logger = CSVLogger(override_dirname, name="logs", version="logs")
+        try:
+            hdr = HydraConfig.get()
+            override_dirname= hdr.run.dir
+            logger = CSVLogger(override_dirname, name="logs", version="logs")
+        except ValueError:
+            logger = TensorBoardLogger("lightning_logs")
         # model
         model = LitNeuralNetwork(self.model, self.lr)
         # train model
@@ -205,6 +209,7 @@ class NeuralNetworkModel(ModelParent):
         return param_value
 
 class BoostingModel(ModelParent):
+
     def __init__(self, *args, **kwargs):
         super().__init__()
         self.args = args
@@ -249,6 +254,7 @@ class BoostingModel(ModelParent):
         return param_value
 
 class SVMModel(ModelParent):
+
     def __init__(self, *args, **kwargs):
         super().__init__()
         self.kernels = ("linear", "poly", "rbf", "sigmoid")
@@ -308,6 +314,7 @@ class SVMModel(ModelParent):
         return param_value
 
 class KNNModel(ModelParent):
+
     def __init__(self, *args, **kwargs):
         super().__init__()
         self.args = args

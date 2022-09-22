@@ -23,10 +23,6 @@ evaluation:
       start: 0.001
       stop: 1.01
       step: .01
-    coef0:
-      start: 0.0
-      stop: 1.01
-      step: .05
     degree:
       start: 1
       stop: 7
@@ -58,9 +54,6 @@ set kernel to poly for remaining experiments
 * C:
     * best test .849, train .882
     * param=0.141
-* coef0:
-    * best test .844, train .898
-    * param=0.05
 * degree:
     * best test .851, train .879
     * param=2
@@ -68,24 +61,15 @@ set kernel to poly for remaining experiments
 ## Perform grid search
 
 Round 1
+Performing grid search...
+Grid-Search Parameters:
+{'model__C': [0.05, 0.1, 0.15000000000000002, 0.2, 0.25, 0.3],
+ 'model__degree': [1, 2, 3]}
+Fitting on 614 train examples...
 Best parameters
-{'model__C': 0.9510000000000001,
- 'model__coef0': 0.15000000000000002,
- 'model__degree': 2}
-'Best performance: 0.849'
-Grid search completed in 175.6 seconds
-Round 2
-Best parameters
-{'model__C': 0.9700000000000002,
- 'model__coef0': 0.17500000000000002,
- 'model__degree': 2}
-'Best performance: 0.849'
-Grid search completed in 162.5 seconds
-Round 3
-Best parameters
-{'model__C': 0.9, 'model__coef0': 0.19999999999999996, 'model__degree': 2}
-'Best performance: 0.849'
-Grid search completed in 117.2 seconds
+{'model__C': 0.1, 'model__degree': 3}
+'Best performance: 0.848'
+Grid search completed in 19.3 seconds
 
 ## Compute learning curve
 Generating learning curve...
@@ -94,6 +78,11 @@ Learning curve completed in 157.2 seconds
 A blip at 17% reached peak performance of 86.9 test AUC. However, the general trend of using more data
 is an increase in test score and a decrease in overfitting.
 
+Performing full test evaluation...
+Training time: 0.021
+Inference time: 0.001
+Final Performance Evaluation:
+{'test_auc': 0.7925925925925926, 'train_auc': 0.8107009345794394}
 
 ############
 Problem 2
@@ -157,28 +146,12 @@ Round 1
 Performing grid search...
 Grid-Search Parameters:
 {'model__base_estimator__C': [0.5, 1.0],
- 'model__base_estimator__coef0': [0.5, 1.0],
  'model__base_estimator__degree': [2, 3]}
 Fitting on 202944 train examples...
 Best parameters
-{'model__base_estimator__C': 1.0,
- 'model__base_estimator__coef0': 1.0,
- 'model__base_estimator__degree': 2}
-'Best performance: 0.817'
-Grid search completed in 253.8 seconds
-Round 2
-Performing grid search...
-Grid-Search Parameters:
-{'model__base_estimator__C': [1.5, 2.5, 3.5, 4.5],
- 'model__base_estimator__coef0': [1.5, 2.5, 3.5, 4.5],
- 'model__base_estimator__degree': [2]}
-Fitting on 202944 train examples...
-Best parameters
-{'model__base_estimator__C': 3.5,
- 'model__base_estimator__coef0': 4.5,
- 'model__base_estimator__degree': 2}
-'Best performance: 0.819'
-Grid search completed in 514.9 seconds
+{'model__base_estimator__C': 1.0, 'model__base_estimator__degree': 2}
+'Best performance: 0.815'
+Grid search completed in 135.3 seconds
 
 ## Generate the learning curve
 Generating learning curve...
@@ -190,3 +163,9 @@ entire dataset.
 This isn't what we saw when using the smaller datasets, however, this
 is likely because the smaller datasets learners are easily influenced
 based a small change in the number of examples.
+
+Performing full test evaluation...
+Training time: 12.701
+Inference time: 29.810
+Final Performance Evaluation:
+{'test_auc': 0.808724576476966, 'train_auc': 0.8113455467502544}

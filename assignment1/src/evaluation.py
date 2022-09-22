@@ -6,6 +6,7 @@ One evaluation approach for all models/experiments
 """
 import os
 from pprint import pprint
+from time import perf_counter
 
 import numpy as np
 import pandas as pd
@@ -24,9 +25,6 @@ from multiprocessing import cpu_count
 from src.models import ModelParent
 from src.datamodules import DataParent
 
-# import logging
-# logging.getLogger("lightning").setLevel(logging.ERROR)
-
 
 def get_metrics(y_true, y_pred):
     # Compute auc score
@@ -34,6 +32,7 @@ def get_metrics(y_true, y_pred):
     return {"roc_auc": roc_auc}
 
 class Assignment1Evaluation:
+    
     def __init__(self, model: ModelParent, datamodule: DataParent, config):
         self.model = model
         self.datamodule = datamodule
@@ -220,22 +219,25 @@ class Assignment1Evaluation:
         # pd.DataFrame(data=y_axis, index=x_axis).sort_index(axis=1).plot(lw=1.25, ax=ax)  # , color="black"
         df = pd.DataFrame(y_axis)
         ax.plot(x_axis, df.values, lw=1.25, label=df.columns)
-        plt.ylim((0.0, 1))
+        plt.ylim((0.3, .46))
         plt.xlabel(x_label)
         plt.ylabel("Loss")
         model_name = self.config.experiments.model._target_.split(".")[-1]
         dataset_name = self.config.experiments.dataset.name.split("_")[1]
 
         for line in ax.get_lines():
-            if "test" in line.get_label():
+            if "val" in line.get_label():
                 line.set_linewidth(2.25)
                 line.set_linestyle("--")
+                line.set_color('tab:orange')
+            else:
+                line.set_color('tab:blue')
         
         # make a legend for both plots
         leg = plt.legend()
         # set the linewidth of each legend object
         for legobj in leg.legendHandles:
-            if "test" in legobj.get_label():
+            if "val" in legobj.get_label():
                 # legobj.set_linewidth(3.0)
                 legobj.set_linestyle("--")
 
@@ -312,8 +314,6 @@ class Assignment1Evaluation:
         y_axis = log_summary.to_dict(orient="records")
         self._save_plot(x_axis, y_axis, title="Iterative Plot", x_label="Epoch", save_name="iterative_plot.png")
 
-
-
     def generate_validation_curve(self):
         """
         * validation curve
@@ -347,12 +347,30 @@ class Assignment1Evaluation:
             # Reset model to default parameters
             self.model.set_params(**default_params)  # Only needed if running serial evaluate?
 
-    def evaluate_clock_time(self):
-        """
-        * wall-clock time
-        * fit times during training
-        """
-        pass
-
     def evaluate_train_test_performance(self):
-        pass
+        print("Performing full test evaluation...")
+        # Get generator
+        x_train, x_test, y_train, y_test = self.datamodule.get_full_dataset()
+        self.model.set_input_size(x_train.shape[1])
+        self.model.load()
+        # Start training timer
+        start_time = perf_counter()
+        # Compute test prediction
+        self.model.fit(x_train, y_train)
+        # End timer
+        end_time = perf_counter()
+        print("Training time: %.3f" % (end_time - start_time))
+        train_prediction = self.model.predict_proba(x_train)
+        # Start inference timer
+        start_time = perf_counter()     
+        test_prediction = self.model.predict_proba(x_test)
+        # End timer
+        end_time = perf_counter()
+        print("Inference time: %.3f" % (end_time - start_time))
+        test_scores = {
+            "train_auc": get_metrics(y_train, train_prediction)["roc_auc"],
+            "test_auc": get_metrics(y_test, test_prediction)["roc_auc"]
+        }
+        # Score test prediction
+        print("Final Performance Evaluation:")
+        pprint(test_scores)

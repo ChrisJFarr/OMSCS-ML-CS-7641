@@ -11,8 +11,6 @@ from src.evaluation import Assignment1Evaluation
 # https://github.com/facebookresearch/hydra/blob/main/examples/advanced/hydra_app_example/tests/test_example.py
 
 
-
-
 def test_data_loader(config):
     # Load a data source
     # Count examples over splits, report class balance on each split
@@ -23,7 +21,6 @@ def test_data_loader(config):
         test_target_avg = y_test.mean()
         print("avg train target: %.2f " % train_target_avg, "avg test target: %.2f" % test_target_avg)
     return
-
 
 def test_training_loop(config):
     start_time = perf_counter()
@@ -45,7 +42,6 @@ def test_training_loop(config):
     end_time = perf_counter()
     print("Total execution time: %.1f" % (end_time - start_time))
     return
-
 
 def lc(config):  # shorthand: learning curve
     print("Generating learning curve...")
@@ -77,7 +73,6 @@ def ip(config):  # shorthand: iterative plot
     print("Iterative plot completed in %.1f seconds" % (end_time - start_time))
     pass
 
-
 def vc(config):  # shorthand: validation curve
     print("Generating validation curve...")
     start_time = perf_counter()
@@ -108,9 +103,13 @@ def gs(config): # shorthand: grid search
     print("Grid search completed in %.1f seconds" % (end_time - start_time))
     return
 
-def test_train_test_performance(config):
-    raise NotImplementedError
-    start_time = perf_counter()
-    end_time = perf_counter()
-    print("Total execution time: %.1f" % (end_time - start_time))
-    pass
+def full(config):
+    # Initialize model
+    model: ModelParent = hydra.utils.instantiate(config.experiments.model)
+    # Initialize data
+    datamodule: DataParent = hydra.utils.instantiate(config.experiments.datamodule)
+    # Initialize evaluation
+    evaluation = Assignment1Evaluation(model=model, datamodule=datamodule, config=config)
+    # Run test
+    evaluation.evaluate_train_test_performance()
+    return

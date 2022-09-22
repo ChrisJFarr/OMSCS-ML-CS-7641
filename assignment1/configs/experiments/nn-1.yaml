@@ -12,33 +12,35 @@ datamodule:
   path: ${experiments.dataset.path}
   target: ${experiments.dataset.target}
   seed: ${seed}
-  cv_splits: ${experiments.dataset.cv_splits}
-  cv_repeats: ${experiments.dataset.cv_repeats}
+  cv_splits: 3
+  cv_repeats: 3
   test_size: ${test_size}
 
 model:
   _target_: src.models.NeuralNetworkModel
   save_name: nn-1
-  layers: 2 
-  nodes: 100 
-  dropout_rate: 0.25
-  validation_size: 0.2
+  # Tuned 
+  layers: 2
+  nodes: 75 
+  dropout_rate: 0.1
+  validation_size: 0.25
   seed: ${seed}
   lr: 0.001
-  patience: 1
-  batch_size: 10
+  patience: 0
+  batch_size: 25
 
 evaluation:
   validation_curve:
     layers:
-      start: 2
+      start: 1
       stop: 5
       step: 1
     nodes:
       start: 25
       stop: 300
       step: 50
+      
   learning_curve:
-    start: .1
+    start: .50
     stop: 1.001
-    step: .01
+    step: .1

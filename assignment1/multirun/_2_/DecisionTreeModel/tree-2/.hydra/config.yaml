@@ -4,7 +4,7 @@ test_size: 0.2
 experiments:
   model_name: DecisionTreeModel
   dataset_name: ${experiments.dataset.name}
-  experiment_name: tree-3
+  experiment_name: tree-2
   datamodule:
     _target_: src.datamodules.DecisionTreeData
     name: ${experiments.dataset.name}
@@ -14,21 +14,15 @@ experiments:
     cv_splits: ${experiments.dataset.cv_splits}
     cv_repeats: ${experiments.dataset.cv_repeats}
     test_size: ${test_size}
-    produce_ds2_small: false
   model:
     _target_: src.models.DecisionTreeModel
     random_state: ${seed}
     class_weight: balanced
-    max_depth: 8
+    max_depth: null
     ccp_alpha: 0.0
-    min_samples_split: 178
-    min_samples_leaf: 44
+    min_samples_split: 1000
   evaluation:
     validation_curve:
-      max_depth:
-        start: 2
-        stop: 10
-        step: 1
       ccp_alpha:
         start: 0.0
         stop: 0.051
@@ -37,14 +31,23 @@ experiments:
         start: 2
         stop: 500
         step: 25
-      min_samples_leaf:
-        start: 1
-        stop: 500
-        step: 25
+    grid_search:
+      ccp_alpha:
+        start: 0.0
+        stop: 0.021
+        step: 0.005
+      min_samples_split:
+        start: 800
+        stop: 2001
+        step: 250
+    learning_curve:
+      start: 0.1
+      stop: 1.001
+      step: 0.01
   dataset:
     name: _2_
     path: data/diabetes_012_health_indicators_BRFSS2015.csv
     target: Diabetes_012
     cv_splits: 5
     cv_repeats: 1
-func: vc
+func: full

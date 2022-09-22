@@ -1,2 +1,2 @@
-- +func=lc
-- experiments=svm-3
+- +func=full
+- experiments=svm-2

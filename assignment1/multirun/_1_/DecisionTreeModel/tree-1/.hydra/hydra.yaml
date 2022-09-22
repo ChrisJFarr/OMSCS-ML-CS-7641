@@ -1,9 +1,9 @@
 hydra:
   run:
-    dir: multirun/${experiments.dataset_name}/${experiments.model_name}/${experiments.experiment_name}
+    dir: multirun/${experiments.dataset_name}/${experiments.model_name}/${experiments.experiment_name}/
   sweep:
-    dir: multirun/${experiments.dataset_name}/${experiments.model_name}/${experiments.experiment_name}
-    subdir: ${now:%Y-%m-%d-%H-%M-%S}
+    dir: multirun/${experiments.dataset_name}/${experiments.model_name}/
+    subdir: ${experiments.experiment_name}
   launcher:
     _target_: hydra_plugins.hydra_joblib_launcher.joblib_launcher.JoblibLauncher
     n_jobs: -1
@@ -123,12 +123,12 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - +func=lc
+    - +func=full
     - experiments=tree-1
   job:
     name: run
     chdir: null
-    override_dirname: +func=lc,experiments=tree-1
+    override_dirname: +func=full,experiments=tree-1
     id: ???
     num: ???
     config_name: config.yaml

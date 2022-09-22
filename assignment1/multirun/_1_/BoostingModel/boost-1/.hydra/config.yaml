@@ -19,6 +19,8 @@ experiments:
     random_state: ${seed}
     base_estimator_params:
       max_depth: 1
+    learning_rate: 0.14
+    n_estimators: 28
   evaluation:
     validation_curve:
       n_estimators:
@@ -48,4 +50,4 @@ experiments:
     target: Outcome
     cv_splits: 5
     cv_repeats: 100
-func: lc
+func: full

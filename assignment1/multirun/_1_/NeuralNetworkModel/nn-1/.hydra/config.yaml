@@ -11,24 +11,24 @@ experiments:
     path: ${experiments.dataset.path}
     target: ${experiments.dataset.target}
     seed: ${seed}
-    cv_splits: ${experiments.dataset.cv_splits}
-    cv_repeats: ${experiments.dataset.cv_repeats}
+    cv_splits: 3
+    cv_repeats: 3
     test_size: ${test_size}
   model:
     _target_: src.models.NeuralNetworkModel
     save_name: nn-1
     layers: 2
-    nodes: 100
-    dropout_rate: 0.25
-    validation_size: 0.2
+    nodes: 75
+    dropout_rate: 0.1
+    validation_size: 0.25
     seed: ${seed}
     lr: 0.001
-    patience: 1
-    batch_size: 10
+    patience: 0
+    batch_size: 25
   evaluation:
     validation_curve:
       layers:
-        start: 2
+        start: 1
         stop: 5
         step: 1
       nodes:
@@ -36,13 +36,13 @@ experiments:
         stop: 300
         step: 50
     learning_curve:
-      start: 0.1
+      start: 0.5
       stop: 1.001
-      step: 0.01
+      step: 0.1
   dataset:
     name: _1_
     path: data/diabetes.csv
     target: Outcome
     cv_splits: 5
     cv_repeats: 100
-func: ip
+func: full

@@ -1,18 +1,3 @@
-"""
-TODO Design data-module interface
-
-* Starting with decision trees, create DecisionTreeData module
-* Decide what DataParent should implement
-* Decide how to consume experiments yaml files
-    * specify data source between 
-
-
-Design Concepts:
-    * general k-fold cross validation loader (generator function)
-    * model-specific features, general features
-        * add features
-        * select features
-"""
 from abc import ABC, abstractmethod
 from cgi import test
 import pandas as pd
@@ -43,7 +28,7 @@ class DataParent(ABC):
             stratify=y_data, 
             random_state=self.seed
             )
-        # Rebalance dataset by downsampling, filter to homogenous sample
+        # Sample to 10% of original, for KNN only
         if self.produce_ds2_small:
             df = pd.concat([x_train, y_train], axis=1)
             df = df.sample(frac=.1, random_state=self.seed)
@@ -116,6 +101,7 @@ class DataParent(ABC):
         pass
 
 class DecisionTreeData(DataParent):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
@@ -141,6 +127,7 @@ class DecisionTreeData(DataParent):
             return x_train
 
 class NeuralNetworkData(DataParent):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.scaler = MinMaxScaler()
@@ -169,6 +156,7 @@ class NeuralNetworkData(DataParent):
             return x_train
 
 class BoostingData(DataParent):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
@@ -194,6 +182,7 @@ class BoostingData(DataParent):
             return x_train
 
 class SVMData(DataParent):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.scaler = MinMaxScaler()
@@ -222,6 +211,7 @@ class SVMData(DataParent):
             return x_train
 
 class KNNData(DataParent):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.scaler = MinMaxScaler()
