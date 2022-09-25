@@ -123,12 +123,12 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - +func=full
+    - +func=cv
     - experiments=boost-2
   job:
     name: run
     chdir: null
-    override_dirname: +func=full,experiments=boost-2
+    override_dirname: +func=cv,experiments=boost-2
     id: ???
     num: ???
     config_name: config.yaml

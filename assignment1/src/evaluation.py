@@ -16,6 +16,7 @@ from hydra.utils import get_original_cwd
 from hydra.core.hydra_config import HydraConfig
 from sklearn.metrics import precision_recall_fscore_support, roc_auc_score, make_scorer
 from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import cross_validate
 from sklearn.pipeline import Pipeline
 from matplotlib import pyplot as plt
 
@@ -77,6 +78,12 @@ class Assignment1Evaluation:
         pprint(grid.best_params_)
         pprint("Best performance: %.3f" % grid.best_score_)
         return grid.best_params_
+    
+    def cv_score(self):
+        # Using the base parameters compute a cross-validated train and test score
+        # The test score should be identical to the grid-search test score
+        pprint(self.parallel_evaluate(self.datamodule.make_loader()[0]))
+        return
 
     def evaluate(self, train_generator):
         """
@@ -187,6 +194,7 @@ class Assignment1Evaluation:
         x_axis = list(np.array(x_axis)[sorted_i])
         pd.DataFrame(data=y_axis, index=x_axis).plot.bar()
         plt.ylim((0.5, 1.01))
+        plt.ylabel("AUC")
         plt.xlabel(x_label)
         plt.xticks(rotation=45)
         model_name = self.config.experiments.model._target_.split(".")[-1]

@@ -32,13 +32,21 @@ Step 2: Run experiment as above using the below options while in the `assignment
         * lc: learning curve
         * gc: grid search (not compatible with nn-1 or nn-2)
         * ip: iterative plot
+        * cv: cross validation, return cv test and train
         * full: full train and test evaluation with timers
         optional tests
         * test_data_loader
         * test_training_loop
 
 
+Data Downloads
 
+1. https://www.kaggle.com/datasets/mathchi/diabetes-data-set
+2. https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset
+
+Implementation Notes
+* Code is primarily stored in the src and eda folders while experiment
+    parameters are found in the configs folder.
 
 
 # Writeup TODO's

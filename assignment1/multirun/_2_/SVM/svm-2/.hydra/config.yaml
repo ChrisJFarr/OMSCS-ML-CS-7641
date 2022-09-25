@@ -61,4 +61,4 @@ experiments:
     target: Diabetes_012
     cv_splits: 5
     cv_repeats: 1
-func: full
+func: cv

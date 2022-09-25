@@ -4,7 +4,6 @@ Datasets:
 2. https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset
 
 
-
 NOTES:
 * diabetes is very small, and specific to a group of females from similar heritage
 * diabetes-health-indicators is relatively large, self-reported survey data

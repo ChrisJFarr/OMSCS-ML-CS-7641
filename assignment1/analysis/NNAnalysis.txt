@@ -6,6 +6,11 @@ As dropout was increased, the higher node count performs better
 ########
 Problem 1
 ########
+
+cross-validation
+{'roc_auc_test': 0.8363703844979823, 'roc_auc_train': 0.8732513838709857}
+Cross-validation completed in 7.7 seconds
+
 Training time: 2.130
 Inference time: 0.001
 Final Performance Evaluation:
@@ -15,5 +20,11 @@ Final Performance Evaluation:
 Problem 2
 ###########
 
+{'roc_auc_test': 0.8152291365413611, 'roc_auc_train': 0.8186184774865731}
+Cross-validation completed in 441.6 seconds
 
+Training time: 237.633
+Inference time: 0.159
+Final Performance Evaluation:
+{'test_auc': 0.817775176774504, 'train_auc': 0.8210384350237029}
 

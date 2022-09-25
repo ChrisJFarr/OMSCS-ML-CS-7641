@@ -23,7 +23,7 @@ experiments:
     validation_size: 0.25
     seed: ${seed}
     lr: 0.001
-    patience: 0
+    patience: 5
     batch_size: 25
   evaluation:
     validation_curve:
@@ -45,4 +45,4 @@ experiments:
     target: Outcome
     cv_splits: 5
     cv_repeats: 100
-func: full
+func: cv

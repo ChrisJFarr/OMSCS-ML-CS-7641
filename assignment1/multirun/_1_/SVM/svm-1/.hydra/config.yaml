@@ -16,7 +16,6 @@ experiments:
     test_size: ${test_size}
   model:
     _target_: src.models.SVMModel
-    random_state: ${seed}
     probability: true
     gamma: scale
     shrinking: true
@@ -58,4 +57,4 @@ experiments:
     target: Outcome
     cv_splits: 5
     cv_repeats: 100
-func: full
+func: cv

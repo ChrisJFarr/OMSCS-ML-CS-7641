@@ -103,6 +103,21 @@ def gs(config): # shorthand: grid search
     print("Grid search completed in %.1f seconds" % (end_time - start_time))
     return
 
+def cv(config): # shorthand: grid search
+    print("Performing cross-validation...")
+    start_time = perf_counter()
+    # Initialize model
+    model: ModelParent = hydra.utils.instantiate(config.experiments.model)
+    # Initialize data
+    datamodule: DataParent = hydra.utils.instantiate(config.experiments.datamodule)
+    # Initialize evaluation
+    evaluation = Assignment1Evaluation(model=model, datamodule=datamodule, config=config)
+    # Test
+    evaluation.cv_score()
+    end_time = perf_counter()
+    print("Cross-validation completed in %.1f seconds" % (end_time - start_time))
+    return
+
 def full(config):
     # Initialize model
     model: ModelParent = hydra.utils.instantiate(config.experiments.model)

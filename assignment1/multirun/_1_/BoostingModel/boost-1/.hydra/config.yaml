@@ -40,6 +40,10 @@ experiments:
         start: 0.05
         stop: 0.15
         step: 0.01
+      base_estimator__max_depth:
+        start: 1
+        stop: 3
+        step: 1
     learning_curve:
       start: 0.1
       stop: 1.001
@@ -50,4 +54,4 @@ experiments:
     target: Outcome
     cv_splits: 5
     cv_repeats: 100
-func: full
+func: cv

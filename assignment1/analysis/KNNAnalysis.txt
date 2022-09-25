@@ -30,6 +30,10 @@ Best parameters
 'Best performance: 0.829'
 Grid search completed in 9.8 seconds
 
+Performing cross-validation...
+{'roc_auc_test': 0.8295630467884829, 'roc_auc_train': 1.0}
+Cross-validation completed in 5.3 seconds
+
 
 Compute learing curve
 
@@ -92,6 +96,11 @@ Best parameters
 {'model__n_neighbors': 550, 'model__p': 1}
 'Best performance: 0.790'
 Grid search completed in 69.5 seconds
+
+Performing cross-validation...
+{'roc_auc_test': 0.7901143059293624, 'roc_auc_train': 0.9999945565425795}
+Cross-validation completed in 12.8 seconds
+
 
 ## Learning curve
 Generating learning curve...

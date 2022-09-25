@@ -7,18 +7,10 @@ the decision function only depends on a point within the disribution of the feat
     
 
 validation curve parameters for experiments 1, 2 and 3
-max_depth:
-    start: 2
-    stop: 10
-    step: 1
 ccp_alpha:
     start: 0.0
     stop: 0.051
     step: 0.001
-min_samples_split:
-    start: 2
-    stop: 500
-    step: 25
 min_samples_leaf:
     start: 1
     stop: 500
@@ -27,26 +19,6 @@ min_samples_leaf:
 ###########
 Problem 1
 ###########
-
-## Perform Validation Curve analysis
-
-Validation curve completed in 34.3 seconds
-
-
-* Starting from default parameters, performed validation curve analysis on the following parameters:
-    * Top performance is test AUC=.81
-        * achieved with all defaults and setting min_samples_leaf to 26
-            * train AUC .879 test AUC=.812
-        * achieved with all defaults and setting min_samples_split to 102
-            * train AUC .862 test AUC=.810 (slightly less overfitting) 
-    * max-depth
-        * train .854 and test .793 with max-depth=3
-        * this reduced overfitting at cost of some performance compared to top metrics
-    * ccp_alpha
-        * train .848 and test .794 with ccp_alpha=0.01
-        * similar effect of max-depth on test performance (when viewing the curve) but inverse
-            impact on the training
-
 
 Additionally I compared the performance of gini vs entropy for the validation curves.
 The performance was very similar although in some cases entropy had a test auc about .002
@@ -73,6 +45,11 @@ Best parameters
 'Best performance: 0.811'
 Grid search completed in 5.9 seconds
 
+Performing cross-validation...
+{'roc_auc_test': 0.8117447259136212, 'roc_auc_train': 0.8724288391005371}
+Cross-validation completed in 3.9 seconds
+
+
 
 ## Learning Curve
 
@@ -98,40 +75,53 @@ Problem 2
 Round 1
 Performing grid search...
 Grid-Search Parameters:
-{'model__ccp_alpha': [0.0, 0.005, 0.01, 0.015, 0.02],
- 'model__min_samples_split': [2, 102, 202, 302, 402]}
+{'model__ccp_alpha': [0.0,
+                      0.001,
+                      0.002,
+                      0.003,
+                      0.004,
+                      0.005,
+                      0.006,
+                      0.007,
+                      0.008,
+                      0.009000000000000001,
+                      0.01],
+ 'model__min_samples_leaf': [15, 65, 115, 165, 215, 265, 315, 365]}
 Fitting on 202944 train examples...
 Best parameters
-{'model__ccp_alpha': 0.0, 'model__min_samples_split': 402}
-'Best performance: 0.809'
-Grid search completed in 18.7 seconds
+{'model__ccp_alpha': 0.0, 'model__min_samples_leaf': 365}
+'Best performance: 0.813'
+Grid search completed in 33.2 seconds
 Round 2
 Performing grid search...
 Grid-Search Parameters:
-{'model__ccp_alpha': [0.0, 0.005, 0.01, 0.015, 0.02],
- 'model__min_samples_split': [400, 500, 600, 700, 800]}
+{'model__ccp_alpha': [0.0,
+                      0.0005,
+                      0.001,
+                      0.0015,
+                      0.002,
+                      0.0025,
+                      0.003,
+                      0.0035,
+                      0.004,
+                      0.0045000000000000005],
+ 'model__min_samples_leaf': [300, 325, 350, 375, 400]}
 Fitting on 202944 train examples...
 Best parameters
-{'model__ccp_alpha': 0.0, 'model__min_samples_split': 800}
+{'model__ccp_alpha': 0.0, 'model__min_samples_leaf': 350}
 'Best performance: 0.813'
-Grid search completed in 11.0 seconds
-Round 3
-Performing grid search...
-Grid-Search Parameters:
-{'model__ccp_alpha': [0.0, 0.005, 0.01, 0.015, 0.02],
- 'model__min_samples_split': [800, 1050, 1300, 1550, 1800]}
-Fitting on 202944 train examples...
-Best parameters
-{'model__ccp_alpha': 0.0, 'model__min_samples_split': 1050}
-'Best performance: 0.813'
-Grid search completed in 10.3 seconds
+Grid search completed in 17.1 seconds
+
+Performing cross-validation...
+{'roc_auc_test': 0.8140105797878864, 'roc_auc_train': 0.8219327453658414}
+Cross-validation completed in 3.8 seconds
 
 
 Generating learning curve...
 Learning curve completed in 90.2 seconds
 
 Performing full test evaluation...
-Training time: 0.372
+Training time: 0.329
 Inference time: 0.006
 Final Performance Evaluation:
-{'test_auc': 0.8093300530491416, 'train_auc': 0.8258133499942515}
+{'test_auc': 0.810099643329232, 'train_auc': 0.8227382128349737}

@@ -48,4 +48,4 @@ experiments:
     target: Outcome
     cv_splits: 5
     cv_repeats: 100
-func: full
+func: cv
