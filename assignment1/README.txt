@@ -42,7 +42,9 @@ Step 2: Run experiment as above using the below options while in the `assignment
 Data Downloads
 
 1. https://www.kaggle.com/datasets/mathchi/diabetes-data-set
-2. https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset
+    * store in path: data/diabetes.csv
+2. https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset]
+    * store in path: data/diabetes_012_health_indicators_BRFSS2015.csv
 
 Implementation Notes
 * Code is primarily stored in the src and eda folders while experiment
