@@ -15,7 +15,7 @@ datamodule:
   cv_splits: ${experiments.dataset.cv_splits}
   cv_repeats: ${experiments.dataset.cv_repeats}
   test_size: ${test_size}
-  produce_ds2_small: true
+  produce_ds2_small: true  # set true for all operations except full
 
 model:
   _target_: src.models.KNNModel

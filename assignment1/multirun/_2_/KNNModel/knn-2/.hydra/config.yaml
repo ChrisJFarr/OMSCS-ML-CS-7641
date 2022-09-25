@@ -14,7 +14,7 @@ experiments:
     cv_splits: ${experiments.dataset.cv_splits}
     cv_repeats: ${experiments.dataset.cv_repeats}
     test_size: ${test_size}
-    produce_ds2_small: true
+    produce_ds2_small: false
   model:
     _target_: src.models.KNNModel
     weights: distance
@@ -52,4 +52,4 @@ experiments:
     target: Diabetes_012
     cv_splits: 5
     cv_repeats: 1
-func: cv
+func: full

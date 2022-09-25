@@ -112,7 +112,7 @@ to 10% of original size. Test is still performed on the same test size as all
 models.
 
 Performing full test evaluation...
-Training time: 0.008
-Inference time: 10.850
+Training time: 0.128
+Inference time: 38.360
 Final Performance Evaluation:
-{'test_auc': 0.7933188630578067, 'train_auc': 0.999991290543696}
+{'test_auc': 0.7910664433865724, 'train_auc': 0.9998017834418274}
