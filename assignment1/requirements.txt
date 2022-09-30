@@ -1,9 +1,0 @@
-numpy
-pandas
-scikit-learn
-torch
-pytorch-lightning
-matplotlib
-hydra-core
-hydra-joblib-launcher
-joblib

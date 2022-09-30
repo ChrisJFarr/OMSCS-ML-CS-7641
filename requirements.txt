@@ -1,0 +1,10 @@
+numpy
+pandas
+scikit-learn
+torch
+pytorch-lightning
+matplotlib
+hydra-core
+hydra-joblib-launcher
+joblib
+mlrose # https://stackoverflow.com/questions/61867945/python-import-error-cannot-import-name-six-from-sklearn-externals

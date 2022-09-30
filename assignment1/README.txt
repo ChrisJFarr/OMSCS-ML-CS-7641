@@ -5,6 +5,8 @@
 ## Instructions ##
 ##################
 
+Repository: https://github.com/ChrisJFarr/OMSCS-ML-CS-7641/tree/main/assignment1
+
 CLI through hydra. 
 
 Example usage: (see details below)
