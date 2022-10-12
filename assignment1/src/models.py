@@ -19,6 +19,11 @@ from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 import torch.nn.functional as F
 from pytorch_lightning.loggers import CSVLogger, TensorBoardLogger
 from hydra.core.hydra_config import HydraConfig
+# Assignment 2 add on
+import six
+import sys
+sys.modules['sklearn.externals.six'] = six
+import mlrose
 
 
 class ModelParent(ABC):
@@ -355,4 +360,47 @@ class KNNModel(ModelParent):
     def get_param_value(self, param_name, param_value):
         if param_name=="algorithm":
             param_value = self.algorithms[param_value]
+        return param_value
+
+
+class RandomizedNeuralNetwork(ModelParent):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__()
+        self.args = args
+        self.kwargs = kwargs
+        self.is_loaded = False
+        
+    def load(self):
+        args = self.args
+        kwargs = self.kwargs
+        self.model = mlrose.NeuralNetwork(*args, **kwargs)
+        self.is_loaded = True
+        return self
+
+    def fit(self, *args, **kwargs):
+        assert self.is_loaded
+        return self.model.fit(*args, **kwargs)
+
+    def predict(self, *args, **kwargs):
+        assert self.is_loaded
+        return self.model.predict(*args, **kwargs)
+
+    def predict_proba(self, *args, **kwargs):
+        assert self.is_loaded
+        return self.model.predict(*args, **kwargs)
+
+    def set_params(self, **params):
+        if self.is_loaded:
+            self.model.set_params(**params)
+        else:
+            for k, v in params.items():
+                self.kwargs[k] = v
+        return
+
+    def get_params(self):
+        assert self.is_loaded
+        return self.model.get_params()
+
+    def get_param_value(self, param_name, param_value):
         return param_value

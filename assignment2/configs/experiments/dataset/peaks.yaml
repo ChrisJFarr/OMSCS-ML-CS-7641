@@ -1,0 +1,10 @@
+name: peaks
+fitness:
+  _target_: mlrose.FourPeaks
+  t_pct: .1
+problem:
+  _target_: mlrose.DiscreteOpt
+  length: 5000
+  maximize: True
+  max_val: 2
+  

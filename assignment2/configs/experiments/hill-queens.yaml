@@ -1,0 +1,14 @@
+defaults:
+  - _self_
+  - dataset: queens
+dataset_name: ${experiments.dataset.name}
+experiment_name: ${experiments.model_name}_${experiments.dataset.name}
+
+model_name: hill
+algorithm:
+  _target_: mlrose.random_hill_climb
+  max_attempts: 10
+  max_iters: 100
+  restarts: 0
+  curve: False
+  random_state: ${seed}

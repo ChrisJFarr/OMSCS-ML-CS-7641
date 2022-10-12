@@ -1,0 +1,24 @@
+print_config: true
+seed: 87
+test_size: 0.2
+experiments:
+  dataset_name: ${experiments.dataset.name}
+  experiment_name: ${experiments.model_name}_${experiments.dataset.name}
+  model_name: ga
+  algorithm:
+    _target_: mlrose.genetic_alg
+    pop_size: 200
+    mutation_prob: 0.1
+    max_attempts: 10
+    random_state: ${seed}
+  dataset:
+    name: peaks
+    fitness:
+      _target_: mlrose.FourPeaks
+      t_pct: 0.15
+    problem:
+      _target_: mlrose.DiscreteOpt
+      length: 3
+      maximize: true
+      max_val: 2
+func: run

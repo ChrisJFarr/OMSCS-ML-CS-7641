@@ -1,0 +1,13 @@
+defaults:
+  - _self_
+  - dataset: peaks
+dataset_name: ${experiments.dataset.name}
+experiment_name: ${experiments.model_name}_${experiments.dataset.name}
+
+model_name: sa
+algorithm:
+  _target_: mlrose.simulated_annealing
+  schedule:
+    _target_: mlrose.decay.GeomDecay
+  max_attempts: 10
+  random_state: ${seed}

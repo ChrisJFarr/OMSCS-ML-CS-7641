@@ -238,3 +238,33 @@ class KNNData(DataParent):
         elif x_train is not None:
             x_train.iloc[:, :] = self.scaler.fit_transform(x_train)
             return x_train
+
+
+class RandomizedData(DataParent):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.scaler = MinMaxScaler()
+    
+    def add_features(self, x_train=None, y_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            return x_test
+        elif x_train is not None:
+            return x_train
+
+    def select_features(self, x_train=None, y_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            return x_test
+        elif x_train is not None:
+            return x_train
+
+    def scale_or_normalize(self, x_train=None, x_test=None):
+        assert x_train is not None or x_test is not None, "must pass x_train or x_test"
+        if x_test is not None:
+            x_test.iloc[:, :] = self.scaler.transform(x_test)
+            return x_test
+        elif x_train is not None:
+            x_train.iloc[:, :] = self.scaler.fit_transform(x_train)
+            return x_train

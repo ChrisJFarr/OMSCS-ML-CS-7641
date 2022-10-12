@@ -17,8 +17,7 @@ from mlrose import (
     genetic_alg,
     mimic
 )
+import numpy as np
 
-
-
-
+# Might only need a model class for simulated annealing and neural network
 

@@ -1,0 +1,50 @@
+defaults:
+  - _self_
+  - dataset: _1_
+# Used for log path
+model_name: RandomizedAlgorithms
+dataset_name: ${experiments.dataset.name}
+experiment_name: hill-1
+
+datamodule: 
+  _target_: src.datamodules.RandomizedData
+  name: ${experiments.dataset.name}
+  path: ${experiments.dataset.path}
+  target: ${experiments.dataset.target}
+  seed: ${seed}
+  cv_splits: 5
+  cv_repeats: 1
+  test_size: ${test_size}
+
+model:
+  _target_: src.models.RandomizedNeuralNetwork
+  random_state: ${seed}
+  hidden_nodes: [75, 75]
+  activation: relu
+  algorithm: random_hill_climb
+  max_iters: 20000
+  bias: true
+  is_classifier: true
+  learning_rate: .1
+  early_stopping: false
+  restarts: 10
+
+evaluation:
+  validation_curve:
+    learning_rate:
+      start: 0.05
+      stop: .36
+      step: 0.1
+    # restarts:
+    #   start: 10
+    #   stop: 1000
+    #   step: 200
+    # max_iters:
+    #   start: 3500
+    #   stop: 20000
+    #   step: 3000
+
+  learning_curve:
+    start: .1
+    stop: 1.001
+    step: .01

@@ -1,0 +1,52 @@
+print_config: true
+seed: 87
+test_size: 0.2
+experiments:
+  model_name: RandomizedAlgorithms
+  dataset_name: ${experiments.dataset.name}
+  experiment_name: ga-1
+  datamodule:
+    _target_: src.datamodules.RandomizedData
+    name: ${experiments.dataset.name}
+    path: ${experiments.dataset.path}
+    target: ${experiments.dataset.target}
+    seed: ${seed}
+    cv_splits: 5
+    cv_repeats: 1
+    test_size: ${test_size}
+  model:
+    _target_: src.models.RandomizedNeuralNetwork
+    random_state: ${seed}
+    hidden_nodes:
+    - 75
+    - 75
+    activation: relu
+    algorithm: simulated_annealing
+    max_iters: 100
+    bias: true
+    is_classifier: true
+    learning_rate: 0.1
+    early_stopping: true
+    schedule:
+      _target_: mlrose.GeomDecay
+  evaluation:
+    validation_curve:
+      learning_rate:
+        start: 0.01
+        stop: 0.15
+        step: 0.025
+      max_iters:
+        start: 100
+        stop: 250
+        step: 50
+    learning_curve:
+      start: 0.1
+      stop: 1.001
+      step: 0.01
+  dataset:
+    name: _1_
+    path: data/diabetes.csv
+    target: Outcome
+    cv_splits: 5
+    cv_repeats: 100
+func: vc

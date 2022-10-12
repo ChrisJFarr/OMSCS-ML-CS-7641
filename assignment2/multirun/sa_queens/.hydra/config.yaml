@@ -1,0 +1,23 @@
+print_config: true
+seed: 87
+test_size: 0.2
+experiments:
+  dataset_name: ${experiments.dataset.name}
+  experiment_name: ${experiments.model_name}_${experiments.dataset.name}
+  model_name: sa
+  algorithm:
+    _target_: mlrose.simulated_annealing
+    schedule:
+      _target_: mlrose.decay.GeomDecay
+    max_attempts: 10
+    random_state: ${seed}
+  dataset:
+    name: queens
+    fitness:
+      _target_: mlrose.Queens
+    problem:
+      _target_: mlrose.DiscreteOpt
+      length: 100
+      max_val: 100
+      maximize: false
+func: run

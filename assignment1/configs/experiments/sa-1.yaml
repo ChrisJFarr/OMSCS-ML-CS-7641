@@ -1,0 +1,47 @@
+defaults:
+  - _self_
+  - dataset: _1_
+# Used for log path
+model_name: RandomizedAlgorithms
+dataset_name: ${experiments.dataset.name}
+experiment_name: sa-1
+
+datamodule: 
+  _target_: src.datamodules.RandomizedData
+  name: ${experiments.dataset.name}
+  path: ${experiments.dataset.path}
+  target: ${experiments.dataset.target}
+  seed: ${seed}
+  cv_splits: 5
+  cv_repeats: 1
+  test_size: ${test_size}
+
+model:
+  _target_: src.models.RandomizedNeuralNetwork
+  random_state: ${seed}
+  hidden_nodes: [75, 75]
+  activation: relu
+  algorithm: simulated_annealing
+  max_iters: 25000
+  bias: true
+  is_classifier: true
+  learning_rate: .1
+  early_stopping: false
+  schedule:
+    _target_: mlrose.GeomDecay # **best**GeomDecay ExpDecay ArithDecay
+
+evaluation:
+  validation_curve:
+    learning_rate:
+      start: 0.05
+      stop: .15
+      step: 0.01
+    max_iters:
+      start: 5000
+      stop: 30000
+      step: 2000
+
+  learning_curve:
+    start: .1
+    stop: 1.001
+    step: .01

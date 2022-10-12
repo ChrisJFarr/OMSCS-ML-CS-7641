@@ -1,0 +1,9 @@
+name: queens
+fitness:
+  _target_: mlrose.Queens
+problem:
+  _target_: mlrose.DiscreteOpt
+  length: 100
+  max_val: 100
+  maximize: False
+  

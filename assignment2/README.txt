@@ -1,3 +1,57 @@
+### Office Hours ### OH3: 1:45:50
+
+mlrose->hivefork or hiive fork? It is actively maintained
+
+Two sections
+
+* Choose 3 problems and 4 algorithms
+        * hill
+        * ga
+        * annealing
+        * mimic
+    * ga and mimic are more complicated
+    * hill and annealing
+    * requires structure like n-queens and k-color: ga or mimic handle structure
+    * when doing results be sure to highlight specific algorithms (such as their strengths)
+    track fitness score per iteration
+    Very important topic: notion of convergence, set clear convergence criteria for algorithms
+        * you could run them forever so we need a sensible stopping criteria, describe HOW it converged
+    Try different problem sizes and see how convergence changes
+        * I feel like I can create larger sizes for some of the problems and just have one size per problem
+    Wall-clock time
+    Function evaluations per iteration (some do more some do less)
+        * which ones compute more than once per iteratino?
+            * Genetic Algorithm: at each iteration, every animal is evaluated for fitness before 
+                selecting the parents for the next generation. 
+
+    Hypothesize why its interesting...
+        * clear about how they are structured and how they will highlight a specific algorithm
+
+
+
+* Use a randomized algorithm instead of backprop for neural-net
+    * hill, ga, annealing
+    * use ds1
+    * use exact same structure...?
+    * you may reimplement in mlrose (probably should do this, but target similar structure)
+    * create the same graphs as done in assignment 1 for apples comparison
+        * need to include convergence analysis using loss curve
+
+
+
+
+
+I should probably implement grid-search
+
+
+######## End OH ####
+
+
+
+
+
+
+
 
 Implement these randomized algorithms:
     randomized hill climbing
@@ -61,5 +115,13 @@ https://researchbank.swinburne.edu.au/file/ee09cd8d-64c2-402e-9388-b4c04ebcec30/
 
 python
 https://mlrose.readthedocs.io/; https://mlrose.readthedocs.io/en/stable/source/algorithms.html
+
+
+Notes for paper:
+
+* discuss exploration vs exploitation
+    * realize similarity between underfitting and overfitting
+
+
 
 

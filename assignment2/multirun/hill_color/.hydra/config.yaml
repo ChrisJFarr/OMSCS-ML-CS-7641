@@ -1,0 +1,29 @@
+print_config: true
+seed: 87
+test_size: 0.2
+experiments:
+  dataset_name: ${experiments.dataset.name}
+  experiment_name: ${experiments.model_name}_${experiments.dataset.name}
+  model_name: hill
+  algorithm:
+    _target_: mlrose.random_hill_climb
+    max_attempts: 10
+    max_iters: 100
+    restarts: 0
+    curve: false
+    random_state: ${seed}
+  dataset:
+    name: color
+    fitness:
+      _target_: mlrose.MaxKColor
+      edges:
+        _target_: src.utils.get_color_graph
+        density: 0.15
+        size: 6
+        seed: ${seed}
+    problem:
+      _target_: mlrose.DiscreteOpt
+      length: 6
+      maximize: false
+      max_val: 3
+func: run

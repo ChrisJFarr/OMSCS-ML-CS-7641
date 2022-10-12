@@ -1,0 +1,16 @@
+name: color
+
+
+fitness:
+  _target_: mlrose.MaxKColor
+  edges:
+    _target_: src.utils.get_color_graph
+    density: .05
+    size: 500
+    seed: 87
+
+problem:
+  _target_: mlrose.DiscreteOpt
+  length: 500
+  maximize: False
+  max_val: 15
