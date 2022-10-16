@@ -26,6 +26,9 @@ from multiprocessing import cpu_count
 from src.models import ModelParent
 from src.datamodules import DataParent
 
+import warnings
+warnings.filterwarnings('ignore')
+
 
 def get_metrics(y_true, y_pred):
     # Compute auc score
@@ -269,6 +272,49 @@ class Assignment1Evaluation:
         plt.savefig(os.path.join(override_dirname, save_name))
         return
 
+
+    def _save_iterative_plot_2(self, x_axis, y_axis, title, x_label, save_name):
+
+        # if (maximize is not None) and (not maximize):
+        #     # TODO starts with smallest number is best
+        #     # TODO Flip sign, then largest number is best
+        #     y_axis = np.array(y_axis) * -1
+
+        # Produce a plot with metrics on y-axis
+        fig, ax = plt.subplots()
+        df = pd.DataFrame(data=y_axis, index=x_axis)
+        df.plot(ax=ax, lw=1.25, legend=False)
+        # ax.plot(x_axis, df.values, lw=1.25, label=df.columns)
+        # plt.ylim((0.5, 1.01))
+        plt.xlabel(x_label)
+        plt.ylabel("Fitness Score")
+
+        # leg = plt.legend()
+
+        best_score = np.max(y_axis)
+        best_i = np.argmax(y_axis)
+
+        plt.axhline(y=best_score, color='black', lw=.5, linestyle="--")
+        plt.axvline(x=x_axis[best_i], color='black', lw=.5, linestyle="--")
+
+        model_name = self.config.experiments.model._target_.split(".")[-1]
+        dataset_name = self.config.experiments.dataset.name.split("_")[1]
+
+        plt.title(
+            "%s(%s, %s)\nfitness: %.3f; %s=%.3f; " % \
+                (title, 
+                model_name, 
+                dataset_name, 
+                best_score, 
+                x_label,
+                x_axis[best_i]),
+            fontsize="large"
+            )
+
+        hdr = HydraConfig.get()
+        override_dirname= hdr.run.dir
+        plt.savefig(os.path.join(override_dirname, save_name))
+
     def generate_learning_curve(self):
         """
         * learning curve plots (some notion of a learning curve)
@@ -284,6 +330,12 @@ class Assignment1Evaluation:
             # Get generator
             train_generator, _ = self.datamodule.make_loader(percent)
             y_axis.append(self.parallel_evaluate(train_generator))
+        
+        # y_axis = Parallel(n_jobs=cpu_count())(
+        #     delayed(self.evaluate)((self.datamodule.make_loader(percent)[0], x_axis.append(percent))[0])
+        #     for percent in np.arange(**self.config.experiments.evaluation.learning_curve)
+        #     )
+
         self._save_plot(x_axis, y_axis, title="Learning Curve", x_label="Train Percentage", save_name="learning_curve_plot.png")
         return
 
@@ -321,6 +373,27 @@ class Assignment1Evaluation:
         x_axis = list(log_summary.index)
         y_axis = log_summary.to_dict(orient="records")
         self._save_plot(x_axis, y_axis, title="Iterative Plot", x_label="Epoch", save_name="iterative_plot.png")
+
+    def generate_iterative_plot2(self):
+        """
+        * iterative plot, plot loss curve
+            * nn: plot loss for each iteration:
+                * y axis loss
+                * x axis iteration/epoch
+
+        Use the full train set
+
+        https://pytorch-lightning.readthedocs.io/en/0.9.0/experiment_reporting.html
+        
+        """
+        x_train, _, y_train, _ = self.datamodule.get_full_dataset()
+        self.model.set_input_size(x_train.shape[1])
+        self.model.load()
+        nnet = self.model.fit(x_train, y_train)
+        y_axis = nnet.fitness_curve
+        x_axis = list(range(len(y_axis)))
+        self._save_iterative_plot_2(x_axis, y_axis, title="Iterative Plot", x_label="Epoch", save_name="iterative_plot.png")
+
 
     def generate_validation_curve(self):
         """

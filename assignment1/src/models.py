@@ -380,7 +380,8 @@ class RandomizedNeuralNetwork(ModelParent):
 
     def fit(self, *args, **kwargs):
         assert self.is_loaded
-        return self.model.fit(*args, **kwargs)
+        self.model = self.model.fit(*args, **kwargs)
+        return self.model
 
     def predict(self, *args, **kwargs):
         assert self.is_loaded

@@ -22,12 +22,12 @@ model:
   hidden_nodes: [75, 75]
   activation: relu
   algorithm: random_hill_climb
-  max_iters: 20000
+  max_iters: 100000
   bias: true
   is_classifier: true
-  learning_rate: .1
+  learning_rate: .05
   early_stopping: false
-  restarts: 10
+  restarts: 0
 
 evaluation:
   validation_curve:
@@ -45,6 +45,6 @@ evaluation:
     #   step: 3000
 
   learning_curve:
-    start: .1
+    start: .50
     stop: 1.001
-    step: .01
+    step: .10

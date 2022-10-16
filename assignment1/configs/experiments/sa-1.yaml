@@ -22,7 +22,7 @@ model:
   hidden_nodes: [75, 75]
   activation: relu
   algorithm: simulated_annealing
-  max_iters: 25000
+  max_iters: 100_000
   bias: true
   is_classifier: true
   learning_rate: .1
@@ -37,11 +37,11 @@ evaluation:
       stop: .15
       step: 0.01
     max_iters:
-      start: 5000
-      stop: 30000
-      step: 2000
+      start: 10000
+      stop: 50001
+      step: 10000
 
   learning_curve:
-    start: .1
+    start: .50
     stop: 1.001
-    step: .01
+    step: .10

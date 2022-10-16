@@ -7,17 +7,28 @@ experiments:
   model_name: ga
   algorithm:
     _target_: mlrose.genetic_alg
-    pop_size: 200
-    mutation_prob: 0.1
-    max_attempts: 10
+    pop_size: 8000
+    mutation_prob: 0.35
+    max_attempts: 100
     random_state: ${seed}
+    problem: ${experiments.dataset.problem}
+  evaluation:
+    validation_curve:
+      pop_size:
+        start: 2000
+        stop: 10001
+        step: 2000
+      mutation_prob:
+        start: 0.05
+        stop: 0.51
+        step: 0.05
   dataset:
     name: queens
-    fitness:
-      _target_: mlrose.Queens
     problem:
       _target_: mlrose.DiscreteOpt
-      length: 100
-      max_val: 100
+      length: 50
+      max_val: 50
       maximize: false
-func: run
+      fitness_fn:
+        _target_: mlrose.Queens
+func: wall

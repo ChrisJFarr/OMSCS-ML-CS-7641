@@ -7,18 +7,25 @@ experiments:
   model_name: hill
   algorithm:
     _target_: mlrose.random_hill_climb
-    max_attempts: 10
-    max_iters: 100
-    restarts: 0
+    max_attempts: 10000
+    max_iters: 10000
+    restarts: 50
     curve: false
     random_state: ${seed}
+    problem: ${experiments.dataset.problem}
+  evaluation:
+    validation_curve:
+      max_iters:
+        start: 500
+        stop: 2001
+        step: 100
   dataset:
     name: queens
-    fitness:
-      _target_: mlrose.Queens
     problem:
       _target_: mlrose.DiscreteOpt
-      length: 100
-      max_val: 100
+      length: 50
+      max_val: 50
       maximize: false
-func: run
+      fitness_fn:
+        _target_: mlrose.Queens
+func: wall

@@ -1,0 +1,36 @@
+print_config: true
+seed: 87
+test_size: 0.2
+experiments:
+  dataset_name: ${experiments.dataset.name}
+  experiment_name: ${experiments.model_name}_${experiments.dataset.name}
+  model_name: sa-v3
+  algorithm:
+    _target_: mlrose.simulated_annealing
+    schedule:
+      _target_: mlrose.decay.ExpDecay
+      exp_const: 0.01
+    max_attempts: 2100
+    max_iters: 110000
+    random_state: ${seed}
+    problem: ${experiments.dataset.problem}
+  evaluation:
+    validation_curve:
+      max_iters:
+        start: 1000
+        stop: 60000
+        step: 1000
+      max_attempts:
+        start: 1
+        stop: 1100
+        step: 10
+  dataset:
+    name: queens
+    problem:
+      _target_: mlrose.DiscreteOpt
+      length: 50
+      max_val: 50
+      maximize: false
+      fitness_fn:
+        _target_: mlrose.Queens
+func: fc

@@ -7,7 +7,19 @@ experiment_name: ${experiments.model_name}_${experiments.dataset.name}
 model_name: mim
 algorithm:
   _target_: mlrose.mimic
-  pop_size: 200
-  keep_pct: 0.2
-  max_attempts: 10
+  pop_size: 5000
+  keep_pct: 0.35
+  max_attempts: 25
   random_state: ${seed}
+  problem: ${experiments.dataset.problem}
+
+evaluation:
+  validation_curve:
+    pop_size:
+      start: 2000
+      stop: 10000
+      step: 2000
+    keep_pct:
+      start: .1
+      stop: .7
+      step: .1

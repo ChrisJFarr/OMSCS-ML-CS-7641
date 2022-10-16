@@ -123,12 +123,12 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - +func=run
+    - +func=wall
     - experiments=sa-peaks
   job:
     name: run
     chdir: null
-    override_dirname: +func=run,experiments=sa-peaks
+    override_dirname: +func=wall,experiments=sa-peaks
     id: ???
     num: ???
     config_name: config.yaml

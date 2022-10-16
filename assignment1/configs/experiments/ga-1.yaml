@@ -22,31 +22,26 @@ model:
   hidden_nodes: [75, 75]
   activation: relu
   algorithm: genetic_alg
-  max_iters: 100
+  max_iters: 10
   bias: true
   is_classifier: true
   learning_rate: .1
   early_stopping: true
-  pop_size: 200
-  mutation_prob: .10
-  max_attempts: 25
+  pop_size: 500
+  mutation_prob: .25
 
 evaluation:
   validation_curve:
     pop_size:
-      start: 50
-      stop: 451
+      start: 100
+      stop: 1001
       step: 100
-    learning_rate:
-      start: 0.01
-      stop: .15
-      step: 0.025
     mutation_prob:
       start: 0.05
       stop: .51
-      step: 0.05
+      step: 0.1
 
   learning_curve:
-    start: .1
+    start: .50
     stop: 1.001
-    step: .01
+    step: .10

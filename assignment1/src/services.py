@@ -73,6 +73,21 @@ def ip(config):  # shorthand: iterative plot
     print("Iterative plot completed in %.1f seconds" % (end_time - start_time))
     pass
 
+def ip2(config):  # shorthand: iterative plot
+    print("Generating iterative plot...")
+    start_time = perf_counter()
+    # Initialize model
+    model: ModelParent = hydra.utils.instantiate(config.experiments.model, curve=True)
+    # Initialize data
+    datamodule: DataParent = hydra.utils.instantiate(config.experiments.datamodule)
+    # Initialize evaluation
+    evaluation = Assignment1Evaluation(model=model, datamodule=datamodule, config=config)
+    # Test
+    evaluation.generate_iterative_plot2()
+    end_time = perf_counter()
+    print("Iterative plot completed in %.1f seconds" % (end_time - start_time))
+    pass
+
 def vc(config):  # shorthand: validation curve
     print("Generating validation curve...")
     start_time = perf_counter()

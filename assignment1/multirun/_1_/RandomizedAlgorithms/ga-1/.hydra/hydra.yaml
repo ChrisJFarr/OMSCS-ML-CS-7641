@@ -123,12 +123,12 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - +func=vc
-    - experiments=sa-1
+    - +func=ip2
+    - experiments=ga-1
   job:
     name: run
     chdir: null
-    override_dirname: +func=vc,experiments=sa-1
+    override_dirname: +func=ip2,experiments=ga-1
     id: ???
     num: ???
     config_name: config.yaml
@@ -156,7 +156,7 @@ hydra:
     output_dir: /Users/chrisfarr/Desktop/gatech/OMSCS-ML-CS-7641/assignment1/multirun/_1_/RandomizedAlgorithms/ga-1
     choices:
       func: null
-      experiments: sa-1
+      experiments: ga-1
       experiments/dataset: _1_
       hydra/env: default
       hydra/callbacks: null

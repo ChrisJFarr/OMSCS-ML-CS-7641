@@ -7,17 +7,28 @@ experiments:
   model_name: mim
   algorithm:
     _target_: mlrose.mimic
-    pop_size: 200
+    pop_size: 15000
     keep_pct: 0.2
-    max_attempts: 10
+    max_attempts: 25
     random_state: ${seed}
+    problem: ${experiments.dataset.problem}
+  evaluation:
+    validation_curve:
+      pop_size:
+        start: 1000
+        stop: 20001
+        step: 2000
+      keep_pct:
+        start: 0.1
+        stop: 0.7
+        step: 0.1
   dataset:
     name: queens
-    fitness:
-      _target_: mlrose.Queens
     problem:
       _target_: mlrose.DiscreteOpt
-      length: 100
-      max_val: 100
+      length: 50
+      max_val: 50
       maximize: false
-func: run
+      fitness_fn:
+        _target_: mlrose.Queens
+func: wall

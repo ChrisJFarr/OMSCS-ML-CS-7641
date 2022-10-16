@@ -21,32 +21,32 @@ experiments:
     - 75
     - 75
     activation: relu
-    algorithm: simulated_annealing
-    max_iters: 100
+    algorithm: genetic_alg
+    max_iters: 10
     bias: true
     is_classifier: true
     learning_rate: 0.1
     early_stopping: true
-    schedule:
-      _target_: mlrose.GeomDecay
+    pop_size: 500
+    mutation_prob: 0.25
   evaluation:
     validation_curve:
-      learning_rate:
-        start: 0.01
-        stop: 0.15
-        step: 0.025
-      max_iters:
+      pop_size:
         start: 100
-        stop: 250
-        step: 50
+        stop: 1001
+        step: 100
+      mutation_prob:
+        start: 0.05
+        stop: 0.51
+        step: 0.1
     learning_curve:
-      start: 0.1
+      start: 0.5
       stop: 1.001
-      step: 0.01
+      step: 0.1
   dataset:
     name: _1_
     path: data/diabetes.csv
     target: Outcome
     cv_splits: 5
     cv_repeats: 100
-func: vc
+func: ip2

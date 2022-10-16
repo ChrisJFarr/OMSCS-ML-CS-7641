@@ -7,7 +7,23 @@ experiment_name: ${experiments.model_name}_${experiments.dataset.name}
 model_name: ga
 algorithm:
   _target_: mlrose.genetic_alg
-  pop_size: 200
-  mutation_prob: 0.1
-  max_attempts: 10
+  pop_size: 7000
+  mutation_prob: 0.40
+  max_attempts: 200  # moving from 10 to 20 doubled runtime
+  max_iters: 200
   random_state: ${seed}
+  problem: ${experiments.dataset.problem}
+
+
+# sa achieved score of 2
+# The below values were with a max-attempts of 10
+evaluation:
+  validation_curve:
+    pop_size:
+      start: 1000
+      stop: 11001
+      step: 2000 
+    mutation_prob:
+      start: 0.1
+      stop: 1.01
+      step: 0.1

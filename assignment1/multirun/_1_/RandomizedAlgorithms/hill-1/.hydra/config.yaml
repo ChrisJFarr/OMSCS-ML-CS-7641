@@ -22,12 +22,12 @@ experiments:
     - 75
     activation: relu
     algorithm: random_hill_climb
-    max_iters: 20000
+    max_iters: 100000
     bias: true
     is_classifier: true
-    learning_rate: 0.1
+    learning_rate: 0.05
     early_stopping: false
-    restarts: 10
+    restarts: 0
   evaluation:
     validation_curve:
       learning_rate:
@@ -35,13 +35,13 @@ experiments:
         stop: 0.36
         step: 0.1
     learning_curve:
-      start: 0.1
+      start: 0.5
       stop: 1.001
-      step: 0.01
+      step: 0.1
   dataset:
     name: _1_
     path: data/diabetes.csv
     target: Outcome
     cv_splits: 5
     cv_repeats: 100
-func: vc
+func: full2
