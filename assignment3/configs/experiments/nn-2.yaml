@@ -1,0 +1,47 @@
+defaults:
+  - _self_
+  - dataset: _2_
+# Used for log path
+model_name: NeuralNetworkModel
+dataset_name: ${experiments.dataset.name}
+experiment_name: nn-2
+
+datamodule: 
+  _target_: src.datamodules.NeuralNetworkData
+  name: ${experiments.dataset.name}
+  path: ${experiments.dataset.path}
+  target: ${experiments.dataset.target}
+  seed: ${seed}
+  cv_splits: 5
+  cv_repeats: 1
+  test_size: ${test_size}
+
+model:
+  _target_: src.models.NeuralNetworkModel
+  save_name: nn-1
+  layers: 2  # 2
+  nodes: 250   # 250
+  dropout_rate: 0.5   # 0.5
+  validation_size: 0.10    # 0.10
+  seed: ${seed}
+  lr: 0.0001    # 0.0001
+  patience: 5    # 5
+  batch_size: 5000     # 5000
+  cluster: null
+  reduction: null
+
+evaluation:
+  validation_curve:
+    layers:
+      start: 1
+      stop: 6
+      step: 1
+    nodes:
+      start: 25
+      stop: 500
+      step: 50
+      
+  learning_curve:
+    start: .50
+    stop: 1.001
+    step: .1

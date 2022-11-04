@@ -1,0 +1,65 @@
+defaults:
+  - _self_
+  - dataset: _1_
+# Used for log path
+model_name: NeuralNetworkModel
+dataset_name: ${experiments.dataset.name}
+experiment_name: km-1
+
+datamodule: 
+  _target_: src.datamodules.NeuralNetworkData
+  name: ${experiments.dataset.name}
+  path: ${experiments.dataset.path}
+  target: ${experiments.dataset.target}
+  seed: ${seed}
+  cv_splits: 5
+  cv_repeats: 5
+  test_size: ${test_size}
+  cluster:
+    - _target_: sklearn.cluster.KMeans
+      n_clusters: 8
+      n_init: 10
+      max_iter: 300
+      tol: 1e-4
+      random_state: ${seed}
+
+model:
+  _target_: src.models.NeuralNetworkModel
+  save_name: nn-1
+  # Tuned 
+  layers: 2  # 2
+  nodes: 75   # 75
+  dropout_rate: 0.1  # 0.1
+  validation_size: 0.25   # 0.25
+  seed: ${seed}
+  lr: 0.001   # 0.001
+  patience: 0   # 0
+  batch_size: 25   # 25
+
+evaluation:
+
+  validation_curve:
+    layers:
+      start: 1
+      stop: 5
+      step: 1
+    nodes:
+      start: 25
+      stop: 300
+      step: 50
+
+  elbow_plot:
+    n_clusters:
+      start: 1
+      stop: 50
+      step: 1
+  n_clusters_line: 10
+  elbow_plot_auc:
+    n_clusters:
+      start: 1
+      stop: 50
+      step: 10
+  learning_curve:
+    start: .50
+    stop: 1.001
+    step: .1
