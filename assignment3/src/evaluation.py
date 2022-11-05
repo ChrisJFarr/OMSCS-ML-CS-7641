@@ -20,6 +20,7 @@ from sklearn.model_selection import cross_validate
 from sklearn.pipeline import Pipeline
 from sklearn.manifold import TSNE
 from matplotlib import pyplot as plt
+from sklearn.metrics import silhouette_score
 
 from joblib import Parallel, delayed
 from multiprocessing import cpu_count
@@ -234,13 +235,18 @@ class Assignment3Evaluation:
         plt.savefig(os.path.join(override_dirname, save_name))
         return
 
-    def _save_elbow_plot(self, x_axis, y_axis_inertia, y_axis_auc=None, 
+    def _save_silhouette_plot(self, x_axis, y_axis_silhouette, y_axis_auc=None, 
         v_line=None, title=None, x_label=None, save_name=None):
         # v_line is selected number of clusters
         # Reference: https://stackoverflow.com/questions/5484922/secondary-axis-with-twinx-how-to-add-to-legend
         dataset_name = self.config.experiments.dataset.name.split("_")[1]
         fig, ax1 = plt.subplots(1,1)
-        plt1 = pd.DataFrame(data=y_axis_inertia, columns=["inertia"], index=x_axis).plot(ax=ax1, linestyle="--", color="green")
+        plt1 = pd.DataFrame(data=y_axis_silhouette, columns=["silhouette"], index=x_axis).plot(ax=ax1, lw=2.0, linestyle="--", color="green")
+        
+        max_silhouette_i = np.argmax(y_axis_silhouette)
+        v_line = x_axis[max_silhouette_i]
+        max_silhouette_score = y_axis_silhouette[max_silhouette_i]
+        
         if y_axis_auc is not None:
             ax2 = ax1.twinx()
             plt2 = pd.DataFrame(data=y_axis_auc, index=x_axis).plot(ax=ax2)
@@ -265,18 +271,23 @@ class Assignment3Evaluation:
             plt.axhline(y=select_test, color='black', lw=.5, linestyle="--")
         else:
             plt.title(
-                "%s; dataset: %s; n_clusters=%s" % \
-                    (title, dataset_name, v_line),
+                "%sdataset: %s; n_clusters=%s; silhouette score: %.2f" % \
+                    (title, dataset_name, v_line, max_silhouette_score),
                 fontsize="large"
                 )
         plt.axvline(x=v_line, color='black', lw=.5, linestyle="--")
-
+        plt.xlabel("n-cluster")
+        
+        if "GaussianMixture" in self.config.experiments.datamodule.cluster[0]._target_:
+            plt.ylabel("score")
+        else:
+            plt.ylabel("silhouette score")
         hdr = HydraConfig.get()
         override_dirname= hdr.run.dir
         plt.savefig(os.path.join(override_dirname, save_name))
         return
 
-    def _save_elbow_plot_multi(self):
+    def _save_silhouette_plot_multi(self):
         # TODO Implement
         raise NotImplementedError
 
@@ -428,76 +439,72 @@ class Assignment3Evaluation:
         override_dirname= hdr.run.dir
         plt.savefig(os.path.join(override_dirname, "feature_importance_bar.png"))
 
-
-    def elbow_plot(self):
+    def silhouette_plot(self):
+        self.datamodule.load()
         assert self.datamodule.cluster is not None
         assert len(self.datamodule.cluster) == 1
 
         # Get clustering params (range of k's)
-        elbow_plot_dict = self.config.experiments.evaluation.elbow_plot
-        for param_name, v in elbow_plot_dict.items():
+        silhouette_plot_dict = self.config.experiments.evaluation.silhouette_plot
+        for param_name, v in silhouette_plot_dict.items():
             # Build plot lists
             x_axis = list()
-            y_axis_inertia = list()
+            y_axis = list()
             for param_value in np.arange(**v):
                 # Set params for the cluster algorithm
                 for cluster in self.datamodule.cluster:
                     cluster.set_params(**{param_name: param_value})
-                # Get generator for inertia
-                train_generator, _ = self.datamodule.make_loader()
-                # Get cluster obj inertia
-                inertia_list = list()
-                # Fit clustering with params
-                for _ in train_generator:
-                    inertia_list.append(self.datamodule.cluster[0].inertia_)
-                y_axis_inertia.append(np.mean(inertia_list))
+                # Get data for scoring
+                x_train, _, y_train, _ = self.datamodule.load().get_full_dataset()
+                x_train = self.datamodule.fit(x_train, y_train).transform(x_train)
+                cluster_labels = x_train.filter(like="cluster_")
+                x_train = x_train.drop(cluster_labels.columns, axis=1)
+                y_axis.append(silhouette_score(x_train, cluster_labels))
                 x_axis.append(param_value)
-        self._save_elbow_plot(
+        plot_name = self.config.experiments.datamodule.plot_name
+        self._save_silhouette_plot(
             x_axis, 
-            y_axis_inertia, 
+            y_axis, 
             y_axis_auc=None,
-            v_line=self.config.experiments.evaluation.n_clusters_line,
-            title="Elbow Curve", 
+            title=f"{plot_name} Silhouette Plot\n", 
             x_label=param_name, 
-            save_name="elbow_curve_plot.png"
+            save_name="silhouette_plot.png"
             )
         
-    def elbow_plot_with_auc(self):
+    def silhouette_plot_with_auc(self):
+        # TODO Adapt to silhouette
         assert self.datamodule.cluster is not None
         assert len(self.datamodule.cluster) == 1
 
         # Get clustering params (range of k's)
-        elbow_plot_dict = self.config.experiments.evaluation.elbow_plot
-        for param_name, v in elbow_plot_dict.items():
+        silhouette_plot_dict = self.config.experiments.evaluation.silhouette_plot
+        for param_name, v in silhouette_plot_dict.items():
             # Build plot lists
             x_axis = list()
-            y_axis_inertia = list()
+            y_axis_silhouette = list()
             y_axis_auc = list()
             for param_value in np.arange(**v):
                 # Set params for the cluster algorithm
                 for cluster in self.datamodule.cluster:
                     cluster.set_params(**{param_name: param_value})
-                # Get generator for inertia
-                train_generator, _ = self.datamodule.make_loader()
-                # Get cluster obj inertia
-                inertia_list = list()
                 # Fit clustering with params
-                for _ in train_generator:
-                    inertia_list.append(self.datamodule.cluster[0].inertia_)
-                y_axis_inertia.append(np.mean(inertia_list))
+                x_train, _, y_train, _ = self.datamodule.load().get_full_dataset()
+                x_train = self.datamodule.fit(x_train, y_train).transform(x_train)
+                cluster_labels = x_train.filter(like="cluster_")
+                x_train = x_train.drop(cluster_labels.columns, axis=1)
+                y_axis_silhouette.append(silhouette_score(x_train, cluster_labels))
                 # Get generator
                 train_generator, _ = self.datamodule.make_loader()
-                # Fit model and get performance too (plot alongside inertia for experiment)
+                # Fit model and get performance too (plot alongside silhouette for experiment)
                 y_axis_auc.append(self.parallel_evaluate(train_generator))
                 x_axis.append(param_value)
-        self._save_elbow_plot(
+        self._save_silhouette_plot(
             x_axis, 
-            y_axis_inertia, 
+            y_axis_silhouette, 
             y_axis_auc,
-            v_line=self.config.experiments.evaluation.n_clusters_line,
-            title="Elbow Curve", 
+            title="Silhouette Plot", 
             x_label=param_name, 
-            save_name="elbow_curve_auc_plot.png"
+            save_name="silhouette_auc_plot.png"
             )
 
     def tsne_plot(self):
@@ -505,9 +512,17 @@ class Assignment3Evaluation:
         # https://scikit-learn.org/stable/modules/manifold.html#t-sne
         x_train, x_test, y_train, y_test = self.datamodule.load().get_full_dataset()
         x_train = self.datamodule.fit(x_train, y_train).transform(x_train)
+        if "rotate_projection_180" in self.config.experiments.datamodule:
+            rotate_180 = self.config.experiments.datamodule.rotate_projection_180
+            if rotate_180:
+                x_train *= -1.0
+        if "tsne_dot_size" in self.config.experiments.datamodule:
+            dot_size = self.config.experiments.datamodule.tsne_dot_size
+        else:
+            dot_size = 15.0
         tsne_data = TSNE(
-                n_components=2,
-                init="pca",
+                n_components=x_train.shape[1],
+                init=x_train.values,
                 learning_rate="auto",
                 n_iter=500,
                 n_iter_without_progress=150,
@@ -519,14 +534,48 @@ class Assignment3Evaluation:
             ax.scatter(
                     x=tsne_data[y_train==l,0], 
                     y=tsne_data[y_train==l,1],
+                    s=np.ones_like(y_train[y_train==l]) * dot_size,
                     color=["tab:green", "tab:red"][l],
                     label=["Neg Diabetes", "Pos Diabetes"][l]
                 )
         ax.legend()
         ax.grid(True)
-        reduction_algo = self.config.experiments.datamodule.reduction[0]._target_.split(".")[-1]
-        plt.title("TSNE + %s" % reduction_algo)
+        projection_algo = self.config.experiments.datamodule.projection[0]._target_.split(".")[-1]
+        plt.title("TSNE + %s" % projection_algo)
         hdr = HydraConfig.get()
         override_dirname= hdr.run.dir
         plt.savefig(os.path.join(override_dirname, "tsne.png"))
 
+
+    def feature_selection(self):
+        # Compute feature selection
+        # Print all column names
+        # Print selected column names
+        # Vary lasso parameter count number of features selected?
+        feature_selection_dict = self.config.experiments.evaluation.feature_selection
+        for param_name, v in feature_selection_dict.items():
+            # Build plot lists
+            x_axis = list()
+            y_axis = list()
+            for param_value in np.arange(**v):
+                # Set parameter in model
+                self.datamodule.set_params(**{param_name: param_value})
+                # Track percentages for x-axis
+                x_axis.append(param_value)
+                x_train, _, y_train, _ = self.datamodule.load().get_full_dataset()
+                x_train = self.datamodule.fit(x_train, y_train).transform(x_train)
+                y_axis.append(x_train.shape[1])
+            pd.DataFrame(data=y_axis, index=x_axis, columns=["n-features"]).plot(lw=2.0, linestyle="--")
+            plt.ylabel("n-features")
+            plt.xlabel("Lasso Alpha")
+            plt.xticks(rotation=45)
+            dataset_name = self.config.experiments.dataset.name.split("_")[1]
+            plt.title(
+                "Lasso Feature Selection\ndataset: %s" % \
+                    (dataset_name, ),
+                fontsize="large"
+                )
+            plt.tight_layout(pad=2.0)
+            hdr = HydraConfig.get()
+            override_dirname= hdr.run.dir
+            plt.savefig(os.path.join(override_dirname, "feature_importance.png"))

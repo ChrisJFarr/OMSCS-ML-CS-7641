@@ -1,6 +1,7 @@
 defaults:
   - _self_
   - dataset: _1_
+  - model: _nn-1_
 # Used for log path
 model_name: NeuralNetworkModel
 dataset_name: ${experiments.dataset.name}
@@ -15,42 +16,15 @@ datamodule:
   cv_splits: 5
   cv_repeats: 1
   test_size: ${test_size}
+  tsne_dot_size: 15.0
 
-  reduction:
+  projection:
     - _target_: sklearn.decomposition.PCA
-      n_components: 5
+      n_components: 2  # Max of 3 for tsne
       tol: 0.0
       random_state: ${seed}
 
-model:
-  _target_: src.models.NeuralNetworkModel
-  save_name: nn-1
-  # Tuned 
-  layers: 2  # 2
-  nodes: 75   # 75
-  dropout_rate: 0.1  # 0.1
-  validation_size: 0.25   # 0.25
-  seed: ${seed}
-  lr: 0.001   # 0.001
-  patience: 0   # 0
-  batch_size: 25   # 25
-
 evaluation:
-  validation_curve:
-    layers:
-      start: 1
-      stop: 5
-      step: 1
-    nodes:
-      start: 25
-      stop: 300
-      step: 50
-  elbow_plot:
-    n_clusters:
-      start: 1
-      stop: 50
-      step: 5
-  n_clusters_line: 10
   learning_curve:
     start: .50
     stop: 1.001

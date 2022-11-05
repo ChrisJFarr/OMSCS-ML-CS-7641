@@ -1,11 +1,11 @@
 defaults:
   - _self_
-  - dataset: _1_
-  - model: _nn-1_
+  - dataset: _2_
+  - model: _nn-2_
 # Used for log path
 model_name: NeuralNetworkModel
 dataset_name: ${experiments.dataset.name}
-experiment_name: km-1
+experiment_name: proj-2
 
 datamodule: 
   _target_: src.datamodules.NeuralNetworkData
@@ -16,26 +16,13 @@ datamodule:
   cv_splits: 5
   cv_repeats: 1
   test_size: ${test_size}
-  plot_name: KMeans
-  cluster:
-    - _target_: sklearn.cluster.KMeans
-      n_clusters: 10
-      n_init: 10
-      max_iter: 300
-      tol: 1e-4
+  tsne_dot_size: 5.0
+  projection:
+    - _target_: sklearn.random_projection.GaussianRandomProjection
+      n_components: 2
       random_state: ${seed}
 
 evaluation:
-  silhouette_plot:
-    n_clusters:
-      start: 2
-      stop: 25
-      step: 1
-  silhouette_plot_auc:
-    n_clusters:
-      start: 2
-      stop: 25
-      step: 1
   learning_curve:
     start: .50
     stop: 1.001

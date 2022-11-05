@@ -4,7 +4,7 @@ test_size: 0.2
 experiments:
   model_name: NeuralNetworkModel
   dataset_name: ${experiments.dataset.name}
-  experiment_name: km-1
+  experiment_name: proj-1
   datamodule:
     _target_: src.datamodules.NeuralNetworkData
     name: ${experiments.dataset.name}
@@ -14,25 +14,12 @@ experiments:
     cv_splits: 5
     cv_repeats: 1
     test_size: ${test_size}
-    plot_name: KMeans
-    cluster:
-    - _target_: sklearn.cluster.KMeans
-      n_clusters: 10
-      n_init: 10
-      max_iter: 300
-      tol: 0.0001
+    tsne_dot_size: 15.0
+    projection:
+    - _target_: sklearn.random_projection.GaussianRandomProjection
+      n_components: 2
       random_state: ${seed}
   evaluation:
-    silhouette_plot:
-      n_clusters:
-        start: 2
-        stop: 25
-        step: 1
-    silhouette_plot_auc:
-      n_clusters:
-        start: 2
-        stop: 25
-        step: 1
     learning_curve:
       start: 0.5
       stop: 1.001
@@ -54,4 +41,4 @@ experiments:
     lr: 0.001
     patience: 0
     batch_size: 25
-func: sp
+func: tsne

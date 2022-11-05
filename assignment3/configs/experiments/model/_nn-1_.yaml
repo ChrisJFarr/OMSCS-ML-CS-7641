@@ -1,0 +1,11 @@
+_target_: src.models.NeuralNetworkModel
+save_name: nn-1
+# Tuned 
+layers: 2  # 2
+nodes: 75   # 75
+dropout_rate: 0.1  # 0.1
+validation_size: 0.25   # 0.25
+seed: ${seed}
+lr: 0.001   # 0.001
+patience: 0   # 0
+batch_size: 25   # 25

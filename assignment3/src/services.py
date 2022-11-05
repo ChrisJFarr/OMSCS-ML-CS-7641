@@ -79,7 +79,7 @@ def vc(config):  # shorthand: validation curve
     print("Validation curve completed in %.1f seconds" % (end_time - start_time))
     return
 
-def cv(config): # shorthand: grid search
+def cv(config): # shorthand: cross-validation
     print("Performing cross-validation...")
     start_time = perf_counter()
     evaluation = get_evaluation(config)
@@ -88,24 +88,50 @@ def cv(config): # shorthand: grid search
     print("Cross-validation completed in %.1f seconds" % (end_time - start_time))
     return
 
-def full(config):
+def full(config): # shorthand: full train test evaluation
     evaluation = get_evaluation(config)
     # Run test
     evaluation.evaluate_train_test_performance()
     return
 
-def ep(config):
+def sp(config):  # shorthand: silhouette-plot
+    print("Generating silhouette plot...")
+    start_time = perf_counter()
     evaluation = get_evaluation(config)
-    evaluation.elbow_plot()
+    evaluation.silhouette_plot()
+    end_time = perf_counter()
+    print("Silhouette plot completed in %.1f seconds" % (end_time - start_time))
 
-def ep_auc(config):
+def sp_auc(config): # shorthand: silhouette-plot+auc
+    print("Generating silhouette+auc plot...")
+    start_time = perf_counter()
     evaluation = get_evaluation(config)
-    evaluation.elbow_plot_with_auc()
+    evaluation.silhouette_plot_with_auc()
+    end_time = perf_counter()
+    print("silhouette+auc plot completed in %.1f seconds" % (end_time - start_time))
 
-def tsne(config):
+def tsne(config): # shorthand: tsne plot
+    print("Generating tsne plot...")
+    start_time = perf_counter()
     evaluation = get_evaluation(config)
     evaluation.tsne_plot()
+    end_time = perf_counter()
+    print("Tsne plot completed in %.1f seconds" % (end_time - start_time))
 
-def feat(config):  # Short for: random-cluster-select-feature-importance
+def feat1(config):  # Short for: feature selection plot
+    print("Generating feature-selection plot...")
+    start_time = perf_counter()
+    evaluation = get_evaluation(config)
+    evaluation.feature_selection()
+    end_time = perf_counter()
+    print("Feature-selection plot completed in %.1f seconds" % (end_time - start_time))
+
+def feat2(config):  # Short for: random-cluster-select-feature-importance
+    print("Generating feature-importance plot...")
+    start_time = perf_counter()
     evaluation = get_evaluation(config)
     evaluation.random_repeated_cluster_feature_importance()
+    end_time = perf_counter()
+    print("Feature-importance plot completed in %.1f seconds" % (end_time - start_time))
+
+

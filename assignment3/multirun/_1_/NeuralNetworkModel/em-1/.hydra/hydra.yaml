@@ -124,11 +124,11 @@ hydra:
     - hydra.mode=RUN
     task:
     - +func=sp
-    - experiments=km-1
+    - experiments=em-1
   job:
     name: run
     chdir: null
-    override_dirname: +func=sp,experiments=km-1
+    override_dirname: +func=sp,experiments=em-1
     id: ???
     num: ???
     config_name: config.yaml
@@ -153,10 +153,10 @@ hydra:
     - path: ''
       schema: structured
       provider: schema
-    output_dir: /Users/chrisfarr/Desktop/gatech/OMSCS-ML-CS-7641/assignment3/multirun/_1_/NeuralNetworkModel/km-1
+    output_dir: /Users/chrisfarr/Desktop/gatech/OMSCS-ML-CS-7641/assignment3/multirun/_1_/NeuralNetworkModel/em-1
     choices:
       func: null
-      experiments: km-1
+      experiments: em-1
       experiments/model: _nn-1_
       experiments/dataset: _1_
       hydra/env: default

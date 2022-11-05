@@ -14,11 +14,22 @@ experiments:
     cv_splits: 5
     cv_repeats: 1
     test_size: ${test_size}
-    reduction:
+    projection:
     - _target_: sklearn.decomposition.PCA
-      n_components: 5
+      n_components: 2
       tol: 0.0
       random_state: ${seed}
+  evaluation:
+    learning_curve:
+      start: 0.5
+      stop: 1.001
+      step: 0.1
+  dataset:
+    name: _1_
+    path: data/diabetes.csv
+    target: Outcome
+    cv_splits: 5
+    cv_repeats: 100
   model:
     _target_: src.models.NeuralNetworkModel
     save_name: nn-1
@@ -30,30 +41,4 @@ experiments:
     lr: 0.001
     patience: 0
     batch_size: 25
-  evaluation:
-    validation_curve:
-      layers:
-        start: 1
-        stop: 5
-        step: 1
-      nodes:
-        start: 25
-        stop: 300
-        step: 50
-    elbow_plot:
-      n_clusters:
-        start: 1
-        stop: 50
-        step: 5
-    n_clusters_line: 10
-    learning_curve:
-      start: 0.5
-      stop: 1.001
-      step: 0.1
-  dataset:
-    name: _1_
-    path: data/diabetes.csv
-    target: Outcome
-    cv_splits: 5
-    cv_repeats: 100
 func: tsne

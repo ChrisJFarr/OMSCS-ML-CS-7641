@@ -157,6 +157,7 @@ hydra:
     choices:
       func: null
       experiments: pca-1
+      experiments/model: _nn-1_
       experiments/dataset: _1_
       hydra/env: default
       hydra/callbacks: null

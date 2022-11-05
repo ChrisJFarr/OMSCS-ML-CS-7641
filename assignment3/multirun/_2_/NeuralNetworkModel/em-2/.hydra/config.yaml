@@ -4,7 +4,7 @@ test_size: 0.2
 experiments:
   model_name: NeuralNetworkModel
   dataset_name: ${experiments.dataset.name}
-  experiment_name: km-1
+  experiment_name: em-2
   datamodule:
     _target_: src.datamodules.NeuralNetworkData
     name: ${experiments.dataset.name}
@@ -14,44 +14,46 @@ experiments:
     cv_splits: 5
     cv_repeats: 1
     test_size: ${test_size}
-    plot_name: KMeans
+    plot_name: Expectation Maximization
     cluster:
-    - _target_: sklearn.cluster.KMeans
-      n_clusters: 10
+    - _target_: sklearn.mixture.GaussianMixture
+      n_components: 10
       n_init: 10
-      max_iter: 300
-      tol: 0.0001
+      max_iter: 100
+      tol: 0.01
       random_state: ${seed}
   evaluation:
     silhouette_plot:
-      n_clusters:
+      n_components:
         start: 2
         stop: 25
-        step: 1
+        step: 3
     silhouette_plot_auc:
-      n_clusters:
+      n_components:
         start: 2
         stop: 25
-        step: 1
+        step: 3
     learning_curve:
       start: 0.5
       stop: 1.001
       step: 0.1
   dataset:
-    name: _1_
-    path: data/diabetes.csv
-    target: Outcome
+    name: _2_
+    path: data/diabetes_012_health_indicators_BRFSS2015.csv
+    target: Diabetes_012
     cv_splits: 5
-    cv_repeats: 100
+    cv_repeats: 1
   model:
     _target_: src.models.NeuralNetworkModel
     save_name: nn-1
     layers: 2
-    nodes: 75
-    dropout_rate: 0.1
-    validation_size: 0.25
+    nodes: 250
+    dropout_rate: 0.5
+    validation_size: 0.1
     seed: ${seed}
-    lr: 0.001
-    patience: 0
-    batch_size: 25
+    lr: 0.0001
+    patience: 5
+    batch_size: 5000
+    cluster: null
+    reduction: null
 func: sp

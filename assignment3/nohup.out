@@ -1,0 +1,13 @@
+2022-11-05 11:39:35.264 python[71123:1147283] XType: font daemon returned 0 fonts!
+2022-11-05 11:39:35.265 python[71123:1147283] registering /System/Library/Fonts/*, /System/Library/Fonts/Base/*, and /System/Library/Fonts/Supplemental/* locally
+Generating silhouette plot...
+Silhouette plot completed in 3537.1 seconds
+
+2022-11-05 12:54:52.697 python[81467:1205167] XType: font daemon returned 0 fonts!
+2022-11-05 12:54:52.698 python[81467:1205167] registering /System/Library/Fonts/*, /System/Library/Fonts/Base/*, and /System/Library/Fonts/Supplemental/* locally
+Generating silhouette plot...
+Silhouette plot completed in 3186.4 seconds
+2022-11-05 13:06:17.998 python[89545:1248505] XType: font daemon returned 0 fonts!
+2022-11-05 13:06:17.998 python[89545:1248505] registering /System/Library/Fonts/*, /System/Library/Fonts/Base/*, and /System/Library/Fonts/Supplemental/* locally
+Generating tsne plot...
+Tsne plot completed in 233.6 seconds

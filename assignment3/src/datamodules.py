@@ -123,6 +123,10 @@ class DataParent(ABC):
     def select_features(self, x_train, y_train, x_test):
         pass
 
+    def set_params(self, **params):
+        for k, v in params.items():
+            self.kwargs[k] = v
+
 
 
 
@@ -130,20 +134,26 @@ class NeuralNetworkData(DataParent):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.cluster = kwargs.pop("cluster", None)
-        self.projection = kwargs.pop("projection", None)
-        self.random_clusters = kwargs.pop("random_clusters", False)
-        self.normalize_clusters = kwargs.pop("normalize_clusters", False)
-        self.select_from_model = kwargs.pop("select_from_model", False)
-        self.random_columns = None
-        self.fitted_clusters = None
+        self.kwargs = deepcopy(kwargs)
+        self.cluster = None
+        self.projection = None
+        self.random_clusters = 0
+        self.normalize_clusters = False
+        self.select_from_model = False
+        self.lasso_alpha = 0.001
+        self.random_columns = []
+        self.fitted_clusters = []
         self.scaler = None
         self.is_loaded = False
 
     def load(self):
+        for k, v in self.kwargs.items():
+            setattr(self, k, v)
         self.scaler = MinMaxScaler()
         if self.select_from_model:
-            self.feature_selector = SelectFromModel(estimator=Lasso(alpha=0.001))
+            self.feature_selector = SelectFromModel(
+                estimator=Lasso(alpha=self.lasso_alpha)
+                )
         self.random_columns = []
         self.fitted_clusters = []
         self.is_loaded = True
@@ -176,9 +186,9 @@ class NeuralNetworkData(DataParent):
                                 x_test.loc[:, "cluster_%s" % c] /= x_test.loc[:, "cluster_%s" % c].max()
                     else:
                         x_test["cluster_%s" % i] = cluster.predict(x_test)
+                        assert x_test["cluster_%s" % i].std() > 0
                         if self.normalize_clusters:
                             x_test.loc[:, "cluster_%s" % i] /= x_test.loc[:, "cluster_%s" % i].max()
-
             return x_test
 
         elif x_train is not None:
@@ -215,8 +225,13 @@ class NeuralNetworkData(DataParent):
                                 x_train.loc[:, "cluster_%s" % c] /= x_train.loc[:, "cluster_%s" % c].max()
                                 assert not x_train.isna().sum().any(), "2"
                     else:
+                        # x_train = x_train.reset_index(drop=True)
                         cluster.fit(x_train)
+                        # print(cluster)
+                        # print(cluster.predict(x_train))
                         x_train["cluster_%s" % i] = cluster.predict(x_train)
+                        # print(x_train.head())
+                        assert x_train["cluster_%s" % i].std() > 0, "TODO WHy are clusters set to 1?"
                         if self.normalize_clusters:
                             x_train.loc[:, "cluster_%s" % i] /= x_train.loc[:, "cluster_%s" % i].max()
             return x_train
