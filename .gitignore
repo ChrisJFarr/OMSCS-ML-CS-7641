@@ -1,6 +1,9 @@
 assignment1/data/*.csv
 .DS_Store
 assignment1/.DS_Store
+assignment1/lightning_logs/
+assignment2/lightning_logs/
+assignment3/lightning_logs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

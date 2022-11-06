@@ -16,7 +16,7 @@ datamodule:
   cv_splits: 5
   cv_repeats: 1
   test_size: ${test_size}
-  tsne_dot_size: 5.0
+  tsne_dot_size: 2.5
 
   projection:
     - _target_: sklearn.decomposition.PCA

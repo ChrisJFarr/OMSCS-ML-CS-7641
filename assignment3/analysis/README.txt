@@ -113,18 +113,6 @@ Mention this: No free lunch theorem: you have to try different algorithms, no si
 
 
 
-Experiment 5
-
-Using PCA -> random-column-clustering -> lasso-feature-selection
-    * I would expect the earlier principal components to be selected more often
-    * summarize how often each component is selected-by-lasso when in random-column-clustering
-    * preliminary results show that the middle components are favored by the model-selected-random-clustering
-Without PCA, random-column-cluster feature importance is not as close to uniform as PCA, instead
-the distribution looks more normal with some features with far less representation.
-Compare selection distribution between non-pca features and pca features where n-components=n-features
-Then compare the selection distribution between pca with fewer components
-Analyze how the feature selection is robust to pca projections
-
 
 Config Checklist
 
@@ -135,9 +123,13 @@ General Analysis
     large dataset, which sometimes took almost an hour for the experiment to process
     saving me time by reducing the number of iterations needed for the larger.
 
+
+ANALYSIS
+
 Experiment 1
 
-kmeans: ds1; python run.py +func=sp experiments=km-1
+
+kmeans: ds1; nohup python run.py +func=sp experiments=km-1 & 
 Analysis
 The best silhouette_score is for 2 clusters. Does this mean
 that ds1 doesn't have good naturally defined clusters? A case
@@ -145,7 +137,7 @@ could be made for roughly 4-5 clusters as the silhouette_score
 doesn't drop off flat until it goes from 7 to about 20, then
 additional clusters don't hurt or help the silhouette_score.
 
-em: ds1; python run.py +func=sp experiments=em-1
+em: ds1; nohup python run.py +func=sp experiments=em-1 &
 Analysis
 Compared to KM, the silhouette_score for 2 clusters is worse 
 when using EM. Otherwise the behavior as cluster count increases
@@ -171,13 +163,13 @@ similar to KM if more clusters were tested after >25 clusters the
 silhouette score would reach a new high. Based on this visual though
 it also seems there are more diminishing returns when given more 
 clusters than witnessed in KM.
-
-
 Silhouette plot completed in 3186.4 seconds
+
 
 Experiment 2
 
-pca: ds1; python run.py +func=tsne experiments=pca-1
+
+pca: ds1; nohup python run.py +func=tsne experiments=pca-1 &
 Analysis
 TSNE plot allows a max of 3 components.
 Using tsne to visualize on 2 components some clear patterns emerge which
@@ -188,7 +180,7 @@ that tsne can loosley separate the classes. There are also many instances of
 a positive example placed near groups of negative. Similar to how model performance
 can't be perfect, here, there are also challenges with separating examples.
 
-ica: ds1; python run.py +func=tsne experiments=ica-1
+ica: ds1; nohup python run.py +func=tsne experiments=ica-1 &
 Analysis
 The outputs of ica for ds1 are almost a 180 degree rotation of pca, indicating somewhat
 similar results, which is interesting. I applied a 180 degree rotation to the tsne plot for
@@ -202,7 +194,7 @@ If I were to use a projection in an SL model, based on this analysis it would be
 trying both methods because there may be an important exception to how some examples are
 projected.
 
-proj: ds1; python run.py +func=tsne experiments=proj-1
+proj: ds1; nohup python run.py +func=tsne experiments=proj-1 &
 Analysis
 Testing both 2 and 3 components for the tsne plot, 2 appears to provide
 more structure as well as more separation of the positive and negative classes.
@@ -211,22 +203,37 @@ provides more structure, although I think I biased myself by looking at the clas
 separation first now no matter what I decide it will be in an effort to unbias myself
 which is impossible now.
 
-pca: ds2; python run.py +func=tsne experiments=pca-2
+pca: ds2; nohup python run.py +func=tsne experiments=pca-2 &
 Analysis
 After the first iteration its hard to see the label colors because of the
 density of the examples. But it is also interesting that so much is filled in
 looking like a blob. Could it be that the diversity of the ds2 results in a 
 more filled out structure where the homogenity of ds1 results in a more sparse
-structure?
+structure? After shrinking the size of the scatter dots and also making them transparent
+I can see more structure and a clear layout where patients with diabetes tend to plot
+on the right and patients without tend to plot on the left. There is also a considerable
+amoun of overlap as well as some exceptions. With more time I might play around
+with transparancy more to see the gradient of patients from left to right.
+Tsne plot completed in 226.9 seconds
 
-
-ica: ds2; python run.py +func=tsne experiments=ica-2
+ica: ds2; nohup python run.py +func=tsne experiments=ica-2 &
 Analysis
+Again saw similarities between the PCA and ICA output when using the same dataset. For the first
+dataset this was a 180 degree rotation, here though I maybe see a mirror on the vertical axis
+then a 90 degree count-clockwise turn. Due to the added complexity of the projection I didn't 
+attempt to rotate the output but it can be clearly seen from the visuals.
 
-proj: ds2; python run.py +func=tsne experiments=proj-2
+proj: ds2; nohup python run.py +func=tsne experiments=proj-2 &
 Analysis
+Essentially looking at a blob of points with maybe some interesting structure around 
+the edges. When the positive labeled data appears on the front of the image it
+appears as if the negative labeled data may tend to one side of the graph. However
+once the negative is brought ot the front it can be seen that the negative samples
+overwhelm the positive and no separation is apparent. Based on this analysis I 
+would conclude that random projection is not suitable for ds2 as it creates no 
+natural separation between the two target classes.
 
-feat: ds1; python run.py +func=feat1 experiments=feat-1
+feat: ds1; nohup python run.py +func=feat_sel experiments=feat-1 &
 Analysis
 My goal here is to understand the behavior of the feature selection
 algorithm as I change the Lasso Alpha parameter, producing a validation
@@ -241,7 +248,120 @@ be diminishing returns for increased regularization on the number of features se
 If I were to use that approach here I would probably stop just before Alpha=0.01 and 
 use the 5 features selected at that point.
 
-
-feat: ds2; python run.py +func=feat2 experiments=feat-2
+feat: ds2; nohup python run.py +func=feat_sel experiments=feat-2 &
 Analysis
+Using a similar approach to ds1, there appears to be an elbow which creates a 
+plateau when alpha=0.01. At this point there are about 4 features selected. Using
+some intuition I might opt for about .05 where there are 8 features since more than
+half of the original features are dropped by this point. It would be worth trying 
+both in SL setting to see which performs the best.
+
+
+Experiment 3
+
+Issue with sp_auc plot: x-label won't show up.
+
+pca->km: ds1; nohup python run.py +func=sp_auc experiments=pca-km-1 &
+Analysis
+2 components: 2 clusters: .766 test .77 train auc
+3 components: 2 clusters: .802 test .814 train auc
+    here I could see that many cluster settings performed better than 2 even though
+    the silhouette method prefered only 2 clusters. Example 7 clusters improved to maybe
+    a test auc of .82. Also appears to reduce overfitting at this number of components.
+4 components: 2 clusters: .811 test .829 train auc
+    as more components are used the test score improves but the model also more prone
+    to overfitting.
+5 components: 2 clusters: .814 test .84 train auc
+    continuing to see trend of better test performance along with more overfitting
+Based on this I would probably lean towards 3 components as there was still little
+overfitting at this point. Additionally, it seems that increasing the number of clusters
+doesn't help with improving test performance in nearly any case. Maybe this points
+to the silhoette score as a reliable way to select the number of clusters without knowing
+the targets.
+
+pca->em: ds1; nohup python run.py +func=sp_auc experiments=pca-em-1 &
+Analysis
+3 pca components. Seeing even less overfitting where the test performance is
+slightly higher than the train performance.
+Actually seeing underfitting as the test performance dropped to .759 when using
+only 2 components.
+Increased to .795 with 3 components
+RUNNING 4
+
+ica->km: ds1; nohup python run.py +func=sp_auc experiments=ica-km-1 &
+Analysis
+Generally seeing limited impact on the final score as the single new feature
+clusters increase.
+
+ICA has the impact of dropping the test and train performance. Seeing a little
+underfitting. This is when using 2 components for ICA.
+
+ica->em: ds1; nohup python run.py +func=sp_auc experiments=ica-em-1 &
+Analysis
+
+
+proj->km: ds1; nohup python run.py +func=sp_auc experiments=proj-km-1 &
+Analysis
+
+proj->em: ds1; nohup python run.py +func=sp_auc experiments=proj-em-1 &
+Analysis
+
+feat->km: ds1; nohup python run.py +func=feat_sel_auc experiments=feat-km-1 &
+Analysis
+
+feat->em: ds1; nohup python run.py +func=feat_sel_auc experiments=feat-em-1 &
+Analysis
+
+pca->km: ds2; nohup python run.py +func=sp_auc experiments=pca-km-2 &
+Analysis
+Running
+
+pca->em: ds2; nohup python run.py +func=sp_auc experiments=pca-em-2 &
+Analysis
+Running
+
+ica->km: ds2; nohup python run.py +func=sp_auc experiments=ica-km-2 &
+Analysis
+Running
+
+ica->em: ds2; nohup python run.py +func=sp_auc experiments=ica-em-2 &
+Analysis
+Running
+
+proj->km: ds2; nohup python run.py +func=sp_auc experiments=proj-km-2 &
+Analysis
+Running
+
+proj->em: ds2; nohup python run.py +func=sp_auc experiments=proj-em-2 &
+Analysis
+
+TODO START HERE and all above are running/finished
+
+feat->km: ds2; nohup python run.py +func=feat_sel_auc experiments=feat-km-2 &
+Analysis
+
+feat->em: ds2; nohup python run.py +func=feat_sel_auc experiments=feat-em-2 &
+Analysis
+
+Experiment 4
+ONLY ds1
+
+pca->nn: ds1; nohup python run.py +func=lc experiments=pca-nn-1
+ica->nn: ds1; nohup python run.py +func=lc experiments=ica-nn-1
+proj->nn: ds1; nohup python run.py +func=lc experiments=proj-nn-1
+feat->nn: ds1; nohup python run.py +func=lc experiments=feat-nn-1
+
+
+Experiment 5
+
+Using PCA -> random-column-clustering -> lasso-feature-selection
+    * I would expect the earlier principal components to be selected more often
+    * summarize how often each component is selected-by-lasso when in random-column-clustering
+    * preliminary results show that the middle components are favored by the model-selected-random-clustering
+Without PCA, random-column-cluster feature importance is not as close to uniform as PCA, instead
+the distribution looks more normal with some features with far less representation.
+Compare selection distribution between non-pca features and pca features where n-components=n-features
+Then compare the selection distribution between pca with fewer components
+Analyze how the feature selection is robust to pca projections
+
 

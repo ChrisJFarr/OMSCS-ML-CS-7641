@@ -14,9 +14,10 @@ experiments:
     cv_splits: 5
     cv_repeats: 1
     test_size: ${test_size}
+    tsne_dot_size: 15.0
     projection:
     - _target_: sklearn.decomposition.PCA
-      n_components: 2
+      n_components: 3
       tol: 0.0
       random_state: ${seed}
   evaluation:

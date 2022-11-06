@@ -146,7 +146,7 @@ class Assignment3Evaluation:
             )
         plt.axhline(y=max_test_score, color='black', lw=.5, linestyle="--")
         plt.axvline(x=x_axis[max_test_i], color='black', lw=.5, linestyle="--")
-
+        plt.tight_layout(pad=2.0)
         hdr = HydraConfig.get()
         override_dirname= hdr.run.dir
         plt.savefig(os.path.join(override_dirname, save_name))
@@ -182,6 +182,7 @@ class Assignment3Evaluation:
 
         # make a legend for both plots
         leg = plt.legend()
+        plt.tight_layout(pad=2.0)
         hdr = HydraConfig.get()
         override_dirname= hdr.run.dir
         plt.savefig(os.path.join(override_dirname, save_name))
@@ -229,7 +230,7 @@ class Assignment3Evaluation:
             )
         plt.axhline(y=min_test_score, color='black', lw=.5, linestyle="--")
         plt.axvline(x=x_axis[min_test_i], color='black', lw=.5, linestyle="--")
-
+        plt.tight_layout(pad=2.0)
         hdr = HydraConfig.get()
         override_dirname= hdr.run.dir
         plt.savefig(os.path.join(override_dirname, save_name))
@@ -242,7 +243,7 @@ class Assignment3Evaluation:
         dataset_name = self.config.experiments.dataset.name.split("_")[1]
         fig, ax1 = plt.subplots(1,1)
         plt1 = pd.DataFrame(data=y_axis_silhouette, columns=["silhouette"], index=x_axis).plot(ax=ax1, lw=2.0, linestyle="--", color="green")
-        
+        plt.ylabel("silhouette score")
         max_silhouette_i = np.argmax(y_axis_silhouette)
         v_line = x_axis[max_silhouette_i]
         max_silhouette_score = y_axis_silhouette[max_silhouette_i]
@@ -250,6 +251,7 @@ class Assignment3Evaluation:
         if y_axis_auc is not None:
             ax2 = ax1.twinx()
             plt2 = pd.DataFrame(data=y_axis_auc, index=x_axis).plot(ax=ax2)
+            plt.ylabel("AUC")
             # https://stackoverflow.com/questions/9834452/how-do-i-make-a-single-legend-for-many-subplots
             handles, labels = [(a + b) for a, b in zip(ax1.get_legend_handles_labels(), ax2.get_legend_handles_labels())]
             ax1.get_legend().remove()
@@ -276,12 +278,8 @@ class Assignment3Evaluation:
                 fontsize="large"
                 )
         plt.axvline(x=v_line, color='black', lw=.5, linestyle="--")
-        plt.xlabel("n-cluster")
-        
-        if "GaussianMixture" in self.config.experiments.datamodule.cluster[0]._target_:
-            plt.ylabel("score")
-        else:
-            plt.ylabel("silhouette score")
+        plt.xlabel(x_label)
+        plt.tight_layout(pad=2.0)
         hdr = HydraConfig.get()
         override_dirname= hdr.run.dir
         plt.savefig(os.path.join(override_dirname, save_name))
@@ -473,6 +471,7 @@ class Assignment3Evaluation:
         
     def silhouette_plot_with_auc(self):
         # TODO Adapt to silhouette
+        self.datamodule.load()
         assert self.datamodule.cluster is not None
         assert len(self.datamodule.cluster) == 1
 
@@ -498,11 +497,15 @@ class Assignment3Evaluation:
                 # Fit model and get performance too (plot alongside silhouette for experiment)
                 y_axis_auc.append(self.parallel_evaluate(train_generator))
                 x_axis.append(param_value)
+        if "plot_name" in self.config.experiments.datamodule:
+            plot_name = self.config.experiments.datamodule.plot_name + " "
+        else:
+            plot_name = ""
         self._save_silhouette_plot(
             x_axis, 
             y_axis_silhouette, 
             y_axis_auc,
-            title="Silhouette Plot", 
+            title="%sSilhouette Plot" % plot_name, 
             x_label=param_name, 
             save_name="silhouette_auc_plot.png"
             )
@@ -536,16 +539,17 @@ class Assignment3Evaluation:
                     y=tsne_data[y_train==l,1],
                     s=np.ones_like(y_train[y_train==l]) * dot_size,
                     color=["tab:green", "tab:red"][l],
+                    alpha=0.1,
                     label=["Neg Diabetes", "Pos Diabetes"][l]
                 )
         ax.legend()
         ax.grid(True)
         projection_algo = self.config.experiments.datamodule.projection[0]._target_.split(".")[-1]
         plt.title("TSNE + %s" % projection_algo)
+        plt.tight_layout(pad=2.0)
         hdr = HydraConfig.get()
         override_dirname= hdr.run.dir
         plt.savefig(os.path.join(override_dirname, "tsne.png"))
-
 
     def feature_selection(self):
         # Compute feature selection
@@ -570,12 +574,77 @@ class Assignment3Evaluation:
             plt.xlabel("Lasso Alpha")
             plt.xticks(rotation=45)
             dataset_name = self.config.experiments.dataset.name.split("_")[1]
+            if "plot_name" in self.config.experiments.datamodule:
+                plot_name = self.config.experiments.datamodule.plot_name + " "
+            else:
+                plot_name = ""
             plt.title(
-                "Lasso Feature Selection\ndataset: %s" % \
-                    (dataset_name, ),
+                "%sLasso Feature Selection\ndataset: %s" % \
+                    (plot_name, dataset_name, ),
                 fontsize="large"
                 )
             plt.tight_layout(pad=2.0)
             hdr = HydraConfig.get()
             override_dirname= hdr.run.dir
             plt.savefig(os.path.join(override_dirname, "feature_importance.png"))
+
+    def feature_selection_with_auc(self):
+        # Compute feature selection
+        # Print all column names
+        # Print selected column names
+        # Vary lasso parameter count number of features selected?
+        feature_selection_dict = self.config.experiments.evaluation.feature_selection
+        for param_name, v in feature_selection_dict.items():
+            # Build plot lists
+            x_axis = list()
+            y_axis = list()
+            y_axis_auc = list()
+            for param_value in np.arange(**v):
+                # Set parameter in model
+                self.datamodule.set_params(**{param_name: param_value})
+                # Track percentages for x-axis
+                x_axis.append(param_value)
+                x_train, _, y_train, _ = self.datamodule.load().get_full_dataset()
+                x_train = self.datamodule.fit(x_train, y_train).transform(x_train)
+                y_axis.append(x_train.shape[1])
+                # Get generator
+                train_generator, _ = self.datamodule.make_loader()
+                # Fit model and get performance too (plot alongside silhouette for experiment)
+                y_axis_auc.append(self.parallel_evaluate(train_generator))
+
+        # TODO START HERE copy ideas from *-with_auc 
+        fig, ax1 = plt.subplots(1,1)
+        pd.DataFrame(data=y_axis, index=x_axis, columns=["n-features"]).plot(lw=2.0, linestyle="--", ax=ax1)
+        plt.ylabel("n-features")
+        plt.xlabel("Lasso Alpha")
+        ax2 = ax1.twinx()
+        plt2 = pd.DataFrame(data=y_axis_auc, index=x_axis).plot(ax=ax2)
+        plt.ylabel("AUC")
+        plt.ylim((0.5, 1.01))
+        # https://stackoverflow.com/questions/9834452/how-do-i-make-a-single-legend-for-many-subplots
+        handles, labels = [(a + b) for a, b in zip(ax1.get_legend_handles_labels(), ax2.get_legend_handles_labels())]
+        ax1.get_legend().remove()
+        ax2.get_legend().remove()
+        plt.legend(handles, labels)
+        test_performance = np.array([v for d in y_axis_auc for k, v in d.items() if "test" in k])
+        train_performance = np.array([v for d in y_axis_auc for k, v in d.items() if "train" in k])
+        select_i = np.argmax(test_performance)
+        select_test = test_performance[select_i]
+        select_train = train_performance[select_i]
+        plt.xticks(rotation=45)
+        dataset_name = self.config.experiments.dataset.name.split("_")[1]
+        if "plot_name" in self.config.experiments.datamodule:
+            plot_name = self.config.experiments.datamodule.plot_name + " "
+        else:
+            plot_name = ""
+        plt.title(
+                "%sLasso Feature Selection\ndataset: %s\ntrain AUC: %.3f; test AUC: %.3f; alpha=%s" % \
+                    (plot_name, dataset_name, select_train, select_test, x_axis[select_i]),
+                fontsize="large"
+                )
+        plt.axhline(y=select_test, color='black', lw=.5, linestyle="--")
+        plt.axvline(x=x_axis[select_i], color='black', lw=.5, linestyle="--")
+        plt.tight_layout(pad=2.0)
+        hdr = HydraConfig.get()
+        override_dirname= hdr.run.dir
+        plt.savefig(os.path.join(override_dirname, "lasso_feature_selection.png"))

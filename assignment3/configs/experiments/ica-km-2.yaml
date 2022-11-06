@@ -1,0 +1,52 @@
+defaults:
+  - _self_
+  - dataset: _2_
+  - model: _nn-2_
+# Used for log path
+model_name: NeuralNetworkModel
+dataset_name: ${experiments.dataset.name}
+experiment_name: ica-km-2
+
+datamodule: 
+  _target_: src.datamodules.NeuralNetworkData
+  name: ${experiments.dataset.name}
+  path: ${experiments.dataset.path}
+  target: ${experiments.dataset.target}
+  seed: ${seed}
+  cv_splits: 5  # Bumped up for feature importance
+  cv_repeats: 1
+  test_size: ${test_size}
+  random_clusters: 0 # Set to 0 and each cluster config will be added as a feature
+  normalize_clusters: True
+  plot_name: ICA->KMeans
+  cluster:
+    - _target_: sklearn.cluster.KMeans
+      n_clusters: 10
+      n_init: 10
+      max_iter: 300
+      tol: 1e-4
+      random_state: ${seed}
+      
+  projection:
+    - _target_: sklearn.decomposition.FastICA
+      n_components: 2
+      tol: 0.0001
+      random_state: ${seed}
+
+  select_from_model: False
+
+evaluation:
+  silhouette_plot:
+    n_clusters:
+      start: 2
+      stop: 35
+      step: 2
+  silhouette_plot_auc:
+    n_clusters:
+      start: 2
+      stop: 25
+      step: 2
+  learning_curve:
+    start: .50
+    stop: 1.001
+    step: .1

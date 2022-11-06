@@ -123,12 +123,12 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - +func=feat
+    - +func=sp_auc
     - experiments=pca-km-1
   job:
     name: run
     chdir: null
-    override_dirname: +func=feat,experiments=pca-km-1
+    override_dirname: +func=sp_auc,experiments=pca-km-1
     id: ???
     num: ???
     config_name: config.yaml
@@ -157,6 +157,7 @@ hydra:
     choices:
       func: null
       experiments: pca-km-1
+      experiments/model: _nn-1_
       experiments/dataset: _1_
       hydra/env: default
       hydra/callbacks: null

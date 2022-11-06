@@ -1,0 +1,64 @@
+print_config: true
+seed: 87
+test_size: 0.2
+experiments:
+  model_name: NeuralNetworkModel
+  dataset_name: ${experiments.dataset.name}
+  experiment_name: proj-em-1
+  datamodule:
+    _target_: src.datamodules.NeuralNetworkData
+    name: ${experiments.dataset.name}
+    path: ${experiments.dataset.path}
+    target: ${experiments.dataset.target}
+    seed: ${seed}
+    cv_splits: 5
+    cv_repeats: 1
+    test_size: ${test_size}
+    random_clusters: 0
+    normalize_clusters: true
+    plot_name: Random-Projection->EM
+    cluster:
+    - _target_: sklearn.mixture.GaussianMixture
+      n_components: 10
+      n_init: 10
+      max_iter: 100
+      tol: 0.01
+      random_state: ${seed}
+    projection:
+    - _target_: sklearn.random_projection.GaussianRandomProjection
+      n_components: 2
+      random_state: ${seed}
+    select_from_model: false
+  evaluation:
+    silhouette_plot:
+      n_components:
+        start: 2
+        stop: 25
+        step: 1
+    silhouette_plot_auc:
+      n_components:
+        start: 2
+        stop: 25
+        step: 1
+    learning_curve:
+      start: 0.5
+      stop: 1.001
+      step: 0.1
+  dataset:
+    name: _1_
+    path: data/diabetes.csv
+    target: Outcome
+    cv_splits: 5
+    cv_repeats: 100
+  model:
+    _target_: src.models.NeuralNetworkModel
+    save_name: nn-1
+    layers: 2
+    nodes: 75
+    dropout_rate: 0.1
+    validation_size: 0.25
+    seed: ${seed}
+    lr: 0.001
+    patience: 0
+    batch_size: 25
+func: sp_auc

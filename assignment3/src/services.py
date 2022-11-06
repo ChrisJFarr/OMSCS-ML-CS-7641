@@ -118,7 +118,7 @@ def tsne(config): # shorthand: tsne plot
     end_time = perf_counter()
     print("Tsne plot completed in %.1f seconds" % (end_time - start_time))
 
-def feat1(config):  # Short for: feature selection plot
+def feat_sel(config):  # Short for: feature selection plot
     print("Generating feature-selection plot...")
     start_time = perf_counter()
     evaluation = get_evaluation(config)
@@ -126,7 +126,15 @@ def feat1(config):  # Short for: feature selection plot
     end_time = perf_counter()
     print("Feature-selection plot completed in %.1f seconds" % (end_time - start_time))
 
-def feat2(config):  # Short for: random-cluster-select-feature-importance
+def feat_sel_auc(config):
+    print("Generating feature-selection+auc plot...")
+    start_time = perf_counter()
+    evaluation = get_evaluation(config)
+    evaluation.feature_selection_with_auc()
+    end_time = perf_counter()
+    print("Feature-selection+auc plot completed in %.1f seconds" % (end_time - start_time))
+
+def feat_imp(config):  # Short for: random-cluster-select-feature-importance
     print("Generating feature-importance plot...")
     start_time = perf_counter()
     evaluation = get_evaluation(config)

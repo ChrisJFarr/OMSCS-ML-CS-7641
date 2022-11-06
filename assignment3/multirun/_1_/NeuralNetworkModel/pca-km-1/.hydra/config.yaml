@@ -11,24 +11,46 @@ experiments:
     path: ${experiments.dataset.path}
     target: ${experiments.dataset.target}
     seed: ${seed}
-    cv_splits: 10
+    cv_splits: 5
     cv_repeats: 1
     test_size: ${test_size}
-    random_clusters: 50
+    random_clusters: 0
     normalize_clusters: true
+    plot_name: PCA->KMeans
     cluster:
     - _target_: sklearn.cluster.KMeans
-      n_clusters: 2
+      n_clusters: 10
       n_init: 10
       max_iter: 300
       tol: 0.0001
       random_state: ${seed}
     projection:
     - _target_: sklearn.decomposition.PCA
-      n_components: 8
+      n_components: 3
       tol: 0.0
       random_state: ${seed}
-    select_from_model: true
+    select_from_model: false
+  evaluation:
+    silhouette_plot:
+      n_clusters:
+        start: 2
+        stop: 25
+        step: 1
+    silhouette_plot_auc:
+      n_clusters:
+        start: 2
+        stop: 25
+        step: 1
+    learning_curve:
+      start: 0.5
+      stop: 1.001
+      step: 0.1
+  dataset:
+    name: _1_
+    path: data/diabetes.csv
+    target: Outcome
+    cv_splits: 5
+    cv_repeats: 100
   model:
     _target_: src.models.NeuralNetworkModel
     save_name: nn-1
@@ -40,35 +62,4 @@ experiments:
     lr: 0.001
     patience: 0
     batch_size: 25
-  evaluation:
-    validation_curve:
-      layers:
-        start: 1
-        stop: 5
-        step: 1
-      nodes:
-        start: 25
-        stop: 300
-        step: 50
-    elbow_plot:
-      n_clusters:
-        start: 1
-        stop: 50
-        step: 1
-    n_clusters_line: 8
-    elbow_plot_auc:
-      n_clusters:
-        start: 1
-        stop: 50
-        step: 10
-    learning_curve:
-      start: 0.5
-      stop: 1.001
-      step: 0.1
-  dataset:
-    name: _1_
-    path: data/diabetes.csv
-    target: Outcome
-    cv_splits: 5
-    cv_repeats: 100
-func: feat
+func: sp_auc

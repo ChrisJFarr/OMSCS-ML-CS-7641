@@ -20,7 +20,7 @@ datamodule:
 
   projection:
     - _target_: sklearn.decomposition.PCA
-      n_components: 2  # Max of 3 for tsne
+      n_components: 3  # Max of 3 for tsne
       tol: 0.0
       random_state: ${seed}
 

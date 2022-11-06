@@ -1,0 +1,31 @@
+defaults:
+  - _self_
+  - dataset: _1_
+  - model: _nn-1_
+# Used for log path
+model_name: NeuralNetworkModel
+dataset_name: ${experiments.dataset.name}
+experiment_name: pca-nn-1
+
+datamodule: 
+  _target_: src.datamodules.NeuralNetworkData
+  name: ${experiments.dataset.name}
+  path: ${experiments.dataset.path}
+  target: ${experiments.dataset.target}
+  seed: ${seed}
+  cv_splits: 5
+  cv_repeats: 1
+  test_size: ${test_size}
+  tsne_dot_size: 15.0
+  plot_name: PCA
+  projection:
+    - _target_: sklearn.decomposition.PCA
+      n_components: 3  # Max of 3 for tsne
+      tol: 0.0
+      random_state: ${seed}
+
+evaluation:
+  learning_curve:
+    start: .50
+    stop: 1.001
+    step: .1

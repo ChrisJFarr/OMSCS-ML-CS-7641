@@ -1,6 +1,5 @@
 _target_: src.models.NeuralNetworkModel
 save_name: nn-1
-# Tuned 
 layers: 2  # 2
 nodes: 75   # 75
 dropout_rate: 0.1  # 0.1

@@ -43,4 +43,4 @@ experiments:
     lr: 0.001
     patience: 0
     batch_size: 25
-func: feat1
+func: feat_sel

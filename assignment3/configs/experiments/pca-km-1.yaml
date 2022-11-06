@@ -1,6 +1,7 @@
 defaults:
   - _self_
   - dataset: _1_
+  - model: _nn-1_
 # Used for log path
 model_name: NeuralNetworkModel
 dataset_name: ${experiments.dataset.name}
@@ -12,61 +13,37 @@ datamodule:
   path: ${experiments.dataset.path}
   target: ${experiments.dataset.target}
   seed: ${seed}
-  cv_splits: 10  # Bumped up for feature importance
+  cv_splits: 5  # Bumped up for feature importance
   cv_repeats: 1
   test_size: ${test_size}
-  random_clusters: 50 # Set to 0 and each cluster config will be added as a feature
+  random_clusters: 0 # Set to 0 and each cluster config will be added as a feature
   normalize_clusters: True
+  plot_name: PCA->KMeans
   cluster:
     - _target_: sklearn.cluster.KMeans
-      n_clusters: 2
+      n_clusters: 10
       n_init: 10
       max_iter: 300
       tol: 1e-4
       random_state: ${seed}
-
   projection:
     - _target_: sklearn.decomposition.PCA
-      n_components: 8
+      n_components: 3
       tol: 0.0
       random_state: ${seed}
-
-  select_from_model: True
-
-model:
-  _target_: src.models.NeuralNetworkModel
-  save_name: nn-1
-  # Tuned 
-  layers: 2  # 2
-  nodes: 75   # 75
-  dropout_rate: 0.1  # 0.1
-  validation_size: 0.25   # 0.25
-  seed: ${seed}
-  lr: 0.001   # 0.001
-  patience: 0   # 0
-  batch_size: 25   # 25
+  select_from_model: False
 
 evaluation:
-  validation_curve:
-    layers:
-      start: 1
-      stop: 5
-      step: 1
-    nodes:
-      start: 25
-      stop: 300
-      step: 50
-  elbow_plot:
+  silhouette_plot:
     n_clusters:
-      start: 1
-      stop: 50
+      start: 2
+      stop: 25
       step: 1
-  n_clusters_line: 8
-  elbow_plot_auc:
+  silhouette_plot_auc:
     n_clusters:
-      start: 1
-      stop: 50
-      step: 10
+      start: 2
+      stop: 25
+      step: 1
   learning_curve:
     start: .50
     stop: 1.001

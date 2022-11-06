@@ -1,0 +1,39 @@
+defaults:
+  - _self_
+  - dataset: _2_
+  - model: _nn-2_
+# Used for log path
+model_name: NeuralNetworkModel
+dataset_name: ${experiments.dataset.name}
+experiment_name: feat-em-2
+
+datamodule: 
+  _target_: src.datamodules.NeuralNetworkData
+  name: ${experiments.dataset.name}
+  path: ${experiments.dataset.path}
+  target: ${experiments.dataset.target}
+  seed: ${seed}
+  cv_splits: 5
+  cv_repeats: 1
+  test_size: ${test_size}
+  random_clusters: 0 # Set to 0 and each cluster config will be added as a feature
+  select_from_model: True
+  plot_name: Feature-Selection->EM
+  cluster:
+    - _target_: sklearn.mixture.GaussianMixture
+      n_components: 10
+      n_init: 10
+      max_iter: 100
+      tol: 1e-2
+      random_state: ${seed}
+      
+evaluation:
+  feature_selection:
+    lasso_alpha:
+      start: 0.0
+      stop: 0.05
+      step: 0.001
+  learning_curve:
+    start: .50
+    stop: 1.001
+    step: .1

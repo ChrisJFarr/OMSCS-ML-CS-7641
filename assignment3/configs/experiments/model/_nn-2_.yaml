@@ -8,5 +8,3 @@ seed: ${seed}
 lr: 0.0001    # 0.0001
 patience: 5    # 5
 batch_size: 5000     # 5000
-cluster: null
-reduction: null
