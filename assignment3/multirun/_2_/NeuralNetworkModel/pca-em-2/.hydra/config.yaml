@@ -11,7 +11,7 @@ experiments:
     path: ${experiments.dataset.path}
     target: ${experiments.dataset.target}
     seed: ${seed}
-    cv_splits: 5
+    cv_splits: 2
     cv_repeats: 1
     test_size: ${test_size}
     random_clusters: 0
@@ -34,13 +34,13 @@ experiments:
     silhouette_plot:
       n_components:
         start: 2
-        stop: 25
-        step: 3
+        stop: 28
+        step: 5
     silhouette_plot_auc:
       n_components:
         start: 2
-        stop: 25
-        step: 3
+        stop: 28
+        step: 5
     learning_curve:
       start: 0.5
       stop: 1.001
@@ -62,4 +62,4 @@ experiments:
     lr: 0.0001
     patience: 5
     batch_size: 5000
-func: sp_auc
+func: sp

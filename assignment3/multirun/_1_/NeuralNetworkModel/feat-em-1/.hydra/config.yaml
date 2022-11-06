@@ -17,6 +17,7 @@ experiments:
     random_clusters: 0
     select_from_model: true
     plot_name: Feature-Selection->EM
+    select_first: true
     cluster:
     - _target_: sklearn.mixture.GaussianMixture
       n_components: 10
@@ -28,7 +29,7 @@ experiments:
     feature_selection:
       lasso_alpha:
         start: 0.0
-        stop: 0.05
+        stop: 0.03
         step: 0.001
     learning_curve:
       start: 0.5

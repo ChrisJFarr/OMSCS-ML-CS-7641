@@ -29,7 +29,7 @@ datamodule:
 
   projection:
     - _target_: sklearn.decomposition.PCA
-      n_components: 3
+      n_components: 4
       tol: 0.0
       random_state: ${seed}
 

@@ -123,12 +123,12 @@ hydra:
     hydra:
     - hydra.mode=RUN
     task:
-    - +func=feat_sel
+    - +func=feat_sel_auc
     - experiments=feat-1
   job:
     name: run
     chdir: null
-    override_dirname: +func=feat_sel,experiments=feat-1
+    override_dirname: +func=feat_sel_auc,experiments=feat-1
     id: ???
     num: ???
     config_name: config.yaml

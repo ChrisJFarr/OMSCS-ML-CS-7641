@@ -47,7 +47,8 @@ findings in your report.
             * i can just use inertia
             * choose in an unsupervised manor
             * 
-        * two how you perform evaluation somehow (just look into skearn for any way to evaluate)
+        * two how you perform evaluation somehow (just look into skearn for any way to 
+            evaluate)
             * can I look at entropy? entropy plot  
                 * compute entropy at each k-step and plot on separate axis
                 * (my hypothesis is that it will continue to improve entropy)
@@ -285,71 +286,111 @@ Analysis
 slightly higher than the train performance.
 Actually seeing underfitting as the test performance dropped to .759 when using
 only 2 components.
-Increased to .795 with 3 components
-RUNNING 4
+Increased to .816 test and .813 train with 3 components
+Increased but with diminishing returns and more overfitting at 4
+    .816 test and .835 train
 
 ica->km: ds1; nohup python run.py +func=sp_auc experiments=ica-km-1 &
 Analysis
 Generally seeing limited impact on the final score as the single new feature
-clusters increase.
-
-ICA has the impact of dropping the test and train performance. Seeing a little
+clusters increase. ICA has the impact of dropping the test and train performance. Seeing a little
 underfitting. This is when using 2 components for ICA.
 
 ica->em: ds1; nohup python run.py +func=sp_auc experiments=ica-em-1 &
 Analysis
-
+Similar to ica-km-1, with only 2 components I am seeing underfitting.
 
 proj->km: ds1; nohup python run.py +func=sp_auc experiments=proj-km-1 &
 Analysis
+Test .694: drastically underfitting at only 2. Now testing 3.
+With 3 components, .736 train auc and .697 test. It would seem
+that random projections is creating too much noise in the data which is
+preventing it from fitting the data properly. Additionally, this noise seems
+to also enable the algorithm to more easily overfit which could indicate that the
+noise misleads the model away from learning generalizeable signal and replaces
+it with random noise. 
+
 
 proj->em: ds1; nohup python run.py +func=sp_auc experiments=proj-em-1 &
 Analysis
+3 components for randomized projections when using EM seems to provide a small
+boost in performance but the overall result is still inferior performance to ICA and PCA.
+Perhaps because the random noise is gaussian, the guassian based expectation Maximization
+algorithm can piece the generalizeable signal back together enough to create this
+performance increase (compared to Randomized Projection and K-Means). Even still, the
+result of this epxeriment shows that performance dropped while also increasing overfiting,
+not ideal in an effort to improve performance while reducing overfitting.
 
 feat->km: ds1; nohup python run.py +func=feat_sel_auc experiments=feat-km-1 &
 Analysis
+One of the more interesting outcomes this far. To obtain this result I applied lasso 
+based feature selection to the original input data. Then I ran the selected features
+through the K-Means algorithm. Then I took the resulting data for a given lasso-alpha, 
+which is the parameter that controls how much regularization is applied to the logistic
+regression, and performed cross-validation on the dataset. Using this approach
+the best test performance is observed when using an alpha of .008. As alpha increases
+there is a small drop in test performance while also reducing overfitting. 
+
 
 feat->em: ds1; nohup python run.py +func=feat_sel_auc experiments=feat-em-1 &
 Analysis
+When combining the lasso feature selection algorithm with the EM algorithm, the 
+outcome is very similar. The same alpha of .008 is optimal for the EM combination.
+Additionally, the EM version appears to have generally less overfitting.
 
-pca->km: ds2; nohup python run.py +func=sp_auc experiments=pca-km-2 &
+
+
+For DS2: Stick with silhoette only
+
+pca->km: ds2; nohup python run.py +func=sp experiments=pca-km-2 &
 Analysis
-Running
+Only taking one shot with this because it takes so long to run.
+Learning a lesson from the ds-1 experiment where 4 was the best balance
+between test performance and overfitting using intuition. results
+show that up to at least 27 clusters, adding more clusters is resulting 
+in more defined clusters. The optimal clusters is then >=27.
 
-pca->em: ds2; nohup python run.py +func=sp_auc experiments=pca-em-2 &
-Analysis
-Running
-
-ica->km: ds2; nohup python run.py +func=sp_auc experiments=ica-km-2 &
-Analysis
-Running
-
-ica->em: ds2; nohup python run.py +func=sp_auc experiments=ica-em-2 &
-Analysis
-Running
-
-proj->km: ds2; nohup python run.py +func=sp_auc experiments=proj-km-2 &
-Analysis
-Running
-
-proj->em: ds2; nohup python run.py +func=sp_auc experiments=proj-em-2 &
+pca->em: ds2; nohup python run.py +func=sp experiments=pca-em-2 &
 Analysis
 
-TODO START HERE and all above are running/finished
+Seeing that 3 components was best for ds1, analyzing 3 components for
+ds2. 
 
-feat->km: ds2; nohup python run.py +func=feat_sel_auc experiments=feat-km-2 &
+ica->km: ds2; nohup python run.py +func=sp experiments=ica-km-2 &
 Analysis
 
-feat->em: ds2; nohup python run.py +func=feat_sel_auc experiments=feat-em-2 &
+Seeing that 4 components was best for ds1, analyzing 4 components for
+ds2. 
+
+ica->em: ds2; nohup python run.py +func=sp experiments=ica-em-2 &
+Analysis
+
+
+proj->km: ds2; nohup python run.py +func=sp experiments=proj-km-2 &
+Analysis
+
+
+proj->em: ds2; nohup python run.py +func=sp experiments=proj-em-2 &
+Analysis
+
+feat->km: ds2; nohup python run.py +func=feat_sel experiments=feat-km-2 &
+Analysis
+
+feat->em: ds2; nohup python run.py +func=feat_sel experiments=feat-em-2 &
 Analysis
 
 Experiment 4
 ONLY ds1
 
-pca->nn: ds1; nohup python run.py +func=lc experiments=pca-nn-1
-ica->nn: ds1; nohup python run.py +func=lc experiments=ica-nn-1
-proj->nn: ds1; nohup python run.py +func=lc experiments=proj-nn-1
-feat->nn: ds1; nohup python run.py +func=lc experiments=feat-nn-1
+pca->nn: ds1; nohup python run.py +func=vc experiments=pca-nn-1 &
+done
+
+ica->nn: ds1; nohup python run.py +func=vc experiments=ica-nn-1 & 
+done
+
+proj->nn: ds1; nohup python run.py +func=vc experiments=proj-nn-1 & 
+feat->nn: ds1; nohup python run.py +func=vc experiments=feat-nn-1 &
+alpha loss
 
 
 Experiment 5
@@ -363,5 +404,23 @@ the distribution looks more normal with some features with far less representati
 Compare selection distribution between non-pca features and pca features where n-components=n-features
 Then compare the selection distribution between pca with fewer components
 Analyze how the feature selection is robust to pca projections
+
+
+List experiments:
+
+PCA with random KM clusters: 
+nohup python run.py +func=vc experiments=pca-km-rand-clust-1 &
+nohup python run.py +func=feat_imp experiments=pca-km-rand-clust-1 &
+
+ICA with random KM clusters: 
+nohup python run.py +func=vc experiments=ica-km-rand-clust-1 &
+nohup python run.py +func=feat_imp experiments=ica-km-rand-clust-1 &
+
+Random Projection with random KM clusters: 
+nohup python run.py +func=vc experiments=proj-km-rand-clust-1 & 
+nohup python run.py +func=feat_imp experiments=proj-km-rand-clust-1 & 
+
+For all, using lasso feature selection to learn which components tend to be selected
+most.
 
 

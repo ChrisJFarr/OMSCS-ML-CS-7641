@@ -42,6 +42,4 @@ experiments:
     lr: 0.0001
     patience: 5
     batch_size: 5000
-    cluster: null
-    reduction: null
 func: tsne

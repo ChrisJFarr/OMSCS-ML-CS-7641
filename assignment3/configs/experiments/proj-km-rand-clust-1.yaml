@@ -1,0 +1,46 @@
+defaults:
+  - _self_
+  - dataset: _1_
+  - model: _nn-1_
+# Used for log path
+model_name: NeuralNetworkModel
+dataset_name: ${experiments.dataset.name}
+experiment_name: proj-km-rand-clust-1
+
+datamodule: 
+  _target_: src.datamodules.NeuralNetworkData
+  name: ${experiments.dataset.name}
+  path: ${experiments.dataset.path}
+  target: ${experiments.dataset.target}
+  seed: ${seed}
+  cv_splits: 5 # Bumped up for feature importance
+  cv_repeats: 1
+  test_size: ${test_size}
+  random_clusters: 60 # Set to 0 and each cluster config will be added as a feature
+  normalize_clusters: True
+  plot_name: Random-Projections->KM->Lasso
+  cluster:
+    - _target_: sklearn.cluster.KMeans
+      n_clusters: 10
+      n_init: 10
+      max_iter: 300
+      tol: 1e-4
+      random_state: ${seed}
+      
+  projection:
+    - _target_: sklearn.random_projection.GaussianRandomProjection
+      n_components: 8
+      random_state: ${seed}
+
+  select_from_model: True
+
+evaluation:
+  validation_curve:
+    random_clusters:
+      start: 10
+      stop: 100
+      step: 10
+  learning_curve:
+    start: .50
+    stop: 1.001
+    step: .1

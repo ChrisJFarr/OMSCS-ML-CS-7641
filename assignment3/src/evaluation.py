@@ -429,7 +429,8 @@ class Assignment3Evaluation:
         # importance_df.sort_values(inplace=True, ascending=False)
         importance_df.plot.bar()
         plt.xticks(rotation=65)
-        plt.title("Random Cluster Set + Lasso Selection", fontsize="large")
+        plot_name = self.config.experiments.datamodule.plot_name
+        plt.title("%s\nRandom Cluster Set + Lasso Selection" % plot_name, fontsize="large")
         # TODO Add experiment title
         plt.ylabel("Selection Density")
         plt.tight_layout(pad=2.0)
@@ -539,7 +540,7 @@ class Assignment3Evaluation:
                     y=tsne_data[y_train==l,1],
                     s=np.ones_like(y_train[y_train==l]) * dot_size,
                     color=["tab:green", "tab:red"][l],
-                    alpha=0.1,
+                    alpha=0.1,  # .1 for ds2, .5 or higher for ds1
                     label=["Neg Diabetes", "Pos Diabetes"][l]
                 )
         ax.legend()
@@ -648,3 +649,32 @@ class Assignment3Evaluation:
         hdr = HydraConfig.get()
         override_dirname= hdr.run.dir
         plt.savefig(os.path.join(override_dirname, "lasso_feature_selection.png"))
+
+    def generate_validation_curve_data(self):
+        """
+        * validation curve
+            * y-axis: performance metric
+            * x-axis: varying hyperparameter values
+            * plot performance across hyper parameter tuning
+        """
+        # Loop over hyper-parameters specified in experiments config
+        validation_curve_dict = self.config.experiments.evaluation.validation_curve
+        for param_name, v in validation_curve_dict.items():
+            # Build plot lists
+            x_axis = list()
+            y_axis = list()
+            for param_value in np.arange(**v):
+                # Set parameter in model
+                self.datamodule.set_params(**{param_name: param_value})
+                # Track percentages for x-axis
+                x_axis.append(param_value)
+                # Get generator
+                train_generator, _ = self.datamodule.make_loader()
+                y_axis.append(self.parallel_evaluate(train_generator))
+            self._save_plot(
+                x_axis, 
+                y_axis, 
+                title="Validation Curve", 
+                x_label=param_name, 
+                save_name="%s_validation_curve_plot.png" % param_name
+                )

@@ -11,12 +11,12 @@ experiments:
     path: ${experiments.dataset.path}
     target: ${experiments.dataset.target}
     seed: ${seed}
-    cv_splits: 5
+    cv_splits: 10
     cv_repeats: 1
     test_size: ${test_size}
-    random_clusters: 0
+    random_clusters: 25
     normalize_clusters: true
-    plot_name: ICA->KMeans
+    plot_name: ICA->KM->Lasso
     cluster:
     - _target_: sklearn.cluster.KMeans
       n_clusters: 10
@@ -26,25 +26,10 @@ experiments:
       random_state: ${seed}
     projection:
     - _target_: sklearn.decomposition.FastICA
-      n_components: 3
+      n_components: 9
       tol: 0.0001
       random_state: ${seed}
-    select_from_model: false
-  evaluation:
-    silhouette_plot:
-      n_clusters:
-        start: 2
-        stop: 25
-        step: 1
-    silhouette_plot_auc:
-      n_clusters:
-        start: 2
-        stop: 25
-        step: 1
-    learning_curve:
-      start: 0.5
-      stop: 1.001
-      step: 0.1
+    select_from_model: true
   dataset:
     name: _1_
     path: data/diabetes.csv
@@ -62,4 +47,4 @@ experiments:
     lr: 0.001
     patience: 0
     batch_size: 25
-func: sp_auc
+func: feat_imp

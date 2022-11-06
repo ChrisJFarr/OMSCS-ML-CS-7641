@@ -26,6 +26,11 @@ datamodule:
       random_state: ${seed}
 
 evaluation:
+  validation_curve:
+    n_components:
+      start: 1
+      stop: 9
+      step: 1
   learning_curve:
     start: .50
     stop: 1.001

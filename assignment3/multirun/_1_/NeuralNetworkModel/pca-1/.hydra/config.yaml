@@ -17,7 +17,7 @@ experiments:
     tsne_dot_size: 15.0
     projection:
     - _target_: sklearn.decomposition.PCA
-      n_components: 3
+      n_components: 2
       tol: 0.0
       random_state: ${seed}
   evaluation:

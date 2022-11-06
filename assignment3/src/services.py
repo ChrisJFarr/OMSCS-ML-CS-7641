@@ -74,7 +74,7 @@ def vc(config):  # shorthand: validation curve
     print("Generating validation curve...")
     start_time = perf_counter()
     evaluation = get_evaluation(config)
-    evaluation.generate_validation_curve()
+    evaluation.generate_validation_curve_data()
     end_time = perf_counter()
     print("Validation curve completed in %.1f seconds" % (end_time - start_time))
     return
@@ -141,5 +141,3 @@ def feat_imp(config):  # Short for: random-cluster-select-feature-importance
     evaluation.random_repeated_cluster_feature_importance()
     end_time = perf_counter()
     print("Feature-importance plot completed in %.1f seconds" % (end_time - start_time))
-
-

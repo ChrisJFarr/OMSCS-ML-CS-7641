@@ -1,0 +1,60 @@
+print_config: true
+seed: 87
+test_size: 0.2
+experiments:
+  model_name: NeuralNetworkModel
+  dataset_name: ${experiments.dataset.name}
+  experiment_name: pca-km-rand-clust-1
+  datamodule:
+    _target_: src.datamodules.NeuralNetworkData
+    name: ${experiments.dataset.name}
+    path: ${experiments.dataset.path}
+    target: ${experiments.dataset.target}
+    seed: ${seed}
+    cv_splits: 5
+    cv_repeats: 1
+    test_size: ${test_size}
+    random_clusters: 20
+    normalize_clusters: true
+    plot_name: PCA->KM->Lasso
+    cluster:
+    - _target_: sklearn.cluster.KMeans
+      n_clusters: 10
+      n_init: 10
+      max_iter: 300
+      tol: 0.0001
+      random_state: ${seed}
+    projection:
+    - _target_: sklearn.decomposition.PCA
+      n_components: 8
+      tol: 0.0
+      random_state: ${seed}
+    select_from_model: true
+  evaluation:
+    validation_curve:
+      random_clusters:
+        start: 10
+        stop: 100
+        step: 10
+    learning_curve:
+      start: 0.5
+      stop: 1.001
+      step: 0.1
+  dataset:
+    name: _1_
+    path: data/diabetes.csv
+    target: Outcome
+    cv_splits: 5
+    cv_repeats: 100
+  model:
+    _target_: src.models.NeuralNetworkModel
+    save_name: nn-1
+    layers: 2
+    nodes: 75
+    dropout_rate: 0.1
+    validation_size: 0.25
+    seed: ${seed}
+    lr: 0.001
+    patience: 0
+    batch_size: 25
+func: feat_imp

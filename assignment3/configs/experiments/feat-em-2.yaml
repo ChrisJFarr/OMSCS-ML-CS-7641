@@ -13,7 +13,7 @@ datamodule:
   path: ${experiments.dataset.path}
   target: ${experiments.dataset.target}
   seed: ${seed}
-  cv_splits: 5
+  cv_splits: 2
   cv_repeats: 1
   test_size: ${test_size}
   random_clusters: 0 # Set to 0 and each cluster config will be added as a feature
@@ -26,6 +26,7 @@ datamodule:
       max_iter: 100
       tol: 1e-2
       random_state: ${seed}
+      init_params: random_from_data
       
 evaluation:
   feature_selection:

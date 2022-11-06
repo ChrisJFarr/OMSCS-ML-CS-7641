@@ -11,7 +11,7 @@ experiments:
     path: ${experiments.dataset.path}
     target: ${experiments.dataset.target}
     seed: ${seed}
-    cv_splits: 5
+    cv_splits: 2
     cv_repeats: 1
     test_size: ${test_size}
     random_clusters: 0
@@ -26,7 +26,7 @@ experiments:
       random_state: ${seed}
     projection:
     - _target_: sklearn.decomposition.FastICA
-      n_components: 2
+      n_components: 3
       tol: 0.0001
       random_state: ${seed}
     select_from_model: false
@@ -39,8 +39,8 @@ experiments:
     silhouette_plot_auc:
       n_components:
         start: 2
-        stop: 25
-        step: 3
+        stop: 28
+        step: 5
     learning_curve:
       start: 0.5
       stop: 1.001
@@ -62,4 +62,4 @@ experiments:
     lr: 0.0001
     patience: 5
     batch_size: 5000
-func: sp_auc
+func: sp

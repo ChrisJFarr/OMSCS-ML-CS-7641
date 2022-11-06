@@ -29,7 +29,7 @@ datamodule:
       
   projection:
     - _target_: sklearn.random_projection.GaussianRandomProjection
-      n_components: 2
+      n_components: 3
       random_state: ${seed}
 
   select_from_model: False

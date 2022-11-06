@@ -94,8 +94,18 @@ class DataParent(ABC):
         x_train = x_train.copy() 
         x_train = self.scale_or_normalize(x_train=x_train)
         x_train = self.feature_projection(x_train=x_train)
-        x_train = self.add_features(x_train=x_train, y_train=y_train)
-        x_train = self.select_features(x_train=x_train, y_train=y_train)
+        steps = (self.add_features, self.select_features)
+        step_order = [0, 1]
+        try:
+            if hasattr(self, 'select_first') & self.select_first:
+                print("feature selection first...")
+                step_order = [1, 0]
+        except Exception:
+            pass
+        for step in step_order:
+            x_train = steps[step](x_train=x_train, y_train=y_train)
+        # x_train = self.add_features(x_train=x_train, y_train=y_train)
+        # x_train = self.select_features(x_train=x_train, y_train=y_train)
         # TODO Print or store nested feature importance
         return self
 
@@ -103,8 +113,17 @@ class DataParent(ABC):
         x_data = x_data.copy()
         x_data = self.scale_or_normalize(x_test=x_data)
         x_data = self.feature_projection(x_test=x_data)
-        x_data = self.add_features(x_test=x_data)
-        x_data = self.select_features(x_test=x_data)
+        steps = (self.add_features, self.select_features)
+        step_order = [0, 1]
+        try:
+            if hasattr(self, 'select_first') & self.select_first:
+                step_order = [1, 0]
+        except Exception:
+            pass
+        for step in step_order:
+            x_data = steps[step](x_test=x_data)
+        # x_data = self.add_features(x_test=x_data)
+        # x_data = self.select_features(x_test=x_data)
         return x_data
 
     @abstractmethod
@@ -128,8 +147,6 @@ class DataParent(ABC):
             self.kwargs[k] = v
 
 
-
-
 class NeuralNetworkData(DataParent):
 
     def __init__(self, *args, **kwargs):
@@ -149,6 +166,8 @@ class NeuralNetworkData(DataParent):
     def load(self):
         for k, v in self.kwargs.items():
             setattr(self, k, v)
+        if "n_components" in self.kwargs:
+            self.projection[0].set_params(**{"n_components": self.kwargs.get("n_components")})
         self.scaler = MinMaxScaler()
         if self.select_from_model:
             self.feature_selector = SelectFromModel(
@@ -184,6 +203,8 @@ class NeuralNetworkData(DataParent):
                             x_test["cluster_%s" % c] = self.fitted_clusters[c].predict(x_test.loc[:, self.random_columns[c]])
                             if self.normalize_clusters:
                                 x_test.loc[:, "cluster_%s" % c] /= x_test.loc[:, "cluster_%s" % c].max()
+                        # TODO Testing new approach dropping original components
+                        x_test = x_test.filter(like="cluster_", axis=1)
                     else:
                         x_test["cluster_%s" % i] = cluster.predict(x_test)
                         assert x_test["cluster_%s" % i].std() > 0
@@ -205,7 +226,7 @@ class NeuralNetworkData(DataParent):
                             available_cols = np.array(x_train.columns) if c == 0 else np.array(x_train.columns)[:-c]
                             select_cols = np.random.choice(
                                 available_cols, 
-                                size=np.random.random_integers(2, x_train.shape[1]-c), 
+                                size=2, 
                                 replace=False,
                                 )
                             # fit cluster
@@ -224,6 +245,8 @@ class NeuralNetworkData(DataParent):
                             if self.normalize_clusters:
                                 x_train.loc[:, "cluster_%s" % c] /= x_train.loc[:, "cluster_%s" % c].max()
                                 assert not x_train.isna().sum().any(), "2"
+                        # TODO New idea: keep only the cluster features here
+                        x_train = x_train.filter(like="cluster_", axis=1)
                     else:
                         # x_train = x_train.reset_index(drop=True)
                         cluster.fit(x_train)

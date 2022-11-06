@@ -11,7 +11,7 @@ experiments:
     path: ${experiments.dataset.path}
     target: ${experiments.dataset.target}
     seed: ${seed}
-    cv_splits: 5
+    cv_splits: 2
     cv_repeats: 1
     test_size: ${test_size}
     random_clusters: 0
@@ -26,21 +26,21 @@ experiments:
       random_state: ${seed}
     projection:
     - _target_: sklearn.decomposition.PCA
-      n_components: 3
-      tol: 0.0
+      n_components: 4
+      tol: 1.0e-05
       random_state: ${seed}
     select_from_model: false
   evaluation:
     silhouette_plot:
       n_clusters:
         start: 2
-        stop: 35
-        step: 2
+        stop: 28
+        step: 5
     silhouette_plot_auc:
       n_clusters:
         start: 2
-        stop: 25
-        step: 2
+        stop: 28
+        step: 5
     learning_curve:
       start: 0.5
       stop: 1.001
@@ -62,4 +62,4 @@ experiments:
     lr: 0.0001
     patience: 5
     batch_size: 5000
-func: sp_auc
+func: sp
