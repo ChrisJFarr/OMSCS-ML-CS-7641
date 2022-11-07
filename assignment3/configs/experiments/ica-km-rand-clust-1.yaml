@@ -19,6 +19,7 @@ datamodule:
   random_clusters: 80 # Set to 0 and each cluster config will be added as a feature
   normalize_clusters: True
   plot_name: ICA->KM->Lasso
+  lasso_alpha: 0.01
   cluster:
     - _target_: sklearn.cluster.KMeans
       n_clusters: 10

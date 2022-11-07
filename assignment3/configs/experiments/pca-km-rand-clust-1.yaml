@@ -16,9 +16,10 @@ datamodule:
   cv_splits: 5 # Bumped up for feature importance
   cv_repeats: 1
   test_size: ${test_size}
-  random_clusters: 20 # Set to 0 and each cluster config will be added as a feature
+  random_clusters: 60 # Set to 0 and each cluster config will be added as a feature
   normalize_clusters: True
   plot_name: PCA->KM->Lasso
+  lasso_alpha: 0.01
   cluster:
     - _target_: sklearn.cluster.KMeans
       n_clusters: 10

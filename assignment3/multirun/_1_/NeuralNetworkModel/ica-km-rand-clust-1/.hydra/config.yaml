@@ -17,6 +17,7 @@ experiments:
     random_clusters: 80
     normalize_clusters: true
     plot_name: ICA->KM->Lasso
+    lasso_alpha: 0.01
     cluster:
     - _target_: sklearn.cluster.KMeans
       n_clusters: 10

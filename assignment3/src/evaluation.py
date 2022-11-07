@@ -427,6 +427,8 @@ class Assignment3Evaluation:
         importance_df = importance_df.sum() / importance_df.sum().sum()
         # Decide manually if should sort axis or not 
         # importance_df.sort_values(inplace=True, ascending=False)
+        importance_df = importance_df.sort_index()
+
         importance_df.plot.bar()
         plt.xticks(rotation=65)
         plot_name = self.config.experiments.datamodule.plot_name

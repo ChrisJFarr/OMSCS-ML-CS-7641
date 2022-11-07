@@ -14,9 +14,10 @@ experiments:
     cv_splits: 5
     cv_repeats: 1
     test_size: ${test_size}
-    random_clusters: 20
+    random_clusters: 60
     normalize_clusters: true
     plot_name: PCA->KM->Lasso
+    lasso_alpha: 0.01
     cluster:
     - _target_: sklearn.cluster.KMeans
       n_clusters: 10

@@ -52352,3 +52352,2957 @@ HPU available: False, using: 0 HPUs
 9.0 K     Total params
 0.036     Total estimated model params size (MB)
 Validation curve completed in 190.1 seconds
+Generating validation curve...
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Global seed set to 87
+Global seed set to 87
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.6 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.6 K     Trainable params
+0         Non-trainable params
+6.6 K     Total params
+0.026     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.5 K     Trainable params
+0         Non-trainable params
+6.5 K     Total params
+0.026     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.5 K     Trainable params
+0         Non-trainable params
+6.5 K     Total params
+0.026     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.6 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.6 K     Trainable params
+0         Non-trainable params
+6.6 K     Total params
+0.026     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.029     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.7 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.7 K     Trainable params
+0         Non-trainable params
+6.7 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.028     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+GPU available: True (mps), used: False
+IPU available: False, using: 0 IPUs
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.029     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.2 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.2 K     Trainable params
+0         Non-trainable params
+7.2 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.4 K     Trainable params
+0         Non-trainable params
+7.4 K     Total params
+0.029     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.6 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.6 K     Trainable params
+0         Non-trainable params
+7.6 K     Total params
+0.030     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.4 K     Trainable params
+0         Non-trainable params
+7.4 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.029     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+GPU available: True (mps), used: False
+HPU available: False, using: 0 HPUs
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.7 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.7 K     Trainable params
+0         Non-trainable params
+7.7 K     Total params
+0.031     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.4 K     Trainable params
+0         Non-trainable params
+7.4 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.0 K     Trainable params
+0         Non-trainable params
+7.0 K     Total params
+0.028     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.4 K     Trainable params
+0         Non-trainable params
+7.4 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.8 K     Trainable params
+0         Non-trainable params
+7.8 K     Total params
+0.031     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.0 K     Trainable params
+0         Non-trainable params
+7.0 K     Total params
+0.028     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.0 K     Trainable params
+0         Non-trainable params
+7.0 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.5 K     Trainable params
+0         Non-trainable params
+7.5 K     Total params
+0.030     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 8.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+8.0 K     Trainable params
+0         Non-trainable params
+8.0 K     Total params
+0.032     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.0 K     Trainable params
+0         Non-trainable params
+7.0 K     Total params
+0.028     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.0 K     Trainable params
+0         Non-trainable params
+7.0 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.5 K     Trainable params
+0         Non-trainable params
+7.5 K     Total params
+0.030     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 8.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+8.0 K     Trainable params
+0         Non-trainable params
+8.0 K     Total params
+0.032     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.029     Total estimated model params size (MB)
+Validation curve completed in 91.3 seconds
+Generating validation curve...
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.7 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.7 K     Trainable params
+0         Non-trainable params
+6.7 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.7 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.7 K     Trainable params
+0         Non-trainable params
+6.7 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.6 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.6 K     Trainable params
+0         Non-trainable params
+6.6 K     Total params
+0.026     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.4 K     Trainable params
+0         Non-trainable params
+7.4 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.028     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.2 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.2 K     Trainable params
+0         Non-trainable params
+7.2 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.0 K     Trainable params
+0         Non-trainable params
+7.0 K     Total params
+0.028     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.0 K     Trainable params
+0         Non-trainable params
+7.0 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.3 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.3 K     Trainable params
+0         Non-trainable params
+7.3 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.4 K     Trainable params
+0         Non-trainable params
+7.4 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.029     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.0 K     Trainable params
+0         Non-trainable params
+7.0 K     Total params
+0.028     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.4 K     Trainable params
+0         Non-trainable params
+7.4 K     Total params
+0.030     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.2 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.2 K     Trainable params
+0         Non-trainable params
+7.2 K     Total params
+0.029     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.6 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.6 K     Trainable params
+0         Non-trainable params
+7.6 K     Total params
+0.030     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.3 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.3 K     Trainable params
+0         Non-trainable params
+7.3 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.3 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.3 K     Trainable params
+0         Non-trainable params
+7.3 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.6 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.6 K     Trainable params
+0         Non-trainable params
+7.6 K     Total params
+0.030     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.7 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.7 K     Trainable params
+0         Non-trainable params
+7.7 K     Total params
+0.031     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.3 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.3 K     Trainable params
+0         Non-trainable params
+7.3 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.4 K     Trainable params
+0         Non-trainable params
+7.4 K     Total params
+0.030     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.7 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.7 K     Trainable params
+0         Non-trainable params
+7.7 K     Total params
+0.031     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.7 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.7 K     Trainable params
+0         Non-trainable params
+7.7 K     Total params
+0.031     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.3 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.3 K     Trainable params
+0         Non-trainable params
+7.3 K     Total params
+0.029     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.4 K     Trainable params
+0         Non-trainable params
+7.4 K     Total params
+0.030     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.3 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.3 K     Trainable params
+0         Non-trainable params
+7.3 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.7 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.7 K     Trainable params
+0         Non-trainable params
+7.7 K     Total params
+0.031     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.9 K     Trainable params
+0         Non-trainable params
+7.9 K     Total params
+0.032     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.3 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.3 K     Trainable params
+0         Non-trainable params
+7.3 K     Total params
+0.029     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.3 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.3 K     Trainable params
+0         Non-trainable params
+7.3 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.5 K     Trainable params
+0         Non-trainable params
+7.5 K     Total params
+0.030     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.7 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.7 K     Trainable params
+0         Non-trainable params
+7.7 K     Total params
+0.031     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.4 K     Trainable params
+0         Non-trainable params
+7.4 K     Total params
+0.030     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.9 K     Trainable params
+0         Non-trainable params
+7.9 K     Total params
+0.032     Total estimated model params size (MB)
+Validation curve completed in 87.9 seconds
+Generating feature-importance plot...
+Evaluating feature importance...
+Feature-importance plot completed in 3.1 seconds
+Generating validation curve...
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.5 K     Trainable params
+0         Non-trainable params
+6.5 K     Total params
+0.026     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.5 K     Trainable params
+0         Non-trainable params
+6.5 K     Total params
+0.026     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.3 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.3 K     Trainable params
+0         Non-trainable params
+6.3 K     Total params
+0.025     Total estimated model params size (MB)
+Generating validation curve...
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.3 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.3 K     Trainable params
+0         Non-trainable params
+6.3 K     Total params
+0.025     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.5 K     Trainable params
+0         Non-trainable params
+6.5 K     Total params
+0.026     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.5 K     Trainable params
+0         Non-trainable params
+6.5 K     Total params
+0.026     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.4 K     Trainable params
+0         Non-trainable params
+6.4 K     Total params
+0.026     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.5 K     Trainable params
+0         Non-trainable params
+6.5 K     Total params
+0.026     Total estimated model params size (MB)
+Generating feature-importance plot...
+Evaluating feature importance...
+Feature-importance plot completed in 35.1 seconds
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.4 K     Trainable params
+0         Non-trainable params
+6.4 K     Total params
+0.026     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.2 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.2 K     Trainable params
+0         Non-trainable params
+7.2 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.3 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.3 K     Trainable params
+0         Non-trainable params
+6.3 K     Total params
+0.025     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.5 K     Trainable params
+0         Non-trainable params
+6.5 K     Total params
+0.026     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.5 K     Trainable params
+0         Non-trainable params
+6.5 K     Total params
+0.026     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.4 K     Trainable params
+0         Non-trainable params
+6.4 K     Total params
+0.026     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.5 K     Trainable params
+0         Non-trainable params
+6.5 K     Total params
+0.026     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.2 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.2 K     Trainable params
+0         Non-trainable params
+7.2 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.0 K     Trainable params
+0         Non-trainable params
+7.0 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.5 K     Trainable params
+0         Non-trainable params
+6.5 K     Total params
+0.026     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.5 K     Trainable params
+0         Non-trainable params
+6.5 K     Total params
+0.026     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.7 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.7 K     Trainable params
+0         Non-trainable params
+6.7 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.6 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.6 K     Trainable params
+0         Non-trainable params
+6.6 K     Total params
+0.026     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.5 K     Trainable params
+0         Non-trainable params
+6.5 K     Total params
+0.026     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.5 K     Trainable params
+0         Non-trainable params
+6.5 K     Total params
+0.026     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.029     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.2 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.2 K     Trainable params
+0         Non-trainable params
+7.2 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.4 K     Trainable params
+0         Non-trainable params
+7.4 K     Total params
+0.029     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+GPU available: True (mps), used: False
+HPU available: False, using: 0 HPUs
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.5 K     Trainable params
+0         Non-trainable params
+6.5 K     Total params
+0.026     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.6 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.6 K     Trainable params
+0         Non-trainable params
+6.6 K     Total params
+0.026     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.2 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.2 K     Trainable params
+0         Non-trainable params
+7.2 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.0 K     Trainable params
+0         Non-trainable params
+7.0 K     Total params
+0.028     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+GPU available: True (mps), used: False
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.0 K     Trainable params
+0         Non-trainable params
+7.0 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.4 K     Trainable params
+0         Non-trainable params
+7.4 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.5 K     Trainable params
+0         Non-trainable params
+7.5 K     Total params
+0.030     Total estimated model params size (MB)
+Generating feature-importance plot...
+Evaluating feature importance...
+Feature-importance plot completed in 36.2 seconds
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.4 K     Trainable params
+0         Non-trainable params
+7.4 K     Total params
+0.030     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.5 K     Trainable params
+0         Non-trainable params
+6.5 K     Total params
+0.026     Total estimated model params size (MB)
+Generating feature-importance plot...
+Evaluating feature importance...
+Feature-importance plot completed in 47.2 seconds
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+GPU available: True (mps), used: False
+HPU available: False, using: 0 HPUs
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.6 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.6 K     Trainable params
+0         Non-trainable params
+7.6 K     Total params
+0.030     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.0 K     Trainable params
+0         Non-trainable params
+7.0 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.4 K     Trainable params
+0         Non-trainable params
+7.4 K     Total params
+0.030     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.0 K     Trainable params
+0         Non-trainable params
+7.0 K     Total params
+0.028     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.4 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.4 K     Trainable params
+0         Non-trainable params
+7.4 K     Total params
+0.030     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.6 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.6 K     Trainable params
+0         Non-trainable params
+7.6 K     Total params
+0.030     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.5 K     Trainable params
+0         Non-trainable params
+7.5 K     Total params
+0.030     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.2 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.2 K     Trainable params
+0         Non-trainable params
+7.2 K     Total params
+0.029     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.0 K     Trainable params
+0         Non-trainable params
+7.0 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.8 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.8 K     Trainable params
+0         Non-trainable params
+6.8 K     Total params
+0.027     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.5 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.5 K     Trainable params
+0         Non-trainable params
+7.5 K     Total params
+0.030     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.7 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.7 K     Trainable params
+0         Non-trainable params
+7.7 K     Total params
+0.031     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.6 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.6 K     Trainable params
+0         Non-trainable params
+7.6 K     Total params
+0.030     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.2 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.2 K     Trainable params
+0         Non-trainable params
+7.2 K     Total params
+0.029     Total estimated model params size (MB)
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.0 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.0 K     Trainable params
+0         Non-trainable params
+7.0 K     Total params
+0.028     Total estimated model params size (MB)
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 6.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+6.9 K     Trainable params
+0         Non-trainable params
+6.9 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.1 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.1 K     Trainable params
+0         Non-trainable params
+7.1 K     Total params
+0.028     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.6 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.6 K     Trainable params
+0         Non-trainable params
+7.6 K     Total params
+0.030     Total estimated model params size (MB)
+Validation curve completed in 179.7 seconds
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+Global seed set to 87
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+GPU available: True (mps), used: False
+GPU available: True (mps), used: False
+TPU available: False, using: 0 TPU cores
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+HPU available: False, using: 0 HPUs
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.9 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.9 K     Trainable params
+0         Non-trainable params
+7.9 K     Total params
+0.032     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.2 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.2 K     Trainable params
+0         Non-trainable params
+7.2 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.7 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.7 K     Trainable params
+0         Non-trainable params
+7.7 K     Total params
+0.031     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.3 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.3 K     Trainable params
+0         Non-trainable params
+7.3 K     Total params
+0.029     Total estimated model params size (MB)
+
+  | Name  | Type            | Params
+------------------------------------------
+0 | model | MyNeuralNetwork | 7.2 K 
+1 | loss  | BCELoss         | 0     
+------------------------------------------
+7.2 K     Trainable params
+0         Non-trainable params
+7.2 K     Total params
+0.029     Total estimated model params size (MB)
+Validation curve completed in 191.8 seconds
+Generating feature-importance plot...
+Evaluating feature importance...
+Error executing job with overrides: ['+func=feat_imp', 'experiments=proj-km-rand-clust-1']
+Traceback (most recent call last):
+  File "/Users/chrisfarr/Desktop/gatech/OMSCS-ML-CS-7641/assignment3/run.py", line 13, in main
+    return funcs_dict[config.func](config)
+  File "/Users/chrisfarr/Desktop/gatech/OMSCS-ML-CS-7641/assignment3/src/services.py", line 141, in feat_imp
+    evaluation.random_repeated_cluster_feature_importance()
+  File "/Users/chrisfarr/Desktop/gatech/OMSCS-ML-CS-7641/assignment3/src/evaluation.py", line 430, in random_repeated_cluster_feature_importance
+    importance_df = importance_df.loc[:, sorted(importance_df.columns)]
+  File "/Users/chrisfarr/miniconda3/envs/gatech/lib/python3.9/site-packages/pandas/core/generic.py", line 5575, in __getattr__
+    return object.__getattribute__(self, name)
+AttributeError: 'Series' object has no attribute 'columns'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+Generating feature-importance plot...
+Evaluating feature importance...
+Error executing job with overrides: ['+func=feat_imp', 'experiments=ica-km-rand-clust-1']
+Traceback (most recent call last):
+  File "/Users/chrisfarr/Desktop/gatech/OMSCS-ML-CS-7641/assignment3/run.py", line 13, in main
+    return funcs_dict[config.func](config)
+  File "/Users/chrisfarr/Desktop/gatech/OMSCS-ML-CS-7641/assignment3/src/services.py", line 141, in feat_imp
+    evaluation.random_repeated_cluster_feature_importance()
+  File "/Users/chrisfarr/Desktop/gatech/OMSCS-ML-CS-7641/assignment3/src/evaluation.py", line 430, in random_repeated_cluster_feature_importance
+    importance_df = importance_df.loc[:, sorted(importance_df.columns)]
+  File "/Users/chrisfarr/miniconda3/envs/gatech/lib/python3.9/site-packages/pandas/core/generic.py", line 5575, in __getattr__
+    return object.__getattribute__(self, name)
+AttributeError: 'Series' object has no attribute 'columns'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+Generating feature-importance plot...
+Evaluating feature importance...
+Error executing job with overrides: ['+func=feat_imp', 'experiments=pca-km-rand-clust-1']
+Traceback (most recent call last):
+  File "/Users/chrisfarr/Desktop/gatech/OMSCS-ML-CS-7641/assignment3/run.py", line 13, in main
+    return funcs_dict[config.func](config)
+  File "/Users/chrisfarr/Desktop/gatech/OMSCS-ML-CS-7641/assignment3/src/services.py", line 141, in feat_imp
+    evaluation.random_repeated_cluster_feature_importance()
+  File "/Users/chrisfarr/Desktop/gatech/OMSCS-ML-CS-7641/assignment3/src/evaluation.py", line 430, in random_repeated_cluster_feature_importance
+    importance_df = importance_df.loc[:, sorted(importance_df.columns)]
+  File "/Users/chrisfarr/miniconda3/envs/gatech/lib/python3.9/site-packages/pandas/core/generic.py", line 5575, in __getattr__
+    return object.__getattribute__(self, name)
+AttributeError: 'Series' object has no attribute 'columns'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+Generating feature-importance plot...
+Evaluating feature importance...
+Feature-importance plot completed in 19.0 seconds
+Generating feature-importance plot...
+Evaluating feature importance...
+Feature-importance plot completed in 19.7 seconds
+Generating feature-importance plot...
+Evaluating feature importance...
+Feature-importance plot completed in 24.4 seconds
