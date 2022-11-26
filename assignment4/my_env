@@ -1,0 +1,227 @@
+# MDP 2
+# tamagotchi inspired. the problem is to feed and care for a pet and get it to live to 100 days
+# life starts at 100, age starts at 0
+# you buy it from the pet shop fed loved and tame (2, 1, 100, 0, 1)
+# consumes 2 food 1 hug and 1 life every day
+# reward for hugs +1 if tame=true
+# receiving less than 1 food a day for 1 day, kills the pet (-100)
+# receiving less than 2 food a day for 1 day results in not tame
+# receiving more than 2 food results life-=1
+# when life=0 if 100 steps then +100 reward
+
+# Specs
+# each step food-=min(food, 2), hug-=min(hug, 1), life-=1
+# s -= [2, 1, ]
+# take actions
+# action=0, [0, 0, 0, 0]
+# action=1, [0, 1, 0, 0]
+# action=2, [1, 0, 0, 0]
+# action=3, [1, 1, 0, 0]
+# action=4, [2, 0, 0, 0]
+# action=5, [2, 1, 0, 0]
+# action=6, [3, 0, 0, 0]
+# action=7, [3, 1, 0, 0]
+
+# observation space: [3 * 100 - 200, 2, 100, 2]
+
+# if food < 0, -100 reward, life=0
+# if food < 2, tame=0
+# if hug < 3, tame=0
+# if food >= 2 and hug > 3, tame=1
+# if food > 2, life-=1
+# when life=0 end, if 100 steps then +100 reward
+# when tame=1, reward +1
+
+# mdp algorithm
+# initialize state [food, hug, life, age, tame] = [2, 1, 100, 0, 1]
+# actions [food(0-3), hug(0-1)]
+# on step
+#  process actions
+#  compute state
+#  compute rewards
+#  check for end
+
+import numpy as np
+
+import gymnasium as gym
+from gymnasium import spaces
+
+
+class DragonRaiser(gym.Env):
+    metadata = {"render_modes": ["human", "rgb_array"], "render_fps": 4}
+
+    def __init__(self):
+        # self.size = size  # The size of the square grid
+        # self.window_size = 512  # The size of the PyGame window
+
+        # Observations are dictionaries with the agent's and the target's location.
+        # Each location is encoded as an element of {0, ..., `size`}^2, i.e. MultiDiscrete([size, size]).
+        self.observation_space = spaces.Tuple((
+            spaces.Discrete(300),
+            spaces.Discrete(2),
+            spaces.Discrete(100),
+            spaces.Discrete(100),
+            spaces.Discrete(2)))
+
+        self.action_space = spaces.Discrete(8)
+        # (food, hug, life, age, tame)
+        self._action_map = {
+            0: np.array([0, 0, 0, 0, 0]),
+            1: np.array([0, 1, 0, 0, 0]),
+            2: np.array([1, 0, 0, 0, 0]),
+            3: np.array([1, 1, 0, 0, 0]),
+            4: np.array([2, 0, 0, 0, 0]),
+            5: np.array([2, 1, 0, 0, 0]),
+            6: np.array([3, 0, 0, 0, 0]),
+            7: np.array([3, 1, 0, 0, 0]),
+        }
+
+        self.render_mode = None
+        self.s = None
+        self._observation = None
+
+    # %%
+    # Constructing Observations From Environment States
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #
+    # Since we will need to compute observations both in ``reset`` and
+    # ``step``, it is often convenient to have a (private) method ``_get_obs``
+    # that translates the environment’s state into an observation. However,
+    # this is not mandatory and you may as well compute observations in
+    # ``reset`` and ``step`` separately:
+
+    def _get_obs(self):
+        return self._observation
+
+
+    # %%
+    # Oftentimes, info will also contain some data that is only available
+    # inside the ``step`` method (e.g. individual reward terms). In that case,
+    # we would have to update the dictionary that is returned by ``_get_info``
+    # in ``step``.
+
+    # %%
+    # Reset
+    # ~~~~~
+    #
+    # The ``reset`` method will be called to initiate a new episode. You may
+    # assume that the ``step`` method will not be called before ``reset`` has
+    # been called. Moreover, ``reset`` should be called whenever a done signal
+    # has been issued. Users may pass the ``seed`` keyword to ``reset`` to
+    # initialize any random number generator that is used by the environment
+    # to a deterministic state. It is recommended to use the random number
+    # generator ``self.np_random`` that is provided by the environment’s base
+    # class, ``gymnasium.Env``. If you only use this RNG, you do not need to
+    # worry much about seeding, *but you need to remember to call
+    # ``super().reset(seed=seed)``* to make sure that ``gymnasium.Env``
+    # correctly seeds the RNG. Once this is done, we can randomly set the
+    # state of our environment. In our case, we randomly choose the agent’s
+    # location and the random sample target positions, until it does not
+    # coincide with the agent’s position.
+    #
+    # The ``reset`` method should return a tuple of the initial observation
+    # and some auxiliary information. We can use the methods ``_get_obs`` and
+    # ``_get_info`` that we implemented earlier for that:
+
+    def get_s(self):
+        obs = self._observation
+        return obs[0] * 
+
+    def reset(self, seed=None, options=None):
+        # We need the following line to seed self.np_random
+        super().reset(seed=seed)
+
+        # (food, hugs, life, age, tame)
+        self.s = np.array([2, 1, 100, 0, 1])
+
+        observation = self._get_obs()
+        info = self._get_info()
+
+        return observation, info
+
+    # %%
+    # Step
+    # ~~~~
+    #
+    # The ``step`` method usually contains most of the logic of your
+    # environment. It accepts an ``action``, computes the state of the
+    # environment after applying that action and returns the 4-tuple
+    # ``(observation, reward, done, info)``. Once the new state of the
+    # environment has been computed, we can check whether it is a terminal
+    # state and we set ``done`` accordingly. Since we are using sparse binary
+    # rewards in ``GridWorldEnv``, computing ``reward`` is trivial once we
+    # know ``done``. To gather ``observation`` and ``info``, we can again make
+    # use of ``_get_obs`` and ``_get_info``:
+
+
+
+    def step(self, action):
+
+        # Apply action to observation
+        new_food, new_hug, _, _, _ = self._action_map[action]
+        self._observation += self._action_map[action]
+
+        # Adjust balances for living another day
+        # each step food-=min(food, 2), hug-=min(hug, 1), life-=1, age+=0, tame+=0
+        # s -= [2, 1, ]
+        food, hug, _, _, _ = self._observation
+        self._observation += np.array([-min(food, 2), -min(hug, 1), -1, 1, 0])
+        # Capture last state vars
+        food, hug, life, age, tame = self._observation
+        # Compute next state
+        # if food < 0, -100 reward, life=0
+        reward=0
+        if food == 0:
+            reward = -100
+            life = 0
+        # if food < 2, tame=0
+        elif food < 2:
+            tame=0
+        # if food > 2, life-=1
+        elif food > 2:
+            life-=1
+        # if hug==0, tame=0
+        if hug==0:
+            tame=0
+        # if food >= 2 and hug > 3, tame=1
+        if food >= 2 and hug > 0:
+            # When tame and hug, reward +=1
+            tame=1
+        if tame==1 and new_hug==1:
+            reward+=1
+        # when life=0 end, if 100 age then +100 reward
+        if life<=0:
+            terminated = True
+            if age>=100:
+                reward+=100
+        # Set new state
+        self._observation = np.array([food, hug, life, age, tame])
+
+        observation = self._get_obs()
+        # info = self._get_info()
+
+
+        return observation, reward, terminated, False, None
+
+    # %%
+    # Rendering
+    # ~~~~~~~~~
+    #
+    # Here, we are using PyGame for rendering. A similar approach to rendering
+    # is used in many environments that are included with Gymnasium and you
+    # can use it as a skeleton for your own environments:
+
+    def render(self):
+        pass
+
+    # %%
+    # Close
+    # ~~~~~
+    #
+    # The ``close`` method should close any open resources that were used by
+    # the environment. In many cases, you don’t actually have to bother to
+    # implement this method. However, in our example ``render_mode`` may be
+    # ``"human"`` and we might need to close the window that has been opened:
+
+    def close(self):
+        pass
