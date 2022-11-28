@@ -123,7 +123,8 @@ def value_iteration(env, set_s: Callable, n_states,
 # Q-learning
 
 def update_q_table(Q, s, a, s_prime, r, alpha, gamma):
-    new_val = ((1-alpha) * Q[s, a]) + alpha * (r + gamma * np.max(Q[s_prime, :]))
+    # new_val = ((1-alpha) * Q[s, a]) + alpha * (r + gamma * np.max(Q[s_prime, :]))
+    new_val = Q[s, a] + alpha * (r + gamma * np.max(Q[s_prime, :]) - Q[s, a])
     if np.inf == new_val:
         print("inf", Q, s, a, s_prime, r, alpha, gamma)
         raise Exception
